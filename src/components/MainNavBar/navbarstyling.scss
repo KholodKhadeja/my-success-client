@@ -1,8 +1,8 @@
 @import "../../App.scss";
 
 nav{
-    border-bottom-right-radius: 1em;
-    border-bottom-left-radius: 1em;
+    border-bottom-right-radius: $basic-border-radius;
+    border-bottom-left-radius: $basic-border-radius;
     background-color: $basic-clr !important;
     align-items: center !important;
     color: white !important;
@@ -23,7 +23,7 @@ nav{
 
     .navig-btn{
         background-color: rgba(0, 0, 0, 0.625);
-        border-radius: 0.5em !important;
+        border-radius: $basic-border-radius;
         padding: 0.5em 1em !important;
     }
 }

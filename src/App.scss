@@ -4,13 +4,15 @@ $basic-clr-sec: #B3FA80;
 $dark-clr: #272C33;
 $mid-dark-clr: #3F4652;
 $light-dark:#EBECED;
+$basic-padding:2em;
+$basic-border-radius: 0.5em;
 
 .App {
   text-align: center;
 }
 
-.fullScreenSection{
-  height: 95vh !important;
+.full-height-section{
+  height: 85vh !important;
 }
 .App-logo {
   height: 40vmin;

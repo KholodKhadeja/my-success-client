@@ -2,7 +2,7 @@ import React from 'react';
 
 const SaysAboutUsSection = () => {
     return (
-        <div className='fullScreenSection'>
+        <div className='full-height-section'>
             says about us section
         </div>
     );
