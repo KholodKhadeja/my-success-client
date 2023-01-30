@@ -1,7 +1,17 @@
+// the variables
+$basic-clr: #C780FA;
+$basic-clr-sec: #B3FA80;
+$dark-clr: #272C33;
+$mid-dark-clr: #3F4652;
+$light-dark:#EBECED;
+
 .App {
   text-align: center;
 }
 
+.fullScreenSection{
+  height: 95vh !important;
+}
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -36,3 +46,4 @@
     transform: rotate(360deg);
   }
 }
+

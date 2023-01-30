@@ -1,0 +1,29 @@
+@import "../../App.scss";
+
+nav{
+    border-bottom-right-radius: 1em;
+    border-bottom-left-radius: 1em;
+    background-color: $basic-clr !important;
+    align-items: center !important;
+    color: white !important;
+    font-weight: 600 !important;
+    
+    .nav-item{
+       margin-right: 1em !important;
+    }
+    a{
+        color: white !important;
+    }
+
+    .active{
+       color: $dark-clr !important;
+       border-bottom: 1px solid $dark-clr;
+       border-top: 1px solid $dark-clr;
+    }
+
+    .navig-btn{
+        background-color: rgba(0, 0, 0, 0.625);
+        border-radius: 0.5em !important;
+        padding: 0.5em 1em !important;
+    }
+}
