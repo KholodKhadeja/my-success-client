@@ -5,7 +5,7 @@ const TitleFunction = ({text}) => {
     return (
         <div className='title-styling'>
             <div className='title-bar'>&nbsp;</div>
-            <p className='title-text fs-2'>{text}</p>
+            <span className='title-text fs-3'>{text}</span>
         </div>
     );
 }

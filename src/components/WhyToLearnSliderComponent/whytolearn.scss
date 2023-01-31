@@ -1,4 +1,19 @@
-
+@import "../../App.scss";
 .why-to-learn{
-    background-color: red;
+    border-radius: $basic-border-radius;
+}
+
+.iconcomp{
+    display: flex;
+    flex-direction: column;
+    width: 5em !important;
+    height: fit-content !important;
+    border-radius: $basic-border-radius;
+    margin: 0 3em !important;
+    font-weight: bolder;
+    align-items: center !important;
+     
+    :hover{
+        transform: scale(1);
+    }
 }

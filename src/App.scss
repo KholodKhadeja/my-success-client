@@ -10,9 +10,12 @@ $basic-border-radius: 0.5em;
 .App {
   text-align: center;
 }
+.large-section{
+  height: 85vh !important;
+}
 
 .full-height-section{
-  height: 85vh !important;
+  height: 45vh !important;
 }
 .App-logo {
   height: 40vmin;
