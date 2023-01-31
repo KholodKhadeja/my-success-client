@@ -4,7 +4,7 @@ import "./navbarstyling.scss";
 const MainNavBar = () => {
     return (
         <Fragment>
-<nav className="shadow p-2 mb-3 navbar navbar-expand-lg">
+<nav className="shadow p-2 mb-3 navbar navbar-expand-lg sticky-top">
   <div className="container-fluid">
     <a className="navbar-brand" href="#">לוגו</a>
     <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"

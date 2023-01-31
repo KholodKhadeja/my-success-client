@@ -4,16 +4,50 @@
 }
 
 .iconcomp{
+    padding: 1em !important;
     display: flex;
     flex-direction: column;
-    width: 5em !important;
-    height: fit-content !important;
+    width: 220px !important;
     border-radius: $basic-border-radius;
-    margin: 0 3em !important;
+    margin-left:3em !important;
     font-weight: bolder;
     align-items: center !important;
      
-    :hover{
-        transform: scale(1);
+    img{
+        width: 5.5em !important;
     }
+   &:hover{
+        transform: scaleY(1.1);
+    }
+
 }
+
+.icons-slider{
+    padding-bottom: 2em !important;
+    width: 100% !important;
+    display: flex;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow-y: hidden !important;
+overflow-x: auto !important;
+
+}
+
+.icons-slider::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	background-color: #F5F5F5;
+}
+
+.icons-slider::-webkit-scrollbar
+{
+	width: 6px;
+	background-color: #F5F5F5;
+}
+
+.icons-slider::-webkit-scrollbar-thumb
+{
+	background-color: $basic-clr !important;
+}
+
+

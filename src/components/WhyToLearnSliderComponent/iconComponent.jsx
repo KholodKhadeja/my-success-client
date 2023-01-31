@@ -3,8 +3,9 @@ import "./whytolearn.scss";
 const IconComponent = ({img, text}) => {
     return (
         <div className="iconcomp">
+            <br/>
             <img src={img} alt={text} />
-            <span>{text}</span>
+            <span className="fs-6 text">{text}</span>
         </div>
     );
 }

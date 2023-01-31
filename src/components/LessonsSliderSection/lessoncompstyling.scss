@@ -1,0 +1,21 @@
+@import "../../App.scss";
+.lessons-section{
+    background-color: purple;
+
+}
+
+.upper-div{
+    display: flex;flex-direction: row !important;
+    justify-content: space-between !important;
+
+    input{
+        border-top-right-radius: $basic-border-radius !important;
+        border-bottom-right-radius: $basic-border-radius !important;
+    }
+    .input-group-text{
+        border-top-left-radius: $basic-border-radius !important;
+        border-bottom-left-radius: $basic-border-radius !important;
+        background-color: $basic-clr;
+        color:  $light-dark !important;
+    }
+}

@@ -55,7 +55,7 @@ const Homepage = () => {
             <LessonsSliderSection />
             {/* </div> */}
             {/* <div key={sections[3].id} ref={registerRef[3]}> */}
-                <SaysAboutUsSection />
+                {/* <SaysAboutUsSection /> */}
                 {/* </div> */}
         </div>
 
