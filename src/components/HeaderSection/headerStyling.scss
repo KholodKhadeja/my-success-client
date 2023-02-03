@@ -1,15 +1,23 @@
 @import "../../App.scss";
 
+.intro-parag{
+    font-size: 1.5em;
+}
+@media screen and (max-width: 799px) {
+    .intro-parag{
+        font-size: 1em;
+    }
+  }
 .fullScreenSection{
     border-radius: $basic-border-radius;
     padding:$basic-padding !important;
     text-align: right !important;
     display: flex;
     align-items: center !important;
-    justify-content:  start !important;
-    background: linear-gradient(0deg, rgba(253, 252, 253, 0.565), rgba(253, 231, 244, 0.574)),url("https://images.unsplash.com/photo-1584697964328-b1e7f63dca95?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80");
+    justify-content:  flex-start !important;
+    background: linear-gradient(0deg, rgba(253, 252, 253, 0.565), rgba(253, 231, 244, 0.574)),
+    url("https://images.unsplash.com/photo-1584697964328-b1e7f63dca95?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=870&q=80");
     background-repeat: no-repeat !important;
     background-size: 100%;
-    background-attachment: fixed;
     background-color: #cccccc;
 }

@@ -1,9 +1,10 @@
 @import "../../App.scss";
 .lessons-section{
-
+margin-top: 1em !important;
 }
 .lesson-div{
-    display: flex;flex-direction: row;
+    // flex-wrap: nowrap;
+overflow-x: auto !important;
 }
 .upper-div{
     display: flex;flex-direction: row !important;
@@ -19,4 +20,12 @@
         background-color: $basic-clr;
         color:  $light-dark !important;
     }
+}
+
+.view-more-lessons{
+    width: 100%;
+    text-align: left !important;
+    color: $basic-clr;
+    font-weight: bolder;
+    text-decoration: underline;
 }

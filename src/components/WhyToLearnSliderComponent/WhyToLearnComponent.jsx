@@ -23,7 +23,7 @@ const WhyToLearnComponent = () => {
   
   <IconComponent img={"https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/slider5.png?raw=true"}
                   text={"מרטונים  ולילות לבנים"}/>
- <br/> <br/> <br/>
+ <br/>
             </div>
         </div>
     );

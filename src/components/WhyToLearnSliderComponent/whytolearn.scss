@@ -9,7 +9,6 @@
     flex-direction: column;
     width: 220px !important;
     border-radius: $basic-border-radius;
-    margin-left:3em !important;
     font-weight: bolder;
     align-items: center !important;
      
@@ -30,7 +29,6 @@
     justify-content: center !important;
     overflow-y: hidden !important;
 overflow-x: auto !important;
-
 }
 
 .icons-slider::-webkit-scrollbar-track
@@ -41,7 +39,7 @@ overflow-x: auto !important;
 
 .icons-slider::-webkit-scrollbar
 {
-	width: 6px;
+	width: 3px;
 	background-color: #F5F5F5;
 }
 
