@@ -20,6 +20,8 @@ const LessonsSliderSection = () => {
            
            <div className="lesson-div">
             <CardComponent />
+            <CardComponent />
+            <CardComponent />
 
            </div>
         </div>

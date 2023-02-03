@@ -6,9 +6,11 @@ $mid-dark-clr: #3F4652;
 $light-dark:#EBECED;
 $basic-padding:2em;
 $basic-border-radius: 0.5em;
+$font-family: "Assistant";
 
 .App {
   text-align: center;
+  font-family: $font-family;
 }
 .large-section{
   height: 90vh !important;

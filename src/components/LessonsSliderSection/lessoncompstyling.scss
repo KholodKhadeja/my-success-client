@@ -1,9 +1,10 @@
 @import "../../App.scss";
 .lessons-section{
-    background-color: purple;
 
 }
-
+.lesson-div{
+    display: flex;flex-direction: row;
+}
 .upper-div{
     display: flex;flex-direction: row !important;
     justify-content: space-between !important;
