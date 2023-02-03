@@ -1,5 +1,6 @@
 import "./lessoncompstyling.scss";
 import TitleFunction from "../../partial/TitleComponent/TitleFunction";
+import CardComponent from "../CardComponent/CardComponent";
 
 const LessonsSliderSection = () => {
     return (
@@ -15,6 +16,11 @@ const LessonsSliderSection = () => {
 </svg>
                 </span>
 </div>
+           </div>
+           
+           <div className="lesson-div">
+            <CardComponent />
+
            </div>
         </div>
     );

@@ -1,0 +1,28 @@
+@import "../../App.scss";
+.lesson-card{
+    background-color: $light-dark !important;
+    margin: 1em 2em !important;
+}
+.star-section{
+width: 100%;
+margin-top: 0 !important;
+position: relative;
+
+img{
+    width: 3em;height: 3em;
+    position: absolute;
+    left: 0; top: 0.2em;
+}
+}
+.section-1{
+height: 35%;
+width: 100%;
+}
+.section-2{
+    height: 40%;
+    width: 100%;
+}
+.section-3{
+    height: 25%;
+    width: 100%;
+}
