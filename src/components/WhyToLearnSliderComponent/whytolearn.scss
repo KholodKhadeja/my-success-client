@@ -2,7 +2,6 @@
 .why-to-learn{
     border-radius: $basic-border-radius;
     margin-bottom: 2em !important;
-
 }
 
 .iconcomp{
@@ -21,11 +20,10 @@
    &:hover{
         transform: scaleY(1.1);
     }
-
 }
 
 .icons-slider{
-    padding-right: 4em !important;
+    padding-right: 10px !important;
     width: 100% !important;
     display: flex;flex-wrap: nowrap;
     align-items: center !important;
@@ -34,7 +32,16 @@
 overflow-x: auto !important;
 margin-bottom: 2em !important;
 }
-
+@media  (max-width:770px) {
+    .icons-slider{
+        padding-right: 200px !important;
+}
+}
+@media  (max-width:480px) {
+    .icons-slider{
+        padding-right: 380px !important;
+}
+}
 .icons-slider::-webkit-scrollbar-track
 {
 	background-color: transparent !important;

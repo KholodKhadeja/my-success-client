@@ -1,14 +1,23 @@
 import React, { Fragment } from 'react';
+import { useState } from 'react';
 import "./card-styling.scss";
 
 
 const CardComponent = ({cardNum}) => {
+  let basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";
+    const [imagePath, setImagePath] =  useState(basicPath);
+const switchImg =()=>{
+basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/signed-star.png?raw=true";
+setImagePath(basicPath);
+}
+
     return (
         <Fragment>
             {
         cardNum==0 && <div className='lesson-card h-25'>
             <div className='star-section'>
-                <img src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true" alt="wishlist star"/>
+                <img id="star-img" src={imagePath}
+                 alt="wishlist star" onClick={switchImg}/>
             </div>
             <div className='section-1'>
                  <div className='card-img-container'>
@@ -35,14 +44,15 @@ const CardComponent = ({cardNum}) => {
         <span>15:00</span>
     </p>
   </div>
-  <button class="sign-up-lesson-btn">הרשמה</button>
+  <button className="sign-up-lesson-btn">הרשמה</button>
 </div>
         </div>
 }
 {
  cardNum!= 0 && <div className='lesson-card2 h-25'>
 <div className='star-section'>
-    <img src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true" alt="wishlist star"/>
+    <img src={imagePath}
+    alt="wishlist star" onClick={switchImg}/>
 </div>
 <div className='section-1'>
      <div className='card-img-container'>

@@ -1,3 +1,5 @@
+@import "~bootstrap/scss/bootstrap";
+
 // the variables
 $basic-clr: #C780FA;
 $basic-clr-sec: #B3FA80;
@@ -17,7 +19,7 @@ $font-family: "Assistant";
   font-family: $font-family;
 }
 .large-section{
-  height: 85vh !important;
+  height: 60vh !important;
 }
 
 .full-height-section{

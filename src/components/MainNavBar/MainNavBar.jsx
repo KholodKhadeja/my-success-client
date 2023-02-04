@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import "./navbarstyling.scss";
-
+import { NavLink } from 'react-router-dom';
 const MainNavBar = () => {
     return (
         <Fragment>
@@ -14,23 +14,23 @@ const MainNavBar = () => {
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav mb-lg-1 rightnav">
         <li className="nav-item">
-          <a className="nav-link active" aria-current="page" href="#">ראשי</a>
+          <NavLink className="nav-link active" aria-current="page" to="/home">ראשי</NavLink>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">שיעורים</a>
+          <a className="nav-link" to="/lessons">שיעורים</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" href="#">השיעורים שלי</a>
+          <NavLink className="nav-link" href="#">השיעורים שלי</NavLink>
         </li>
       </ul></div>
       <div className="collapse navbar-collapse justify-content-end" id="navbarSupportedContent">
       <div className="d-flex justify-content-center">
       <ul className="navbar-nav mb-lg-0 rightnav">
         <li className="nav-item">
-          <a className="nav-link navig-btn"  href="#">התחבר</a>
+          <NavLink className="nav-link navig-btn"  href="#">התחבר</NavLink>
         </li>
         <li className="nav-item">
-          <a className="nav-link navig-btn" href="#">הירשם</a>
+          <NavLink className="nav-link navig-btn" href="#">הירשם</NavLink>
         </li>
       </ul>
       </div>
