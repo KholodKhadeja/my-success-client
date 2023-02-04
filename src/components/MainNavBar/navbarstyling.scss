@@ -10,20 +10,31 @@ nav{
     
     .nav-item{
        margin-right: 1em !important;
+
+      .active{
+        color: $dark-clr;
+        border-bottom: 1px solid $dark-clr;
+        border-top: 1px solid $dark-clr;
+     }
     }
     a{
         color: white !important;
     }
 
-    .active{
-       color: $dark-clr !important;
-       border-bottom: 1px solid $dark-clr;
-       border-top: 1px solid $dark-clr;
-    }
+ 
 
     .navig-btn{
         background-color: rgba(0, 0, 0, 0.625);
         border-radius: $basic-border-radius;
         padding: 0.5em 1em !important;
+
+       &:hover{
+            color: $basic-clr;
+            background-color: $light-dark !important;
+
+         }
     }
+}
+.logo-img{
+    width: 40px;height: 50px;
 }
