@@ -3,6 +3,7 @@ import HeaderSection from '../../components/HeaderSection/HeaderSection';
 import WhyToLearnComponent from '../../components/WhyToLearnSliderComponent/WhyToLearnComponent';
 import LessonsSliderSection from '../../components/LessonsSliderSection/LessonsSliderSection';
 import SaysAboutUsSection from '../../components/SaysAboutUseSection/SaysAboutUsSection';
+import Footer from '../../components/Footer/Footer';
 
 
 const Homepage = () => {
@@ -44,43 +45,13 @@ const Homepage = () => {
 //   }, [currentSection]);
 
         return (
-        <div>
-            {/* <div key={sections[0].id} ref={registerRef[0]}> */}
-                 <HeaderSection />
-                 {/* </div> */}
-          {/* <div key={sections[1].id} ref={registerRef[1]}>  */}
+        <div className='home-page-main-class'>
+            <HeaderSection />
            <WhyToLearnComponent  />
-           {/* </div> */}
-           {/* <div key={sections[2].id} ref={registerRef[2]}> */}
             <LessonsSliderSection />
-            {/* </div> */}
-            {/* <div key={sections[3].id} ref={registerRef[3]}> */}
-                {/* <SaysAboutUsSection /> */}
-                {/* </div> */}
+                <SaysAboutUsSection />
+                <Footer />
         </div>
-
-
-// import React, { useState, useRef } from "react";
-
-// const App = () => {
-//   const [currentComponent, setCurrentComponent] = useState(0);
-//   const components = [<Component1 />, <Component2 />, <Component3 />];
-//   const containerRef = useRef();
-
-//   const handleScroll = () => {
-//     if (containerRef.current.scrollTop + containerRef.current.clientHeight >= containerRef.current.scrollHeight) {
-//       setCurrentComponent(prevComponent => (prevComponent + 1) % components.length);
-//     }
-//   };
-
-//   return (
-//     <div ref={containerRef} onScroll={handleScroll}>
-//       {components[currentComponent]}
-//     </div>
-//   );
-// };
-
-// export default App;
 
 
     );

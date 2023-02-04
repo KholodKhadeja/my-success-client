@@ -1,15 +1,19 @@
 @import "../../App.scss";
-.lesson-card{
+@mixin changeFontSize{
+    font-size: 0.5em !important;
+}
+@mixin staticCardStyling{
     width: 250px !important;
     background-color: $light-dark !important;
     margin: 1em 1em !important;
     border-radius: $basic-border-radius;
+    font-size: 1em !important
+}
+.lesson-card{
+  @include staticCardStyling;
 }
 .lesson-card2{
-    width: 250px !important;
-    background-color: $light-dark !important;
-    margin: 1em 1em !important;
-    border-radius: $basic-border-radius;
+    @include staticCardStyling;
 }
 @media screen and (max-width: 1000px) {
     .lesson-card2{
@@ -58,7 +62,6 @@ align-items: center;
     p{
         line-height: 0.7em;
         font-weight: bold;
-        font-size: 0.8em !important;
     }
 }
 .section-3{
@@ -74,7 +77,6 @@ padding: 1em !important;
             span{
             line-height: 0.7em;
             font-weight: bold;
-            font-size: 0.8em !important;
         }
     }
     .sign-up-lesson-btn{
@@ -82,7 +84,7 @@ padding: 1em !important;
         background-color: $basic-clr;
         padding: 0.3em !important;
         border-radius: $basic-border-radius;
-        color: $light-dark;
+        color: white !important;
         font-weight: bold;
         border: none;
     }

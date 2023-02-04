@@ -1,0 +1,35 @@
+@import "../../App.scss";
+
+.main-div-says-about-us{
+    margin-top:2em !important;
+}
+@media screen and (min-width: 1400px) and (min-width: 1001px)  {
+    .main-div-says-about-us{
+        margin-top: 4em !important;
+    }
+}
+@media (max-width: 1000px) and (min-width: 301px)  {
+    .main-div-says-about-us{
+        margin-top: 6em !important;
+    }
+}
+@media screen and (max-width: 300px) {
+    .main-div-says-about-us{
+        margin-top: 8em !important;
+    }
+}
+
+.quoete-card{
+background-color: $basic-clr-sec;
+height: fit-content !important;
+display: flex;align-items: center;
+}
+.quoete-card-img1{
+display: flex;justify-content: flex-end !important;
+}
+.quoete-card-text{
+
+}
+.quoete-card-img2{
+
+}

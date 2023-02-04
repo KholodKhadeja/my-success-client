@@ -5,7 +5,7 @@ const IconComponent = ({img, text}) => {
         <div className="iconcomp">
             <br/>
             <img src={img} alt={text} />
-            <span className="fs-6 text">{text}</span>
+            <span className="fs-7 text">{text}</span>
         </div>
     );
 }

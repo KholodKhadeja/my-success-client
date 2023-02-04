@@ -8,16 +8,20 @@ $basic-padding:2em;
 $basic-border-radius: 0.5em;
 $font-family: "Assistant";
 
+.home-page-main-class{
+  display: flex;flex-direction: column;
+  gap: 3em !important;
+}
 .App {
   text-align: center;
   font-family: $font-family;
 }
 .large-section{
-  height: 90vh !important;
+  height: 85vh !important;
 }
 
 .full-height-section{
-  height: 56vh !important;
+  height: 45vh !important;
 }
 .App-logo {
   height: 40vmin;

@@ -4,7 +4,7 @@ import "./headerStyling.scss";
 
 const HeaderSection = () => {
     return (
-        <div className=' full-height-section fullScreenSection container-fluid'>
+        <div className=' full-height-section fullScreenSection container-fluid mb-3'>
            <span >
                 <TitleFunction text={"My Success"}/> <br/>
                 <span  className="intro-parag">

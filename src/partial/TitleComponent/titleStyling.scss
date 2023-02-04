@@ -1,11 +1,12 @@
 @import "../../App.scss";
 .title-styling{
 display: flex;
-flex-direction: row;
+flex-direction: row;flex-wrap: nowrap !important;
 height: fit-content !important;
 gap: 0.3em !important;
-// margin-bottom: -0.5em !important;
 }
+
+
 .title-bar{
 background-color: $basic-clr;
 width: 0.5em;
