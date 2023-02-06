@@ -1,8 +1,13 @@
-.lessons-div-lessons{
-    display: flex;flex-direction: row;
-    flex-wrap: wrap;
-}
+
 .pagination-cont{
        display: flex;
        align-items: center;justify-content: center;
+}
+.lessons-input-group{
+    width: 25% !important;
+}
+@media screen and (max-width: 1000px) {
+    .lessons-input-group{
+        width: 100% !important;
+    }
 }

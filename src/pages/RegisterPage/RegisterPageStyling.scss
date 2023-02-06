@@ -1,0 +1,46 @@
+@import "../../App.scss";
+
+.register-img{
+width: 150px;height: 150px;
+}
+.tab-pane{
+    border-left:1px solid $basic-clr !important;
+    border-right:1px solid $basic-clr !important;
+    border-bottom:1px solid $basic-clr !important;
+
+}
+.nav-item{
+   .active{
+            background-color: $basic-clr !important;
+            color:white !important;
+    }
+}
+Form{
+    padding: 1px !important;
+    display: flex;flex-direction: column;align-items: center !important;
+    text-align: center !important;
+
+    .form-controll{
+       width: 351px;
+       background-color: #c37aff73 !important;
+       color: $dark-clr !important; 
+    }
+
+    .register-btn{
+        width: 351px !important;
+        background-color: $basic-clr-sec !important;
+        color: $dark-clr !important;
+        font-weight: bolder !important;
+        border: none !important;
+    }
+    .short-input{
+        width: 175px !important;
+    }
+    .names-div{
+      display: flex;flex-direction: row;gap:5px;
+    }
+}
+
+.hidden{
+    display: none !important;
+}

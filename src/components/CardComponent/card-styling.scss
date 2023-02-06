@@ -25,10 +25,40 @@
 .lesson-card2 {
   @include staticCardStyling;
 }
+.my-lesson-card{
+    @include staticCardStyling;
+    margin-bottom: 10px !important;
+}
 @media screen and (max-width: 1000px) {
+    .lesson-card {
+        display: block !important;
+    }
   .lesson-card2 {
     display: none !important;
   }
+  .section-1{
+    p{
+        font-size: 10pt;
+    }}
+    .section-2{
+        p{
+            span{
+                font-size: 10pt;
+            }
+        }
+  }
+  .section-3{
+    div{
+        p{
+            span{
+                font-size: 10pt;
+            }
+        }
+    }
+    button{
+        font-size: 10pt;
+    }
+}
 }
 
 .star-section {

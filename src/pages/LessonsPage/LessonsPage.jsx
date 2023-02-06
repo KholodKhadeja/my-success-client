@@ -29,7 +29,7 @@ for (let number = 1; number <= 5; number++) {
 <div className="upper-div">
             <span>
                  <TitleFunction text={"שיעורים"}/></span>
-                 <div className="input-group mb-3 w-25">
+                 <div className="input-group mb-3 lessons-input-group">
                  <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                 <span className="input-group-text" id="inputGroup-sizing-default">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
@@ -42,13 +42,7 @@ for (let number = 1; number <= 5; number++) {
 <CardComponent />
 <CardComponent />
 <CardComponent />
-<CardComponent />
-<CardComponent />
-<CardComponent />
-<CardComponent />
-<CardComponent />
-<CardComponent />
-<CardComponent />
+
   </div>
   <div className='pagination-cont'>
     <Pagination size="sm">{items}</Pagination>

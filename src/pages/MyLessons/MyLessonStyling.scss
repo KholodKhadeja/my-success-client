@@ -1,0 +1,33 @@
+@import "../../App.scss";
+.lessons-div-lessons{
+    display: flex;flex-direction: row;
+}
+.my-lessons-upper-left-div{
+    display: flex;align-content: center !important;
+    gap:5px;
+}
+.add-lesson-btn{
+    min-width: fit-content !important;
+    height: fit-content !important;
+    padding: 0.3em !important;
+    border-radius: $basic-border-radius;
+    font-weight: bold;
+    border: none;
+    background-color: $basic-clr;color: white;
+}
+.input-group2{
+    height: 20px !important;
+}
+@media screen and (max-width: 1000px) {
+    .upper-div{
+        gap:20px !important;
+       flex-direction: column !important;
+    }
+    .my-lessons-upper-left-div{
+        flex-direction: column !important;
+    }
+    .lessons-div-lessons{
+        flex-direction: row !important;
+        overflow-x: scroll;overflow-y: hidden;
+    }
+  }

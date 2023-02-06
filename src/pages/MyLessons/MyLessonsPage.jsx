@@ -1,3 +1,4 @@
+import "./MyLessonStyling.scss";
 import CardComponent from '../../components/CardComponent/CardComponent';
 import Pagination from 'react-bootstrap/Pagination';
 import { useState } from 'react';
@@ -28,11 +29,9 @@ const MyLessonsPage = () => {
         <div className="upper-div">
                     <span>
                          <TitleFunction text={"השיעורים שלי"}/></span>
-                         <div>
-                            <div>
-                                <button>הוספת שיעור</button>
-                            </div>
-                         <div className="input-group mb-3 w-25">
+                         <div className='my-lessons-upper-left-div'>
+                                <button className="add-lesson-btn mb-3">הוספת שיעור</button>
+                         <div className="input-group mb-3">
                          <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                         <span className="input-group-text" id="inputGroup-sizing-default">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
@@ -45,13 +44,15 @@ const MyLessonsPage = () => {
         
         <div className='lessons-div-lessons'> 
         {/* for students show this */}
-        <CardComponent />
+        {/* <CardComponent key={0}/> */}
         {/* for teachers show this */}
-        <TeacherCardComponent key={0}/>
+        <TeacherCardComponent />
+        <TeacherCardComponent />
+        <TeacherCardComponent />
           </div>
-          <div className='pagination-cont'>
+          {/* <div className='pagination-cont'>
             <Pagination size="sm">{items}</Pagination>
-          </div>
+          </div> */}
         </div>
         </Fragment>
     );

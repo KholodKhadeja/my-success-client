@@ -17,6 +17,7 @@ nav{
         border-top: 1px solid $dark-clr;
      }
     }
+
     a{
         color: white !important;
     }
@@ -29,9 +30,8 @@ nav{
         padding: 0.5em 1em !important;
 
        &:hover{
-            color: $basic-clr;
-            background-color: $light-dark !important;
-
+            color: $dark-clr;
+            background-color: $basic-clr-sec !important;
          }
     }
 }
