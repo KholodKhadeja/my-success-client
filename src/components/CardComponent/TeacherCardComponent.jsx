@@ -3,7 +3,7 @@ import { useState } from 'react';
 import "./card-styling.scss";
 
 
-const TeacherCardComponent = ({cardNum}) => {
+const TeacherCardComponent = ({key}) => {
   let basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";
 const [imagePath, setImagePath] =  useState(basicPath);
 
@@ -12,12 +12,14 @@ const [imagePath, setImagePath] =  useState(basicPath);
 // setImagePath(basicPath);
 // }
     return (
-        <Fragment>
-            {
-        cardNum==0 && <div className='lesson-card h-25'>
+    <Fragment>
+    {
+        key ==0 && <div className='lesson-card h-25'>
             <div className='teacher-btns-div'>
-                <img id="star-img" src={imagePath}
-                 alt="wishlist star" onClick={switchImg}/>
+                <img id="star-img" src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/Pencil.png?raw=true"
+                 alt="edit icon"/>
+                   <img id="star-img" src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/Remove.png?raw=true"
+                 alt="delete icon"/>
             </div>
             <div className='section-1'>
                  <div className='card-img-container'>
@@ -44,16 +46,18 @@ const [imagePath, setImagePath] =  useState(basicPath);
         <span>15:00</span>
     </p>
   </div>
-  <button className="sign-up-lesson-btn">הרשמה</button>
+  <button className="sign-up-lesson-btn">התחבר</button>
 </div>
 </div>
 }
 {
- cardNum!= 0 && <div className='lesson-card2 h-25'>
-<div className='star-section'>
-    <img src={imagePath}
-    alt="wishlist star" onClick={switchImg}/>
-</div>
+ key != 0 && <div className='lesson-card2 h-25'>
+            <div className='teacher-btns-div'>
+                <img className='teacher-btns-div-img' src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/Pencil.png?raw=true"
+                 alt="edit icon"/>
+                   <img className='teacher-btns-div-img' src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/Remove.png?raw=true"
+                 alt="delete icon"/>
+            </div>
 <div className='section-1'>
      <div className='card-img-container'>
            {/* <img src="" alt="teacher name" /> */}
@@ -79,7 +83,7 @@ const [imagePath, setImagePath] =  useState(basicPath);
 <span>15:00</span>
 </p>
 </div>
-<button class="sign-up-lesson-btn">הרשמה</button>
+<button class="enter-lesson-btn">התחבר</button>
 </div>
 </div>
 }

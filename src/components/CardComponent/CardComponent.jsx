@@ -3,17 +3,27 @@ import { useState } from 'react';
 import "./card-styling.scss";
 
 
-const CardComponent = ({cardNum}) => {
+const CardComponent = ({key}) => {
   let basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";
-    const [imagePath, setImagePath] =  useState(basicPath);
+const [imagePath, setImagePath] =  useState(basicPath);
+
+const [startClicked, setStarClicked] = useState(false);
 const switchImg =()=>{
-basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/signed-star.png?raw=true";
+    if(!startClicked){
+    setStarClicked(!startClicked);
+    basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/signed-star.png?raw=true";   
+}
+else{
+    setStarClicked(startClicked);
+    basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";
+}
+
 setImagePath(basicPath);
 }
     return (
         <Fragment>
             {
-        cardNum==0 && <div className='lesson-card h-25'>
+       key==0 && <div className='lesson-card h-25'>
             <div className='star-section'>
                 <img id="star-img" src={imagePath}
                  alt="wishlist star" onClick={switchImg}/>
@@ -48,7 +58,7 @@ setImagePath(basicPath);
         </div>
 }
 {
- cardNum!= 0 && <div className='lesson-card2 h-25'>
+ key != 0 && <div className='lesson-card2 h-25'>
 <div className='star-section'>
     <img src={imagePath}
     alt="wishlist star" onClick={switchImg}/>

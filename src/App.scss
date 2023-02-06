@@ -21,7 +21,11 @@ $font-family: "Assistant";
 .large-section{
   height: 60vh !important;
 }
-
+.pagination{
+  .active{
+    background-color: $basic-clr !important;
+  }
+}
 .full-height-section{
   height: 45vh !important;
 }

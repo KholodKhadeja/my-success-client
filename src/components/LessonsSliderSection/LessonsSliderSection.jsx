@@ -19,10 +19,10 @@ const LessonsSliderSection = () => {
            </div>
            
            <div className="lesson-div d-flex justify-content-around">
-            <CardComponent cardNum={0}/>
-            <CardComponent cardNum={1}/>
-            <CardComponent cardNum={2}/>
-            <CardComponent cardNum={3}/>
+            <CardComponent key={0}/>
+            <CardComponent key={1}/>
+            <CardComponent key={2}/>
+            <CardComponent key={3}/>
            </div>
 
            <div className="view-more-lessons">

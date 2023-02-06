@@ -1,95 +1,124 @@
 @import "../../App.scss";
-@mixin changeFontSize{
-    font-size: 0.5em !important;
+@mixin changeFontSize {
+  font-size: 0.5em !important;
 }
-@mixin staticCardStyling{
-    width: 250px !important;
-    background-color: $light-dark !important;
-    margin: 1em 1em !important;
-    border-radius: $basic-border-radius;
-    font-size: 1em !important
+@mixin staticCardStyling {
+  width: 250px !important;
+  background-color: $light-dark !important;
+  margin: 1em 1em !important;
+  border-radius: $basic-border-radius;
+  font-size: 1em !important;
 }
-.lesson-card{
+@mixin star-section-mixin {
+  padding: 1em;
+  width: 100%;
+  height: 5% !important;
+  border-radius: $basic-border-radius;
+  background-color: $dark-clr;
+  margin-top: 0 !important;
+  display: flex;
+  justify-content: end;
+}
+.lesson-card {
   @include staticCardStyling;
 }
-.lesson-card2{
-    @include staticCardStyling;
+.lesson-card2 {
+  @include staticCardStyling;
 }
 @media screen and (max-width: 1000px) {
-    .lesson-card2{
-        display: none !important;
-    }
+  .lesson-card2 {
+    display: none !important;
   }
-.star-section{
- padding: 1em;
-width: 100%;height: 5% !important;
-border-radius: $basic-border-radius;
-background-color: $dark-clr;
-margin-top: 0 !important;
-display: flex; justify-content: end;
-cursor: pointer;
-img{
-    width: 2em;height: 2em;
 }
+
+.star-section {
+  @include star-section-mixin;
+  cursor: pointer;
+  img {
+    width: 2em;
+    height: 2em;
+  }
 }
-.teacher-btns-div{
-    
+.teacher-btns-div-img {
+  width: 20px !important;
+  height: 20px !important;
 }
-.section-1{
-height: 35%;
-width: 100%;
-margin-top: -10% !important;
-background-color: $dark-clr;
-display: flex;flex-direction: column;
-justify-content: center;
-align-items: center;
-.card-img-container{
-    width: 6em;height: 6em;
+.teacher-btns-div {
+  @include star-section-mixin;
+  flex-direction: row;
+  gap: 0.5em;
+  background-color: $dark-clr !important;
+}
+.section-1 {
+  height: 35%;
+  width: 100%;
+  margin-top: -10% !important;
+  background-color: $dark-clr;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  .card-img-container {
+    width: 6em;
+    height: 6em;
     background-color: $basic-clr;
     border-radius: 50%;
-     object-fit: cover;
-}
-.teacher-name{
+    object-fit: cover;
+  }
+  .teacher-name {
     color: $light-dark;
     font-weight: bolder;
+  }
 }
+.section-2 {
+  height: 40%;
+  width: 100%;
+  padding-top: 1em;
+  padding-right: 1em;
+  background-color: $light-dark;
+  display: flex;
+  flex-direction: column;
+  text-align: right !important;
+  border-bottom: 1px solid $dark-clr;
+  p {
+    line-height: 0.7em;
+    font-weight: bold;
+  }
 }
-.section-2{
-    height: 40%;
-    width: 100%;
-    padding-top: 1em;
-    padding-right: 1em;
-    background-color: $light-dark;
-    display: flex;flex-direction: column;
-    text-align: right !important;
-    border-bottom: 1px solid $dark-clr;
-    p{
-        line-height: 0.7em;
-        font-weight: bold;
-    }
+@mixin lesson-card-btn{
+    width: 45%;
+    height: fit-content !important;
+    padding: 0.3em !important;
+    border-radius: $basic-border-radius;
+    font-weight: bold;
+    border: none;
 }
-.section-3{
-    height: 20%;
-    width: 100%;
-    border-bottom-left-radius: $basic-border-radius;
-    border-bottom-right-radius: $basic-border-radius;
-    background-color: $light-dark;
-    display: flex;flex-direction: row;justify-content: space-between;align-items: center;
-padding: 1em !important;
-        text-align: right !important;
-        p {
-            span{
-            line-height: 0.7em;
-            font-weight: bold;
-        }
+.section-3 {
+  height: 20%;
+  width: 100%;
+  border-bottom-left-radius: $basic-border-radius;
+  border-bottom-right-radius: $basic-border-radius;
+  background-color: $light-dark;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1em !important;
+  text-align: right !important;
+  p {
+    span {
+      line-height: 0.7em;
+      font-weight: bold;
     }
-    .sign-up-lesson-btn{
-         width: 45%;height: fit-content !important;
-        background-color: $basic-clr;
-        padding: 0.3em !important;
-        border-radius: $basic-border-radius;
-        color: white !important;
-        font-weight: bold;
-        border: none;
-    }
+  }
+  .sign-up-lesson-btn {
+@include lesson-card-btn;
+    background-color: $basic-clr;
+    color: white !important;
+  }
+}
+.enter-lesson-btn{
+    @include lesson-card-btn;
+    background-color: $basic-clr-sec;
+    color: $dark-clr;
 }
