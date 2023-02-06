@@ -3,18 +3,19 @@ import { useState } from 'react';
 import "./card-styling.scss";
 
 
-const CardComponent = ({cardNum}) => {
+const TeacherCardComponent = ({cardNum}) => {
   let basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";
-    const [imagePath, setImagePath] =  useState(basicPath);
-const switchImg =()=>{
-basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/signed-star.png?raw=true";
-setImagePath(basicPath);
-}
+const [imagePath, setImagePath] =  useState(basicPath);
+
+// const switchImg =()=>{
+// basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/signed-star.png?raw=true";
+// setImagePath(basicPath);
+// }
     return (
         <Fragment>
             {
         cardNum==0 && <div className='lesson-card h-25'>
-            <div className='star-section'>
+            <div className='teacher-btns-div'>
                 <img id="star-img" src={imagePath}
                  alt="wishlist star" onClick={switchImg}/>
             </div>
@@ -45,7 +46,7 @@ setImagePath(basicPath);
   </div>
   <button className="sign-up-lesson-btn">הרשמה</button>
 </div>
-        </div>
+</div>
 }
 {
  cardNum!= 0 && <div className='lesson-card2 h-25'>
@@ -86,4 +87,4 @@ setImagePath(basicPath);
     );
 }
 
-export default CardComponent;
+export default TeacherCardComponent;
