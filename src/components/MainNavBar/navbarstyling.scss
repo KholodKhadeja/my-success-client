@@ -4,20 +4,19 @@ nav{
     border-bottom-right-radius: $basic-border-radius;
     border-bottom-left-radius: $basic-border-radius;
     background-color: $basic-clr !important;
-    align-items: center !important;
     color: white !important;
     font-weight: 600 !important;
     
     .nav-item{
        margin-right: 1em !important;
-
-      .active{
+    }
+.nav-item-text-link{
+    .active{
         color: $dark-clr;
         border-bottom: 1px solid $dark-clr;
         border-top: 1px solid $dark-clr;
      }
-    }
-
+}
     a{
         color: white !important;
     }
@@ -31,8 +30,30 @@ nav{
             color: $dark-clr;
             background-color: $basic-clr-sec !important;
          }
+         .active{
+        color: $dark-clr !important;
+        background-color: $basic-clr-sec !important;
+     }
     }
 }
 .logo-img{
     width: 40px;height: 50px;
+}
+.profile-navbar-img{
+    width: 45px !important;height: 45px !important;
+   justify-self: flex-start !important;
+}
+.list-item-dropdown{
+    text-align: right !important;color:$basic-clr !important;
+}
+.dropdown-basic-item{
+  height: 50px !important;
+  align-content: flex-start !important;
+}
+.navbar-fav-star-icon{
+    width: 45px !important;height: 45px !important;
+    padding: 5px !important;
+    justify-self: flex-end !important;
+    border-bottom: none !important;
+    border-top: none !important;
 }
