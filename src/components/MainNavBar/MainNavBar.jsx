@@ -2,6 +2,8 @@ import React, { Fragment } from 'react';
 import "./navbarstyling.scss";
 import NavBarLinkPartial from '../../partial/PartialNavBarItem/Navbarlinkpartial';
 import { NavLink } from 'react-router-dom';
+import Dropdown from 'react-bootstrap/Dropdown';
+
 let navLinks = [
   {
     label: "ראשי",
@@ -63,6 +65,21 @@ const MainNavBar = () => {
         <li className="nav-item">
           <NavLink className="nav-link navig-btn" to="/register">הירשם</NavLink>
         </li>
+{/* show when loggedin */}
+<Dropdown>
+      <Dropdown.Toggle variant="success" id="dropdown-basic">
+      <li className="nav-item">
+          <NavLink className="nav-link navig-btn" to="/register">
+            <img src="" alt="profile image"/>
+            </NavLink>
+        </li>
+      </Dropdown.Toggle>
+      <Dropdown.Menu>
+        <Dropdown.Item href="#/action-1">הצג פרטים</Dropdown.Item>
+        <Dropdown.Item href="#/action-2">התנתק</Dropdown.Item>
+      </Dropdown.Menu>
+    </Dropdown>
+
       </ul>
       </div>
     </div>
