@@ -1,0 +1,33 @@
+@import "../../App.scss";
+
+.admin-page-rows-group-row{
+    width: 80vw !important;
+display: flex;flex-direction: row;
+justify-content: space-around;flex-wrap: wrap !important;
+background-color: #c780fa84;
+border-radius: 50px;
+padding-top: 1em; 
+padding-left: 1em;padding-right:1em;
+margin-bottom: 5px !important;
+}
+    .bi-pencil-fill{
+        color: green !important;
+    }
+    .bi-trash-fill{
+        color: red !important;
+    }
+
+.admin-page-rows-group-row:first-child{
+    background-color: transparent !important;
+    font-weight: bolder;
+    padding-left: 1em;padding-right:1em;
+}
+.user-icon-div{
+    display: flex;
+    align-self: flex-start !important;flex-wrap: wrap !important;
+    gap: 2em !important;
+}
+
+.ant-switch-checked{
+    background-color: $basic-clr !important;
+}

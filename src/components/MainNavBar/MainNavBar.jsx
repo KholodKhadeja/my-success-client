@@ -27,6 +27,10 @@ let authTeacherStudLinks = [
 ];
 let authAdminLinks = [
   {
+    label: "השיעורים שלי",
+    url: "/mylessons",
+  },
+  {
     label: "ניהול משתמשים",
     url: "/usersadmin",
   },
@@ -47,7 +51,7 @@ const MainNavBar = () => {
     </button>
     <div className="collapse navbar-collapse" id="navbarSupportedContent">
       <ul className="navbar-nav mb-lg-1 rightnav">
-      {navLinks.map((item, idx) => (
+      {authAdminLinks.map((item, idx) => (
               <NavBarLinkPartial
                 key={"navlinks" + idx}
                 label={item.label}

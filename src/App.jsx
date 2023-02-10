@@ -10,6 +10,7 @@ import { Route, Switch } from 'react-router-dom';
 import { Router } from 'react-router-dom';
 import FavLessonPage from './pages/FavLessonsPage/FavLessonPage';
 import ShowDetails from './pages/ShowDetails/ShowDetails';
+import AdminPage from './pages/AdminPage/AdminPage';
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
         <Route path="/register" component={RegisterPage}></Route>
         <Route path="/favoritelessons" component={FavLessonPage}></Route>
         <Route path="/showdetails" component={ShowDetails}></Route>
+        <Route path="/usersadmin" component={AdminPage}></Route>
         </Switch>
     </div>
   );
