@@ -43,8 +43,15 @@ nav{
     width: 45px !important;height: 45px !important;
    justify-self: flex-start !important;
 }
-.list-item-dropdown{
+// .list-item-dropdown{
+//     text-align: right !important;color:$basic-clr !important;
+//     text-decoration: none !important;
+//     list-style: none !important;
+// }
+.none-decoration-navlink{
     text-align: right !important;color:$basic-clr !important;
+    text-decoration: none !important;
+    list-style: none !important;
 }
 .dropdown-basic-item{
   height: 50px !important;

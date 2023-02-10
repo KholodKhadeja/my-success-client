@@ -61,7 +61,7 @@ const MainNavBar = () => {
       <div className="d-flex justify-content-center">
       <ul className="navbar-nav mb-lg-0 rightnav">
 
-      { isLoggedIn && <li className="nav-item">
+      { !isLoggedIn && <li className="nav-item">
           <NavLink className="" to="/favoritelessons">
             <img className="navbar-fav-star-icon" src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true" 
             alt="עמוד המועדפים"/>
@@ -75,13 +75,13 @@ const MainNavBar = () => {
           <NavLink className="nav-link navig-btn" to="/register">הירשם</NavLink>
         </li>
 {/* show when loggedin */}
-{isLoggedIn && <Dropdown>
+{!isLoggedIn && <Dropdown>
       <Dropdown.Toggle variant="" id="" className='dropdown-basic-item'>
             <img className="profile-navbar-img" src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/profile-img.png?raw=true" alt="profile image"/>
       </Dropdown.Toggle>
       <Dropdown.Menu>
-        <Dropdown.Item className='list-item-dropdown'><NavLink to="/showdetails">הצג פרטים</NavLink></Dropdown.Item>
-        <Dropdown.Item className='list-item-dropdown' href="#/action-2">התנתק</Dropdown.Item>
+        <Dropdown.Item className='list-item-dropdown'><NavLink to="/showdetails" className="none-decoration-navlink">הצג פרטים</NavLink></Dropdown.Item>
+        <Dropdown.Item className='list-item-dropdown'><NavLink to="/showdetails" className="none-decoration-navlink">התנתק</NavLink></Dropdown.Item>
       </Dropdown.Menu>
     </Dropdown>}
       </ul>

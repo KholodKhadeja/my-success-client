@@ -1,0 +1,52 @@
+@import "../../App.scss";
+
+.show-details-page-main-container{
+display: flex;flex-direction: column;
+align-items: center;justify-content: center;
+margin: 2em auto !important;
+}
+.show-details-page-img-cont{
+    display: flex;flex-direction: row;
+    gap:5px !important;justify-content: center;
+    margin-bottom: 2em !important;
+}
+.show-details-page-img{
+
+}
+.show-details-page-img-icon{
+    width: 1em;height: 1em;
+    background-color: white;
+    margin-right: -40px !important;margin-bottom: 5px;
+    padding: 0.2em;
+    border: 2px solid #434343;
+    border-radius: 50%;
+align-self: flex-end !important;
+}
+.show-details-page-details-rows{
+    display: flex;flex-direction: column;
+    gap: 2em;
+}
+.show-details-page-details-row{
+    width: 60vw !important;
+display: flex;flex-direction: row;
+justify-content: space-between;
+background-color: #c780fa84;
+border-radius: $basic-border-radius;
+padding-top: 1em; 
+padding-left: 0.5em;padding-right:0.5em;
+p{
+    height: fit-content !important;
+    font-weight: bolder;
+  justify-self: center !important;
+}
+}
+@media  (max-width: 500px) {
+    .show-details-page-details-row{
+        width: 50vw !important;
+        gap: 0.3em !important;
+    p{
+   font-size: 10pt !important;
+   line-break:anywhere !important;
+    }
+    }
+}
