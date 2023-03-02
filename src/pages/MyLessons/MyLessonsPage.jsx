@@ -5,9 +5,15 @@ import { useState } from 'react';
 import { Fragment } from 'react';
 import TitleFunction from '../../partial/TitleComponent/TitleFunction';
 import TeacherCardComponent  from '../../components/CardComponent/TeacherCardComponent';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 let allMyLessons=[];
 const MyLessonsPage = () => {
+  const [show, setShow] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+  
     const [lessons, setLessons] = useState(allMyLessons);
     let [active, setActive] = useState(1);
     // let [currentPage, setCurrentPage] = useState(active);
@@ -30,7 +36,8 @@ const MyLessonsPage = () => {
                     <span>
                          <TitleFunction text={"השיעורים שלי"}/></span>
                          <div className='my-lessons-upper-left-div'>
-                                <button className="add-lesson-btn mb-3">הוספת שיעור</button>
+                                <Button className="add-lesson-btn mb-3" onClick={handleShow}>
+                                הוספת שיעור</Button>
                          <div className="input-group mb-3">
                          <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
                         <span className="input-group-text" id="inputGroup-sizing-default">
@@ -39,7 +46,6 @@ const MyLessonsPage = () => {
         </svg>
         </span>
         </div></div>
-
         </div>
         
         <div className='lessons-div-lessons'> 
@@ -54,6 +60,33 @@ const MyLessonsPage = () => {
             <Pagination size="sm">{items}</Pagination>
           </div> */}
         </div>
+
+{/* THIS IS THE MODAL */}
+<Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>הוספת שיעור</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+        <span><TitleFunction className="" text={"הוספת שיעור"}/></span>
+         <div>
+          <span>
+
+          </span>
+          
+
+         </div>
+          
+          
+          </Modal.Body>
+        <Modal.Footer>
+        <Button className="add-lesson-btn" onClick={handleClose}>
+           הוספת שיעור
+          </Button>
+          <Button variant="secondary" onClick={handleClose}>
+            ביטול
+          </Button>
+        </Modal.Footer>
+      </Modal>
         </Fragment>
     );
 }

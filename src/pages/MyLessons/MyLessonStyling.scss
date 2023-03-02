@@ -10,10 +10,10 @@
     min-width: fit-content !important;
     height: fit-content !important;
     padding: 0.3em !important;
-    border-radius: $basic-border-radius;
-    font-weight: bold;
-    border: none;
-    background-color: $basic-clr;color: white;
+    border-radius: $basic-border-radius !important;
+    font-weight: bold !important;
+    border: none !important;
+    background-color: $basic-clr !important;color: white !important;
 }
 .input-group2{
     height: 20px !important;
