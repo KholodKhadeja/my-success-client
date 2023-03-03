@@ -1,33 +1,55 @@
 @import "../../App.scss";
-.lessons-div-lessons{
-    display: flex;flex-direction: row;
+.lessons-div-lessons {
+  display: flex;
+  flex-direction: row;
 }
-.my-lessons-upper-left-div{
-    display: flex;align-content: center !important;
-    gap:5px;
+.my-lessons-upper-left-div {
+  display: flex;
+  align-content: center !important;
+  gap: 5px;
 }
-.add-lesson-btn{
-    min-width: fit-content !important;
-    height: fit-content !important;
-    padding: 0.3em !important;
-    border-radius: $basic-border-radius !important;
-    font-weight: bold !important;
-    border: none !important;
-    background-color: $basic-clr !important;color: white !important;
+.add-lesson-btn {
+  min-width: fit-content !important;
+  height: fit-content !important;
+  padding: 0.3em !important;
+  border-radius: $basic-border-radius !important;
+  font-weight: bold !important;
+  border: none !important;
+  background-color: $basic-clr !important;
+  color: white !important;
 }
-.input-group2{
-    height: 20px !important;
+.input-group2 {
+  height: 20px !important;
 }
 @media screen and (max-width: 1000px) {
-    .upper-div{
-        gap:20px !important;
-       flex-direction: column !important;
-    }
-    .my-lessons-upper-left-div{
-        flex-direction: column !important;
-    }
-    .lessons-div-lessons{
-        flex-direction: row !important;
-        overflow-x: scroll;overflow-y: hidden;
-    }
+  .upper-div {
+    gap: 20px !important;
+    flex-direction: column !important;
   }
+  .my-lessons-upper-left-div {
+    flex-direction: column !important;
+  }
+  .lessons-div-lessons {
+    flex-direction: row !important;
+    overflow-x: scroll;
+    overflow-y: hidden;
+  }
+}
+
+.modal-text-title {
+  font-weight: bolder !important;
+}
+.add-lesson-inputs {
+  width: 20rem !important;
+  background-color: #c780fa84 !important;
+  border-color: none !important;
+  color: black !important;
+}
+.add-lesson-inputs::placeholder {
+  color: black !important;
+  font-weight: semi-bold !important ;
+}
+
+.add-lesson-inputs option {
+  direction: rtl !important;
+}

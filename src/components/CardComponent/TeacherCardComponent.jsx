@@ -1,6 +1,7 @@
 import React, { Fragment } from 'react';
 import { useState } from 'react';
 import "./card-styling.scss";
+import { NavLink } from "react-router-dom";
 
 
 const TeacherCardComponent = ({key}) => {
@@ -42,7 +43,9 @@ const [imagePath, setImagePath] =  useState(basicPath);
 <span>15:00</span>
 </p>
 </div>
-<button class="enter-lesson-btn">התחבר</button>
+<NavLink className="enter-lesson-btn" to="/">התחבר</NavLink>
+
+
 </div>
 </div>
 }

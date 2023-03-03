@@ -11,6 +11,7 @@ import { Router } from 'react-router-dom';
 import FavLessonPage from './pages/FavLessonsPage/FavLessonPage';
 import ShowDetails from './pages/ShowDetails/ShowDetails';
 import AdminPage from './pages/AdminPage/AdminPage';
+import ConnectToLessonPage from './pages/ConnectToLesson/ConnectToLessonPage';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <Route path="/favoritelessons" component={FavLessonPage}></Route>
         <Route path="/showdetails" component={ShowDetails}></Route>
         <Route path="/usersadmin" component={AdminPage}></Route>
+        <Route path="/connecttolesson" component={ConnectToLessonPage}></Route>
         </Switch>
     </div>
   );

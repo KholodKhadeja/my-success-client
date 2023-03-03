@@ -1,17 +1,30 @@
 @import "../../App.scss";
-.title-styling{
-display: flex;
-flex-direction: row;flex-wrap: nowrap !important;
-height: fit-content !important;
-gap: 0.3em !important;
+.title-styling {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap !important;
+  height: fit-content !important;
+  gap: 0.3em !important;
 }
 
-
-.title-bar{
-background-color: $basic-clr;
-width: 0.5em;
-height: 2.5em !important
+.title-bar {
+  background-color: $basic-clr;
+  width: 0.5em;
+  height: 2.5em !important;
 }
-.title-text{
-font-weight: 700;align-self: flex-end !important;
+.title-bar-sec {
+  background-color: $basic-clr;
+  width: 0.5em;
+  height: 2em !important;
+}
+.title-text {
+  font-weight: 700;
+  align-self: flex-end !important;
+  font-size: 20pt;
+}
+.title-text-sec {
+  font-weight: 700;
+  align-self: center !important;
+  font-size: 15pt !important;
+  justify-self: center !important;
 }
