@@ -49,68 +49,44 @@ const MainNavBar = () => {
             />
           </a>
           <button
-            className="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
+            className="navbar-toggler" type="button"   data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
+            aria-expanded="false"  aria-label="Toggle navigation"  >
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mb-lg-1 rightnav">
-              {navLinks.map((item, idx) => (
+              {authAdminLinks.map((item, idx) => (
                 <NavBarLinkPartial
                   key={"navlinks" + idx}
                   label={item.label}
-                  link={item.url}
-                />
+                  link={item.url} />
               ))}
             </ul>
           </div>
 
-          <div
-            className="collapse navbar-collapse justify-content-end"
-            id="navbarSupportedContent"
-          >
+          <div className="collapse navbar-collapse justify-content-end"  id="navbarSupportedContent" >
             <div className="d-flex justify-content-center">
               <ul className="navbar-nav mb-lg-0 rightnav">
                 {!isLoggedIn && (
                   <li className="nav-item">
                     <NavLink className="" to="/favoritelessons">
-                      <img
-                        className="navbar-fav-star-icon"
+                      <img className="navbar-fav-star-icon"
                         src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true"
-                        alt="עמוד המועדפים"
-                      />
-                    </NavLink>
-                  </li>
+                        alt="עמוד המועדפים" /> </NavLink></li>
                 )}
                 <li className="nav-item">
-                  <NavLink className="nav-link navig-btn" to="/login">
-                    התחבר
-                  </NavLink>
-                </li>
-                <li className="nav-item">
-                  <NavLink className="nav-link navig-btn" to="/register">
-                    הירשם
-                  </NavLink>
-                </li>
+                  <NavLink className="nav-link navig-btn" to="/login">   התחבר </NavLink> </li>
+                <li className="nav-item"> <NavLink className="nav-link navig-btn" to="/register"> הירשם </NavLink></li>
                 {/* show when loggedin */}
                 {!isLoggedIn && (
                   <Dropdown>
-                    <Dropdown.Toggle
-                      variant=""
-                      id=""
-                      className="dropdown-basic-item"
-                    >
+                    <Dropdown.Toggle variant="" id="" className="dropdown-basic-item" >
                       <img
                         className="profile-navbar-img"
                         src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/profile-img.png?raw=true"
-                        alt="profile image"
-                      />
+                        alt="profile image" />
                     </Dropdown.Toggle>
                     <Dropdown.Menu>
                       <Dropdown.Item className="list-item-dropdown">

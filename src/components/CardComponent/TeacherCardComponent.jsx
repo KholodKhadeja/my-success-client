@@ -43,7 +43,7 @@ const [imagePath, setImagePath] =  useState(basicPath);
 <span>15:00</span>
 </p>
 </div>
-<NavLink className="enter-lesson-btn" to="/">התחבר</NavLink>
+<NavLink className="enter-lesson-btn" to="/connecttolesson">התחבר</NavLink>
 
 
 </div>

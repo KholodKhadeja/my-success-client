@@ -1,0 +1,21 @@
+.lesson-timing-container {
+    padding: 10px;
+    height: fit-content !important;
+  text-align: right !important;
+  display: flex;
+  flex-direction: row !important;
+  gap: 0.5rem;
+
+  svg{
+    height: fit-content !important;
+    margin-top: 3px;
+    // align-self:flex-start !important;
+  }
+  p{
+    height: fit-content !important;
+  }
+}
+.iframe-class{
+    border: 6px solid;
+    border-image: linear-gradient(to bottom right, #C780FA, #B3FA80) 7;
+}
