@@ -9,17 +9,44 @@ import Form from "react-bootstrap/Form";
 import "./adminpage.scss";
 
 const AdminPage = () => {
-    const [show, setShow] = useState(false);
+    const [serialNum, setSerialNum] = useState(1);
+        const [show, setShow] = useState(false);
+        const [show2, setShow2] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+
+    const handleClose2 = () => setShow2(false);
+    const handleShow2 = () => setShow2(true);
+
     const [userChosenRole, setUserChosenRole] = useState(null);
     const [showClass, setShowClass] = useState(false);
     const [showSpecialization, setShowSpecialization] = useState(false);
+    const [userData,setUserData] = useState({
+    num:{serialNum},
+      firstName:"",
+      lastName:"",
+      email:"",
+      password:"",
+      role:{userChosenRole},
+      class:null,
+      specialization:""
+    });
   
     const handleRoleChosing = (ev) => {
       setUserChosenRole(ev.target.value);
     };
+    const handleUserInputsEditing =()=>{
+
+    }
   
+    const handleUserInputs = (ev) =>{
+        let userInfo=JSON.parse(JSON.stringify(userData));
+        if(userInfo.hasOwnProperty(ev.target.id)){
+          userInfo[ev.target.id]=ev.target.value;
+          setUserData(userInfo);
+        }
+    }
+
     useEffect(() => {
       if(userChosenRole === "teacher"){
         setShowClass(false); setShowSpecialization(true);
@@ -75,19 +102,25 @@ const AdminPage = () => {
         <Modal.Body>
           <Form>
         <br />
-        <Form.Group className="mb-2 names-div" controlId="formBasicName">
-          <Form.Control className="form-controll short-input" type="text" placeholder="שם פרטי" />
+        <Form.Group className="mb-2 names-div" >
+          <Form.Control id="firstName" className="form-controll short-input" type="text" placeholder="שם פרטי" 
+          value={userData.firstName} onChange={handleUserInputs}/>
           <Form.Control
-            className="form-controll short-input" type="text" placeholder="שם משפחה" />
+            className="form-controll short-input" type="text" placeholder="שם משפחה" id="lastName"
+            value={userData.lastName} onChange={handleUserInputs} />
         </Form.Group>
         <Form.Group className="mb-2" >
-          <Form.Control className="form-controll" type="text" placeholder="דואר אלקטרוני" />
+          <Form.Control className="form-controll" type="text" placeholder="דואר אלקטרוני"  id="email"
+          value={userData.email} onChange={handleUserInputs}
+          />
         </Form.Group>
         <Form.Group className="mb-2" >
-         <Form.Control className="form-controll" type="password" placeholder="סיסמה" />
+         <Form.Control className="form-controll" type="password" placeholder="סיסמה" id="password"
+         value={userData.password} onChange={handleUserInputs}
+         />
         </Form.Group>
         <Form.Group className="mb-2 names-div" >
-          <Form.Select  aria-label="Default select example" className="short-input form-controll" value={userChosenRole} 
+          <Form.Select  aria-label="Default select example" id="role" className="short-input form-controll" value={userChosenRole} 
           onChange={handleRoleChosing} >
             <option>בחר תפקיד</option>
             <option value="teacher">מורה</option>
@@ -96,14 +129,70 @@ const AdminPage = () => {
           {showClass&&(
             <Form.Control
               className="form-controll short-input"
-              type="text"
-              placeholder="כיתה"
+              type="text" id="class"
+              placeholder="כיתה" value={userData.class} onChange={handleUserInputs}
             /> )}
           {showSpecialization&&(
-            <Form.Control
+            <Form.Control id="specialization" 
               className="form-controll short-input"
               type="text"
-              placeholder="התמחות" /> )}
+              placeholder="התמחות" value={userData.specialization} onChange={handleUserInputs}/> )}
+        </Form.Group>
+      </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button className="add-lesson-btn" onClick={handleClose}>
+            הוספת משתמש
+          </Button>
+          <Button variant="secondary" className="btn-danger" onClick={handleClose}>
+            ביטול
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+{/* ******************************Editing Modal********************************* */}
+      <Modal show={show2} onHide={handleClose2}>
+        <Modal.Header closeButton>
+          <Modal.Title>הוספת משתמש</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+        <br />
+        <Form.Group className="mb-2 names-div" >
+          <Form.Control id="firstName" className="form-controll short-input" type="text" placeholder="שם פרטי" 
+          value={userData.firstName} onChange={handleUserInputsEditing}/>
+          <Form.Control
+            className="form-controll short-input" type="text" placeholder="שם משפחה" id="lastName"
+            value={userData.lastName} onChange={handleUserInputsEditing} />
+        </Form.Group>
+        <Form.Group className="mb-2" >
+          <Form.Control className="form-controll" type="text" placeholder="דואר אלקטרוני"  id="email"
+          value={userData.email} onChange={handleUserInputsEditing}
+          />
+        </Form.Group>
+        <Form.Group className="mb-2" >
+         <Form.Control className="form-controll" type="password" placeholder="סיסמה" id="password"
+         value={userData.password} onChange={handleUserInputsEditing}
+         />
+        </Form.Group>
+        <Form.Group className="mb-2 names-div" >
+          <Form.Select  aria-label="Default select example" id="role" className="short-input form-controll" value={userChosenRole} 
+          onChange={handleRoleChosing} >
+            <option>בחר תפקיד</option>
+            <option value="teacher">מורה</option>
+            <option value="student">תלמיד</option>
+          </Form.Select>
+          {showClass&&(
+            <Form.Control
+              className="form-controll short-input"
+              type="text" id="class"
+              placeholder="כיתה" value={userData.class} onChange={handleUserInputsEditing}
+            /> )}
+          {showSpecialization&&(
+            <Form.Control id="specialization" 
+              className="form-controll short-input"
+              type="text"
+              placeholder="התמחות" value={userData.specialization} onChange={handleUserInputsEditing}/> )}
         </Form.Group>
       </Form>
         </Modal.Body>
