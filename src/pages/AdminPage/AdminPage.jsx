@@ -4,7 +4,7 @@ import { Fragment } from 'react';
 import UserInfoRow from './UserInfoRow';
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Form from "react-bootstrap/Form";
 import "./adminpage.scss";
 
@@ -12,6 +12,22 @@ const AdminPage = () => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [userChosenRole, setUserChosenRole] = useState(null);
+    const [showClass, setShowClass] = useState(false);
+    const [showSpecialization, setShowSpecialization] = useState(false);
+  
+    const handleRoleChosing = (ev) => {
+      setUserChosenRole(ev.target.value);
+    };
+  
+    useEffect(() => {
+      if(userChosenRole === "teacher"){
+        setShowClass(false); setShowSpecialization(true);
+      }
+      if(userChosenRole === "student"){
+        setShowClass(true); setShowSpecialization(false);
+      }
+    }, [userChosenRole]);
 
     return (
         <Fragment>
@@ -51,22 +67,45 @@ const AdminPage = () => {
                  classN={"none"} />
             </div>
 
-
-
  {/* *********************************THIS IS THE MODAL *****************************************/}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>הוספת משתמש</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <span>
-            <TitleFunctionSmall className="title-text-sec" text={"הוספת משתמש"} />
-          </span> 
-          <br />
-          <Form.Control type="text" className="add-lesson-inputs mb-1" placeholder="שם השיעור"  />
-          <Form.Control type="text" className="add-lesson-inputs mb-1" placeholder="נושא השיעור"   />
-
-          <Form.Control type="text" className="add-lesson-inputs mb-1" placeholder="קישור לזום"  />
+          <Form>
+        <br />
+        <Form.Group className="mb-2 names-div" controlId="formBasicName">
+          <Form.Control className="form-controll short-input" type="text" placeholder="שם פרטי" />
+          <Form.Control
+            className="form-controll short-input" type="text" placeholder="שם משפחה" />
+        </Form.Group>
+        <Form.Group className="mb-2" >
+          <Form.Control className="form-controll" type="text" placeholder="דואר אלקטרוני" />
+        </Form.Group>
+        <Form.Group className="mb-2" >
+         <Form.Control className="form-controll" type="password" placeholder="סיסמה" />
+        </Form.Group>
+        <Form.Group className="mb-2 names-div" >
+          <Form.Select  aria-label="Default select example" className="short-input form-controll" value={userChosenRole} 
+          onChange={handleRoleChosing} >
+            <option>בחר תפקיד</option>
+            <option value="teacher">מורה</option>
+            <option value="student">תלמיד</option>
+          </Form.Select>
+          {showClass&&(
+            <Form.Control
+              className="form-controll short-input"
+              type="text"
+              placeholder="כיתה"
+            /> )}
+          {showSpecialization&&(
+            <Form.Control
+              className="form-controll short-input"
+              type="text"
+              placeholder="התמחות" /> )}
+        </Form.Group>
+      </Form>
         </Modal.Body>
         <Modal.Footer>
           <Button className="add-lesson-btn" onClick={handleClose}>
@@ -77,7 +116,6 @@ const AdminPage = () => {
           </Button>
         </Modal.Footer>
       </Modal>
-
         </Fragment>
     );
 }
