@@ -16,10 +16,15 @@ import TitleFunctionSmall from "../../partial/TitleComponent/TitleFunctionSmall"
 
 let allMyLessons = [];
 const MyLessonsPage = () => {
-  const [show, setShow] = useState(false);
   const [selectedDate, setSelectedDate] = useState(null);
+
+  const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [showSec, setShowSec] = useState(false);
+  const handleCloseSec = () => setShowSec(false);
+  const handleShowSec = () => setShowSec(true);
 
   const [lessons, setLessons] = useState(allMyLessons);
   let [active, setActive] = useState(1);
@@ -61,14 +66,16 @@ const MyLessonsPage = () => {
             </div>
           </div>
         </div>
-
+       
         <div className="lessons-div-lessons">
           {/* for students show this */}
           {/* <CardComponent key={0}/> */}
           {/* for teachers show this */}
-          <TeacherCardComponent />
-          <TeacherCardComponent />
-          <TeacherCardComponent />
+          <TeacherCardComponent subject={"מתמטיקה"} topic={"היקף עיגול"} teachername={"מרווה נאטור"} date={"24-01-2023"}
+          hour={"15:00"} learningLevel={"3"} zoomLink={" "}/>
+           <TeacherCardComponent subject={"אנגלית"} topic={"הבנת הנקרא G"} teachername={"אמירה מנסור"} 
+           date={"25-01-2023"} hour={"15:00"} learningLevel={"4"}/>
+
         </div>
         {/* <div className='pagination-cont'>
             <Pagination size="sm">{items}</Pagination>
@@ -87,7 +94,7 @@ const MyLessonsPage = () => {
           <br />
           <Form.Control type="text" className="add-lesson-inputs mb-1" placeholder="שם השיעור"  />
           <Form.Control type="text" className="add-lesson-inputs mb-1" placeholder="נושא השיעור"   />
-          <Form.Select aria-label="Default select example" className="add-lesson-inputs mb-1">
+          {/* <Form.Select aria-label="Default select example" className="add-lesson-inputs mb-1">
       <option>יום</option>
       <option value="1">א</option>
       <option value="2">ב</option>
@@ -96,9 +103,9 @@ const MyLessonsPage = () => {
       <option value="5">ה</option>
       <option value="6">ו</option>
       <option value="7">שבת</option>
-    </Form.Select>
+    </Form.Select> */}
 
-          <DatePicker
+   <DatePicker
       selected={selectedDate}
       onChange={date => setSelectedDate(date)}
       dateFormat="yyyy-mm-dd"

@@ -25,6 +25,7 @@ const AdminPage = () => {
     num:{serialNum},
       firstName:"",
       lastName:"",
+      checked: true,
       email:"",
       password:"",
       role:{userChosenRole},
@@ -78,20 +79,19 @@ const AdminPage = () => {
 
             <div className='admin-page-rows-group'>
                 <div className='admin-page-rows-group-row'>
-                <p></p>
+                <p>מס'</p>
                  <p>משתמש</p>
                  <p>פעיל</p>
             <p>דואר אלקטרוני</p>
             <p>תפקיד</p>
             <p>כיתה</p>
-            <div></div>
+            <p>התמחות</p>
+            <p></p> <p></p>
                 </div>
-                <UserInfoRow num={1} name={"ח'ולוד ח'דיגה"} checked={"true"} email={"kholod@lnet.co.il"} role={"admin"}
-                 classN={"none"} />
-                      <UserInfoRow num={2} name={"ח'ולוד ח'דיגה"} checked={"true"} email={"kholod@lnet.co.il"} role={"admin"}
-                 classN={"none"} />
-                      <UserInfoRow num={3} name={"ח'ולוד ח'דיגה"} checked={"true"} email={"kholod@lnet.co.il"} role={"admin"}
-                 classN={"none"} />
+                <UserInfoRow num={1} firstName={" ח'ולוד"}  lastName={"ח'דיגה"} checked={"true"} email={"kholod@lnet.co.il"} password={"KK123456"} 
+                role={"מורה"} classN={"-"} specialization={"אנגלית"}/>
+                <UserInfoRow num={2} firstName={" ח'ולוד"}  lastName={"ח'דיגה"} checked={"true"} email={"kholod@lnet.co.il"} role={"תלמיד"}
+                 classN={"י'1"}  specialization={"-"} password={"KK123456"} />
             </div>
 
  {/* *********************************THIS IS THE MODAL *****************************************/}

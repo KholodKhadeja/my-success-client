@@ -27,8 +27,8 @@ let authTeacherStudLinks = [
 ];
 let authAdminLinks = [
   {
-    label: "השיעורים שלי",
-    url: "/mylessons",
+    label: "שיעורים",
+    url: "/lessons",
   },
   {
     label: "ניהול משתמשים",
@@ -42,12 +42,12 @@ const MainNavBar = () => {
     <Fragment>
       <nav className="shadow p-2 mb-3 navbar navbar-expand-lg sticky-top">
         <div className="container-fluid">
-          <a className="navbar-brand" href="#">
+          <NavLink  className="navbar-brand" to="/home">
             <img
               src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/logo.png?raw=true"
               className="logo-img"
             />
-          </a>
+          </NavLink>
           <button
             className="navbar-toggler" type="button"   data-bs-toggle="collapse"
             data-bs-target="#navbarSupportedContent"
@@ -57,7 +57,7 @@ const MainNavBar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mb-lg-1 rightnav">
-              {authAdminLinks.map((item, idx) => (
+              {navLinks.map((item, idx) => (
                 <NavBarLinkPartial
                   key={"navlinks" + idx}
                   label={item.label}

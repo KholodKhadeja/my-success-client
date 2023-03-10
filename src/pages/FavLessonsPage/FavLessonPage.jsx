@@ -7,10 +7,9 @@ import { useState } from "react";
 let favUserLessonsArray=[];
 const FavLessonPage = () => {
    let [userLessonsArray, setUserLessonsArray] = useState(favUserLessonsArray);
-
     return (
 <Fragment>
-<div className='large-section lessons-section'>
+<div className='lessons-section mini-large-section'>
 <div className="upper-div">
      <span>
      <TitleFunction text={"השיעורים המועדפים"}/></span>
@@ -22,8 +21,7 @@ const FavLessonPage = () => {
 </svg>
 </span>
 </div></div></div>
-
-<div className='lessons-div-lessons'> 
+<div className='mt-5 lessons-div-lessons'> 
 <CardComponent />
 <CardComponent />
 <CardComponent />

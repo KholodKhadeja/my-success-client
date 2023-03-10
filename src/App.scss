@@ -18,8 +18,13 @@ $font-family: "Assistant";
   text-align: center;
   font-family: $font-family;
 }
+
 .large-section{
-  height: 60vh !important;
+  height: 50vh !important;
+}
+
+.mini-large-section{
+  height: 10vh !important;
 }
 .pagination{
   .active{
