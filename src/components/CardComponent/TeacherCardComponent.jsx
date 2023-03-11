@@ -16,6 +16,11 @@ const TeacherCardComponent = ({key, subject,topic, teachername,date, hour, learn
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+
+  const [showSec, setShowSec] = useState(false);
+  const handleCloseSec = () => setShowSec(false);
+  const handleShowSec = () => setShowSec(true);
+
   const [lessonDetails, setLessonDetails] = useState({
     subject: subject,
     topic: topic,
@@ -45,7 +50,7 @@ return (
                 <img className='teacher-btns-div-img' src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/Pencil.png?raw=true"
                  alt="edit icon" onClick={handleShow}/>
                    <img className='teacher-btns-div-img' src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/Remove.png?raw=true"
-                 alt="delete icon"/>
+                 alt="delete icon" onClick={handleShowSec}/>
             </div>
 <div className='section-1'>
      <div className='card-img-container'>
@@ -78,7 +83,7 @@ return (
 }
 
 
-      {/* THIS IS THE MODAL */}
+{/* THIS IS THE MODAL */}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>עריכת שיעור</Modal.Title>
@@ -119,8 +124,19 @@ return (
           </Button>
         </Modal.Footer>
       </Modal>
-</Fragment>
-    );
+
+
+<Modal show={showSec} onHide={handleCloseSec}>
+<Modal.Header closeButton>
+  <Modal.Title>מחיקת שיעור</Modal.Title>
+</Modal.Header>
+<Modal.Body>רוצה למחוק את השיעור סופית מהמערכת?</Modal.Body>
+<Modal.Footer>
+<Button variant="danger" onClick={handleCloseSec}>  למחוק</Button>
+  <Button variant="secondary" onClick={handleCloseSec}> ביטול</Button>
+</Modal.Footer>
+</Modal>
+</Fragment> );
 }
 
 export default TeacherCardComponent;
