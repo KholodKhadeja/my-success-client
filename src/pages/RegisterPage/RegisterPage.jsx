@@ -32,7 +32,7 @@ const RegisterPage = () => {
           src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/logo.png?raw=true"
         />
         <br />
-        <Form.Group className="mb-2 names-div" controlId="formBasicName">
+        <Form.Group className="mb-2 names-div" id="firstname">
           <Form.Control
             className="form-controll short-input"
             type="text"
@@ -41,35 +41,35 @@ const RegisterPage = () => {
           <Form.Control
             className="form-controll short-input"
             type="text"
-            placeholder="שם משפחה"
+            placeholder="שם משפחה" id="lastname"
           />
         </Form.Group>
         <Form.Group className="mb-2" >
           <Form.Control
             className="form-controll"
             type="text"
-            placeholder="דואר אלקטרוני"
+            placeholder="דואר אלקטרוני" id="email"
           />
         </Form.Group>
         <Form.Group className="mb-2" >
           <Form.Control
             className="form-controll"
             type="text"
-            placeholder="אימות דואר אלקטרוני"
+            placeholder="אימות דואר אלקטרוני" id="email"
           />
         </Form.Group>
         <Form.Group className="mb-2" >
           <Form.Control
             className="form-controll"
             type="password"
-            placeholder="סיסמה"
+            placeholder="סיסמה" id="password"
           />
         </Form.Group>
         <Form.Group className="mb-2" >
           <Form.Control
             className="form-controll"
             type="password"
-            placeholder="אימות סיסמה"
+            placeholder="אימות סיסמה" id="password"
           />
         </Form.Group>
         <Form.Group className="mb-2 names-div" >
@@ -77,7 +77,7 @@ const RegisterPage = () => {
             aria-label="Default select example"
             className="short-input form-controll"
             value={userChosenRole}
-            onChange={handleRoleChosing}
+            onChange={handleRoleChosing} id="role"
           >
             <option>בחר תפקיד</option>
             <option value="teacher">מורה</option>
@@ -86,13 +86,13 @@ const RegisterPage = () => {
           {showClass&&(
             <Form.Control
               className="form-controll short-input"
-              type="text"
+              type="text" id="class"
               placeholder="כיתה"
             /> )}
           {showSpecialization&&(
             <Form.Control
               className="form-controll short-input"
-              type="text"
+              type="text" id="specialization"
               placeholder="התמחות" /> )}
         </Form.Group>
         <Button variant="primary" type="submit" className="register-btn">

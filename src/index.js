@@ -10,7 +10,7 @@ import "../node_modules/react-bootstrap/dist/react-bootstrap.js";
 import axios from "axios";
 import { Provider } from "react-redux";
 import { BrowserRouter } from 'react-router-dom';
-import store from "./store/index";
+import store from "../src/store/index";
 
 axios.defaults.baseURL = `https://my-success.onrender.com/api`;
 axios.interceptors.request.use((config) => {
@@ -22,11 +22,11 @@ axios.interceptors.request.use((config) => {
 });
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-  // <Provider Store={store}>
+  <Provider store={store}>
   <BrowserRouter>
     <App />
   </BrowserRouter>
-  // </Provider>
+  </Provider>
 );
 
 reportWebVitals();

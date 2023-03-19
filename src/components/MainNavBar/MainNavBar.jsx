@@ -1,43 +1,27 @@
 import React, { Fragment, useState } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import "./navbarstyling.scss";
 import NavBarLinkPartial from "../../partial/PartialNavBarItem/Navbarlinkpartial";
 import { NavLink } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
-
-let navLinks = [
-  {
-    label: "ראשי",
-    url: "/home",
-  },
-  {
-    label: "שיעורים",
-    url: "/lessons",
-  },
-  {
-    label: "השיעורים שלי",
-    url: "/mylessons",
-  },
-];
-
-let authTeacherStudLinks = [
-  {
-    label: "השיעורים שלי",
-    url: "/mylessons",
-  },
-];
-let authAdminLinks = [
-  {
-    label: "שיעורים",
-    url: "/lessons",
-  },
-  {
-    label: "ניהול משתמשים",
-    url: "/usersadmin",
-  },
-];
+import { authActions } from "../../store/auth";
 
 const MainNavBar = () => {
-  const [isLoggedIn, setILoggedIn] = useState(false);
+  let navLinks = [{label: "ראשי",url: "/home", },
+    {label: "שיעורים", url: "/lessons", },];
+
+  let authTeacherStudLinks = [
+   {label: "השיעורים שלי",url: "/mylessons",}, ];
+
+  let authAdminLinks = [
+   {label: "שיעורים",url: "/lessons", },
+    {label: "ניהול משתמשים",url: "/usersadmin", },];
+
+  const dispatch=useDispatch();
+const loggedIn=useSelector((state)=>state.auth.loggedIn);
+const userRole = useSelector((state)=>state.auth.role);
+const loggedInUserData=useSelector((state)=> state.auth.userInfo);
+
   return (
     <Fragment>
       <nav className="shadow p-2 mb-3 navbar navbar-expand-lg sticky-top">
@@ -57,7 +41,13 @@ const MainNavBar = () => {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav mb-lg-1 rightnav">
-              {navLinks.map((item, idx) => (
+              { !loggedIn && navLinks.map((item, idx) => (
+                <NavBarLinkPartial
+                  key={"navlinks" + idx}
+                  label={item.label}
+                  link={item.url} />
+              ))}
+             { loggedIn && userRole !=="admin" && authTeacherStudLinks.map((item, idx) => (
                 <NavBarLinkPartial
                   key={"navlinks" + idx}
                   label={item.label}
@@ -69,18 +59,19 @@ const MainNavBar = () => {
           <div className="collapse navbar-collapse justify-content-end"  id="navbarSupportedContent" >
             <div className="d-flex justify-content-center">
               <ul className="navbar-nav mb-lg-0 rightnav">
-                {!isLoggedIn && (
+                {loggedIn && userRole == "student" && (
                   <li className="nav-item">
                     <NavLink className="" to="/favoritelessons">
                       <img className="navbar-fav-star-icon"
                         src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true"
                         alt="עמוד המועדפים" /> </NavLink></li>
                 )}
-                <li className="nav-item">
-                  <NavLink className="nav-link navig-btn" to="/login">   התחבר </NavLink> </li>
-                <li className="nav-item"> <NavLink className="nav-link navig-btn" to="/register"> הירשם </NavLink></li>
+                {!loggedIn &&(<li className="nav-item">
+                  <NavLink className="nav-link navig-btn" to="/login">  התחבר </NavLink> </li>)}
+                    {!loggedIn &&(
+                <li className="nav-item"> <NavLink className="nav-link navig-btn" to="/register"> הירשם </NavLink></li>)}
                 {/* show when loggedin */}
-                {!isLoggedIn && (
+                {loggedIn && (
                   <Dropdown>
                     <Dropdown.Toggle variant="" id="" className="dropdown-basic-item" >
                       <img
@@ -91,19 +82,10 @@ const MainNavBar = () => {
                     <Dropdown.Menu>
                       <Dropdown.Item className="list-item-dropdown">
                         <NavLink
-                          to="/showdetails"
-                          className="none-decoration-navlink"
-                        >
-                          הצג פרטים
-                        </NavLink>
+                          to="/showdetails" className="none-decoration-navlink">  הצג פרטים </NavLink>
                       </Dropdown.Item>
                       <Dropdown.Item className="list-item-dropdown">
-                        <NavLink
-                          to="/showdetails"
-                          className="none-decoration-navlink"
-                        >
-                          התנתק
-                        </NavLink>
+                        <NavLink to="/showdetails" className="none-decoration-navlink"> התנתק </NavLink>
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>

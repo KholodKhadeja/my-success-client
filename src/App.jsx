@@ -1,4 +1,9 @@
 import logo from './logo.svg';
+import { useState, useEffect } from "react";
+import { ToastContainer } from "react-toastify";
+import { useDispatch, useSelector } from "react-redux";
+import { authActions } from "./store/auth";
+import jwt_decode from "jwt-decode";
 import './App.scss';
 import MainNavBar from "./components/MainNavBar/MainNavBar";
 import Homepage from './pages/HomePage/Homepage';
@@ -12,8 +17,19 @@ import FavLessonPage from './pages/FavLessonsPage/FavLessonPage';
 import ShowDetails from './pages/ShowDetails/ShowDetails';
 import AdminPage from './pages/AdminPage/AdminPage';
 import ConnectToLessonPage from './pages/ConnectToLesson/ConnectToLessonPage';
+import useAutoLogin from "./hooks/useAutoLogin";
 
 function App() {
+  const autoLoginFunction = useAutoLogin();
+  const loggedIn = useSelector((state) => state.auth.loggedIn);
+  const [tryToLogin, setTryToLogin] = useState(true);
+
+  useEffect(() => {
+    (async () => {
+      let status = await autoLoginFunction(localStorage.getItem("token")); if (status === false) {setTryToLogin(false); }
+    })(); }, []);
+  useEffect(() => {if (loggedIn === true && tryToLogin === true) { setTryToLogin(false);  }}, [loggedIn]);
+
   return (
     <div className="App container">
       <MainNavBar />
