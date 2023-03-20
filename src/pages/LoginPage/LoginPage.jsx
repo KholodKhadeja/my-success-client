@@ -29,6 +29,33 @@ const LoginPage = () => {
   const handleSubmit = (ev) => {
     console.log("the handle function");
     ev.preventDefault();
+    axios.post("/auth/login", userInput).then(async (res) => {
+      console.log("login attempt");
+      toast.success('Logged in successfully!', {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+        localStorage.setItem("token", res.data.token);
+        autoLoginFunction(res.data.token);
+        history.push("/home");
+      })
+      .catch((err) => {
+        toast.error("😭 Something went wrong", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      });
     const { error } = validate(userInput, loginSchema);
     if (error) {
       let errorMsgs = "";
@@ -56,33 +83,6 @@ const LoginPage = () => {
       });
       return;
     }
-    axios.post("/auth/login", userInput).then(async (res) => {
-      console.log("login attempt");
-      toast.success('🦄 Wow so easy!', {
-        position: "bottom-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-        });
-        localStorage.setItem("token", res.data.token);
-        autoLoginFunction(res.data.token);
-        history.push("/home");
-      })
-      .catch((err) => {
-        toast.error("😭 Something went wrong", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      });
   };
 
   const handleEmailInputInvalid = (ev) => {

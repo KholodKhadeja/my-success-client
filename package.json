@@ -58,5 +58,6 @@
       "last 1 safari version"
     ]
   },
-  "proxy": "https://my-success.onrender.com"
+  
+  "proxy": ["https://my-success.onrender.com"]
 }
