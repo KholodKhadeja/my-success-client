@@ -8,13 +8,13 @@ const useAutoLogin = () => {
   const dispatch = useDispatch();
   const autoLoginFunction = async (token) => {
     try {
-      let { data } = await autoLogin();
+      // let { data } = await autoLogin();
       let dataFromToken = jwt_decode(token);
-      if (data) {
+      // if (data) {
         dispatch(authActions.login(dataFromToken));
-        dispatch(authActions.updateUserInfo(data));
-        return true;
-      }
+        dispatch(authActions.updateUserInfo(dataFromToken));
+      //   return true;
+      // }
     } catch (err) {
       return false;  } };
   return autoLoginFunction;

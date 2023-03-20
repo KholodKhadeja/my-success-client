@@ -9,6 +9,7 @@ const NavBarLinkPartial = ({ label, link }) => {
         isActive={(match, location) => match && match.isExact} >
         {label}
       </NavLink>
+
     </li>
   );
 };

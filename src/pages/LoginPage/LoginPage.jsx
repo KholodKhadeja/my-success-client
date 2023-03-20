@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import useAutoLogin from "../../hooks/useAutoLogin";
 import { useHistory } from "react-router-dom";
 
+
 const LoginPage = () => {
   const [userInput, setUserInput] = useState({
     email: "",
@@ -22,15 +23,16 @@ const LoginPage = () => {
     emailRef.current.focus();
   }, []);
   const handleUserInputChange = (ev) => {
+    ev.preventDefault();
     let newUserInput = JSON.parse(JSON.stringify(userInput)); 
-    newUserInput[ev.target.id] = ev.target.label;
+    newUserInput[ev.target.id] = ev.target.value;
     setUserInput(newUserInput); };
 
   const handleSubmit = (ev) => {
-    console.log("the handle function");
     ev.preventDefault();
+    const { error } = validate(userInput, loginSchema);
+
     axios.post("/auth/login", userInput).then(async (res) => {
-      console.log("login attempt");
       toast.success('Logged in successfully!', {
         position: "bottom-center",
         autoClose: 5000,
@@ -46,7 +48,7 @@ const LoginPage = () => {
         history.push("/home");
       })
       .catch((err) => {
-        toast.error("😭 Something went wrong", {
+        toast.error("Something went wrong ${err}", {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,
@@ -56,33 +58,32 @@ const LoginPage = () => {
           progress: undefined,
         });
       });
-    const { error } = validate(userInput, loginSchema);
-    if (error) {
-      let errorMsgs = "";
-      for (let errorItem of error.details) {
-        switch (errorItem.type) {
-          case "string.min":
-            errorMsgs += `${errorItem.context.label} length must be at least ${errorItem.context.limit} characters long, `;
-            break;
-          case "string.max":
-            errorMsgs += `${errorItem.context.label} length must be at least ${errorItem.context.limit} characters long, `;
-            break;
-          default:
-            errorMsgs += "something went wrong,";
-            break;
+      if (error) {
+        let errorMsgs = "";
+        for (let errorItem of error.details) {
+          switch (errorItem.type) {
+            case "string.min":
+              errorMsgs += `${errorItem.context.label} length must be at least ${errorItem.context.limit} characters long, `;
+              break;
+            case "string.max":
+              errorMsgs += `${errorItem.context.label} length must be at least ${errorItem.context.limit} characters long, `;
+              break;
+            default:
+              errorMsgs += "something went wrong,";
+              break;
+          }
         }
+        toast.error(errorMsgs, {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+        return;
       }
-      toast.error(errorMsgs, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-      });
-      return;
-    }
   };
 
   const handleEmailInputInvalid = (ev) => {
@@ -92,23 +93,21 @@ const LoginPage = () => {
         <div>
                <span>
                  <TitleFunction text={"התחברות"}/></span>
-
-                 <Form  onSubmit={handleSubmit}>
-                <img className="register-img" src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/logo.png?raw=true" />
+<Form>
+<img className="register-img" src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/logo.png?raw=true" />
       <br/>
-
       <Form.Group className="mb-2">
-        <Form.Control className="form-controll" type="text" placeholder="דואר אלקטרוני" id="email" label={userInput.email}
+        <Form.Control className="form-controll" type="text" placeholder="דואר אלקטרוני" id="email" value={userInput.email}
           onChange={handleUserInputChange}
           onInvalid={handleEmailInputInvalid}
           ref={emailRef} />
       </Form.Group>
 
       <Form.Group className="mb-2">
-        <Form.Control className="form-controll" type="password" placeholder="סיסמה" id="password" label={userInput.password} 
+        <Form.Control className="form-controll" type="password" placeholder="סיסמה" id="password" value={userInput.password} 
         onChange={handleUserInputChange}/>
       </Form.Group>
-      <Button variant="primary" type="submit" className="register-btn">
+      <Button variant="primary" type="submit" className="register-btn" onClick={handleSubmit}>
   התחברות
       </Button>
     </Form>

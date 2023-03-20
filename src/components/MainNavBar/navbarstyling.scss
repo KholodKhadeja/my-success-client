@@ -49,9 +49,11 @@ nav{
 //     list-style: none !important;
 // }
 .none-decoration-navlink{
+    background-color:transparent !important;border: none !important;
     text-align: right !important;color:$basic-clr !important;
     text-decoration: none !important;
     list-style: none !important;
+   
 }
 .dropdown-basic-item{
   height: 50px !important;

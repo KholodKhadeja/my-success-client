@@ -1,26 +1,37 @@
-import React, { Fragment, useState } from "react";
+import { Fragment, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import "./navbarstyling.scss";
 import NavBarLinkPartial from "../../partial/PartialNavBarItem/Navbarlinkpartial";
 import { NavLink } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import { authActions } from "../../store/auth";
+import { useHistory } from "react-router-dom";
+import jwt_decode from "jwt-decode";
 
 const MainNavBar = () => {
   let navLinks = [{label: "ראשי",url: "/home", },
     {label: "שיעורים", url: "/lessons", },];
 
   let authTeacherStudLinks = [
+    {label: "ראשי",url: "/home", },
    {label: "השיעורים שלי",url: "/mylessons",}, ];
 
   let authAdminLinks = [
+    {label: "ראשי",url: "/home", },
    {label: "שיעורים",url: "/lessons", },
     {label: "ניהול משתמשים",url: "/usersadmin", },];
 
-  const dispatch=useDispatch();
+const dispatch=useDispatch();  const history = useHistory();
 const loggedIn=useSelector((state)=>state.auth.loggedIn);
 const userRole = useSelector((state)=>state.auth.role);
-const loggedInUserData=useSelector((state)=> state.auth.userInfo);
+  // let dataFromToken = jwt_decode(localStorage.getItem("token"));
+  // userRole=dataFromToken.role;
+const handleLogoutBtnClick = () => {
+  localStorage.clear();
+  dispatch(authActions.logout());
+  history.push("/home");
+};
 
   return (
     <Fragment>
@@ -82,10 +93,10 @@ const loggedInUserData=useSelector((state)=> state.auth.userInfo);
                     <Dropdown.Menu>
                       <Dropdown.Item className="list-item-dropdown">
                         <NavLink
-                          to="/showdetails" className="none-decoration-navlink">  הצג פרטים </NavLink>
+                          to="/showdetails" className="none-decoration-navlink">הצג פרטים</NavLink>
                       </Dropdown.Item>
                       <Dropdown.Item className="list-item-dropdown">
-                        <NavLink to="/showdetails" className="none-decoration-navlink"> התנתק </NavLink>
+                        <button  className="none-decoration-navlink" onClick={handleLogoutBtnClick}>התנתק</button>
                       </Dropdown.Item>
                     </Dropdown.Menu>
                   </Dropdown>
