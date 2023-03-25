@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 
 const RegisterPage = () => {
   const history = useHistory();
-  const [userChosenRole, setUserChosenRole] = useState(null);
+  // const [userChosenRole, setUserChosenRole] = useState(null);
   const [showClass, setShowClass] = useState(false);
   const [showSpecialization, setShowSpecialization] = useState(false);
   const [userInput, setUserInput] = useState({
@@ -19,7 +19,7 @@ const RegisterPage = () => {
     lastname:"",
     password:"",
     passwordver:"",
-    role:userChosenRole,
+    role:"teacher",
     studentclass:"",
     specialization:"",
     userstatus:true,
@@ -34,8 +34,9 @@ const RegisterPage = () => {
 
   const submitRegisterForm = (ev) =>{
     ev.preventDefault();
-    console.log(userInput.email,userInput.firstname,userInput.lastname,userInput.password,userInput.role,userInput.studentclass,userInput.specialization,userInput.userstatus);
-    axios.post("/users/register", {
+    console.log(userInput.email,userInput.firstname,userInput.lastname,userInput.password,userInput.role,userInput.studentclass,userInput.specialization,
+      userInput.userstatus);
+    axios.post("/auth/register", {
         email:userInput.email,
         firstname:userInput.firstname,
         lastname:userInput.lastname,
@@ -46,6 +47,7 @@ const RegisterPage = () => {
         userstatus:userInput.userstatus,
       })
       .then((res) => {
+        console.log(res);
         toast.success('Registered Successfully', {
           position: "bottom-center",
           autoClose: 5000,
@@ -53,7 +55,6 @@ const RegisterPage = () => {
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
-          progress: undefined,
           theme: "light",
           });
         history.push("/login");
@@ -62,18 +63,19 @@ const RegisterPage = () => {
         console.log(err)
       });
   }
-  const handleRoleChosing = (ev) => {
-    setUserChosenRole(ev.target.value);
-  };
+
+  // const handleRoleChosing = (ev) => {
+  //   setUserChosenRole(ev.target.value);
+  // };
 
   useEffect(() => {
-    if(userChosenRole === "teacher"){
+    if(userInput.role === "teacher"){
       setShowClass(false); setShowSpecialization(true);
     }
-    if(userChosenRole === "student"){
+    if(userInput.role === "student"){
       setShowClass(true); setShowSpecialization(false);
     }
-  }, [userChosenRole]);
+  }, [userInput.role]);
   return (
     <div>
       <span>
@@ -126,15 +128,17 @@ const RegisterPage = () => {
           />
         </Form.Group>
         <Form.Group className="mb-2 names-div" >
+
           <Form.Select
             aria-label="Default select example"
             className="short-input form-controll"
-            value={userChosenRole}
-            onChange={handleRoleChosing} id="role" >
+            value={userInput.role}
+            onChange={handleUserInputChange} id="role" >
             <option>בחר תפקיד</option>
             <option value="teacher">מורה</option>
             <option value="student">תלמיד</option>
           </Form.Select>
+
           {showClass&&(
             <Form.Control
               className="form-controll short-input"
