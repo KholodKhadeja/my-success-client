@@ -22,11 +22,13 @@ const LoginPage = () => {
   useEffect(() => {
     emailRef.current.focus();
   }, []);
+
   const handleUserInputChange = (ev) => {
     ev.preventDefault();
     let newUserInput = JSON.parse(JSON.stringify(userInput)); 
     newUserInput[ev.target.id] = ev.target.value;
-    setUserInput(newUserInput); };
+    setUserInput(newUserInput); 
+  };
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
@@ -90,9 +92,8 @@ const LoginPage = () => {
     // ev.preventDefault();
   };
     return (
-        <div>
-               <span>
-                 <TitleFunction text={"התחברות"}/></span>
+     <div>
+       <span><TitleFunction text={"התחברות"}/></span>
 <Form>
 <img className="register-img" src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/logo.png?raw=true" />
       <br/>
