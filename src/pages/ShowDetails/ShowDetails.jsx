@@ -4,8 +4,9 @@ import axios from "axios";
 import TitleFunction from '../../partial/TitleComponent/TitleFunction';
 import "./showdetails.scss";
 
-let id;
+
 const ShowDetails = () => {
+    let myid;
     const loggedIn=useSelector((state)=>state.auth.loggedIn);
     const userData = useSelector((state)=>state.auth.userData);
 
@@ -20,9 +21,8 @@ const ShowDetails = () => {
 
 useEffect(() => {
    try{
-     console.log("userdata", userData);
-     id=userData.id;
-     console.log("this is the user data", userData);
+     myid=userData.id;
+     console.log(myid);
    }catch(err){
 
    }
@@ -32,25 +32,25 @@ useEffect(() => {
 useEffect(() => {
 (async()=>{
 try{
-    let { data } = await axios.get(`/getuserbyid/${id}`);
+    let { data } = await axios.get(`/getuserbyid/${myid}`);
     console.log(data, "data");
      setUserDetails({
-        firstname:data.firstname,
-        lastname:data.lastname,
-        email:data.email,
-        role:data.role,
-        studentclass:data.studentclass,
-        specialization:data.specialization
-    })
+       firstname: data.firstname,
+       lastname:data.lastname,
+       email:data.email,
+       role:data.role,
+       className: data.studentclass,
+       specialization: data.specialization
+     });
 }catch(err){
     console.log(err);
 }
 })();
-}, []);
+}, [myid]);
 
 return (
 <Fragment>
-     <span>
+     {/* <span>
     <TitleFunction text={"הצג פרטים"}/></span><div className='show-details-page-main-container'>
     <div className='show-details-page-img-cont'>
     <img className='show-details-page-img' src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/profile-img.png?raw=true" 
@@ -71,7 +71,7 @@ viewBox="0 0 16 16">
             (userDetails.specialization !== "") && (<p>{userDetails.specialization} </p>)
          </div>
      </div>
-        </div>
+        </div> */}
         </Fragment>
     );
 }
