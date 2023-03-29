@@ -32,7 +32,7 @@ useEffect(() => {
 useEffect(() => {
 (async()=>{
 try{
-    let { data } = await axios.get(`/getuserbyid/${myid}`);
+    let { data } = await axios.get(`users/getuserbyid/${myid}`);
     console.log(data, "data");
      setUserDetails({
        firstname: data.firstname,
