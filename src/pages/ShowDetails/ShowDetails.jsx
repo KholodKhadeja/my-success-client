@@ -22,6 +22,7 @@ useEffect(() => {
    try{
      console.log("userdata", userData);
      id=userData.id;
+     console.log("this is the user data", userData);
    }catch(err){
 
    }
