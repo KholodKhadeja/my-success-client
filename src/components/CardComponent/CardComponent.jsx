@@ -1,12 +1,14 @@
 import React, { Fragment } from 'react';
 import { useState } from 'react';
 import "./card-styling.scss";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { Link } from 'react-router-dom';
 
 
-const CardComponent = ({key}) => {
+const CardComponent = ({key,teachername,topic, subject,date, hour}) => {
   let basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";
 const [imagePath, setImagePath] =  useState(basicPath);
-
 const [startClicked, setStarClicked] = useState(false);
 const switchImg =()=>{
     if(!startClicked){
@@ -32,25 +34,25 @@ setImagePath(basicPath);
                  <div className='card-img-container'>
                        {/* <img src="" alt="teacher name" /> */}
                  </div>
-                 <p className='teacher-name'>שם המורה</p>
+                 <p className='teacher-name'>{teachername}</p>
             </div>
             <div className='section-2'>
                  <p>
                     <span>מקצוע: &nbsp;</span>
-                    <span>אנגלית, 3יח'</span>
+                    <span>{subject}</span>
                  </p>
                  <p>
                     <span>נושא: &nbsp;</span>
-                    <span>הבנת הנקרא C</span>
+                    <span>{topic}</span>
                  </p>
             </div>
 <div className='section-3'>
   <div>
     <p>
         <span>מתחיל ב:</span>
-        <span>24/01</span>
+        <span>{date}</span>
         <br/>
-        <span>15:00</span>
+        <span>{hour}</span>
     </p>
   </div>
 <button type="button" className="sign-up-lesson-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">

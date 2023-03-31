@@ -23,6 +23,9 @@ const RegisterPage = () => {
     studentclass:"",
     specialization:"",
     userstatus:true,
+    mylessons:[],
+    favlessons:[],
+    profileImg:"https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/profile-img.png?raw=true"
   });
   const handleUserInputChange = (ev) => {
     let newUserInput = JSON.parse(JSON.stringify(userInput));
@@ -34,8 +37,6 @@ const RegisterPage = () => {
 
   const submitRegisterForm = (ev) =>{
     ev.preventDefault();
-    console.log(userInput.email,userInput.firstname,userInput.lastname,userInput.password,userInput.role,userInput.studentclass,userInput.specialization,
-      userInput.userstatus);
     axios.post("/auth/register", {
         email:userInput.email,
         firstname:userInput.firstname,
@@ -45,6 +46,9 @@ const RegisterPage = () => {
         studentclass: userInput.studentclass,
         specialization:userInput.specialization,
         userstatus:userInput.userstatus,
+        mylessons:userInput.mylessons,
+        favlessons:userInput.favlessons,
+        profileImg:userInput.profileImg
       })
       .then((res) => {
         console.log(res);

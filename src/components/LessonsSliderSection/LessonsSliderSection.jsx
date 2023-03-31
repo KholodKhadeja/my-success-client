@@ -1,8 +1,35 @@
 import "./lessoncompstyling.scss";
 import TitleFunction from "../../partial/TitleComponent/TitleFunction";
 import CardComponent from "../CardComponent/CardComponent";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { Link } from 'react-router-dom';
+import { useState, useEffect } from "react";
 
+let OriginalLessonsArray=[];
 const LessonsSliderSection = () => {
+const [lessonsArr, setLessonsArr]=  useState(OriginalLessonsArray);
+useEffect(() => {
+    (async () => {
+      try {
+        let { data } = await axios.get("/lessons");
+        OriginalLessonsArray = data;
+        setLessonsArr(lessonsArr);
+        console.log(OriginalLessonsArray);
+      } catch (err) {
+        toast.error("😭 Something went wrong", {
+          position: "top-right",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+        });
+      }
+    })();
+  }, []);
+
     return (
         <div className='large-section lessons-section'>
            <div className="upper-div">
@@ -19,15 +46,18 @@ const LessonsSliderSection = () => {
            </div>
            
            <div className="lesson-div d-flex justify-content-around">
-            <CardComponent key={0}/>
-            <CardComponent key={1}/>
-            <CardComponent key={2}/>
-            <CardComponent key={3}/>
+           {lessonsArr.slice(0, 3).map((item, index) => (
+              <CardComponent key={index} teachername={item.teacherid} 
+              topic={item.topic}
+               subject={item.subject}
+               date={item.date}
+                hour = {item.hour}/>
+                ))}
            </div>
 
-           <div className="view-more-lessons">
+           <Link className="view-more-lessons" to="/">
             <p>ראו עוד</p>
-           </div>
+           </Link>
         </div>
     );
 }
