@@ -12,37 +12,24 @@ import { useHistory } from 'react-router-dom';
 
 let OriginalLessonsArray=[];
 const LessonsPage = () => {
-  const history = useHistory();
-
-let {search}=useParams();
-  const [searchWord, setSearchWord] = useState(search);
-  const [lessonsArr, setLessonsArr]=  useState(OriginalLessonsArray);
-
-  useEffect(() => {
-    let regex = new RegExp(searchWord, "i"); 
-    let lessonArrCopy = JSON.parse(JSON.stringify(OriginalLessonsArray)); 
-    console.log("lessons before", lessonArrCopy);
-    lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject) || regex.test(item.topic));
-    console.log("copy array", lessonArrCopy);
-    setLessonsArr(lessonArrCopy);
-  }, [searchWord]);
-  // const [lessons, setLessons] = useState(allLessons);
-let [active, setActive] = useState(1);
-// let [currentPage, setCurrentPage] = useState(active);
-// let lessonsPerPage=12;
-// let lastLessonIndex = currentPage * lessonsPerPage;
-// let firstLessonIndex = lastLessonIndex - lessonsPerPage;
-// currentLessons = lessons.slice(firstLessonIndex, lastLessonIndex); // the new array
-
+  let {search}=useParams();
+const [lessonsArr, setLessonsArr]=  useState(OriginalLessonsArray);
+const [searchWord, setSearchWord] = useState(search);
 
 
 useEffect(() => {
   (async () => {
     try {
       let { data } = await axios.get("/lessons");
-      OriginalLessonsArray = data;
+      OriginalLessonsArray = data; 
+      if(search==="" || search===null){
+        let lessonArrCopy = JSON.parse(JSON.stringify(OriginalLessonsArray)); 
+        setLessonsArr(lessonArrCopy);
+      }
+     else{
       setLessonsArr(OriginalLessonsArray);
-      history.replace(window.location.pathname);
+     }
+
     } catch (err) {
       toast.error("😭 Something went wrong", {
         position: "top-right",
@@ -56,6 +43,22 @@ useEffect(() => {
     }
   })();
 }, []);
+
+
+useEffect(() => {
+    let regex = new RegExp(searchWord, "i"); 
+    let lessonArrCopy = JSON.parse(JSON.stringify(OriginalLessonsArray)); 
+    lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject) || regex.test(item.topic));
+    setLessonsArr(lessonArrCopy);
+  }, [searchWord]);
+  // const [lessons, setLessons] = useState(allLessons);
+let [active, setActive] = useState(1);
+// let [currentPage, setCurrentPage] = useState(active);
+// let lessonsPerPage=12;
+// let lastLessonIndex = currentPage * lessonsPerPage;
+// let firstLessonIndex = lastLessonIndex - lessonsPerPage;
+// currentLessons = lessons.slice(firstLessonIndex, lastLessonIndex); // the new array
+
 
 
 let items = [];
