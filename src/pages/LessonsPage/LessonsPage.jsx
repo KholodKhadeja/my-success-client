@@ -22,7 +22,7 @@ let {search}=useParams();
     let regex = new RegExp(searchWord, "i"); 
     let lessonArrCopy = JSON.parse(JSON.stringify(OriginalLessonsArray)); 
     console.log("lessons before", lessonArrCopy);
-    lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject));
+    lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject) || regex.test(item.topic));
     console.log("copy array", lessonArrCopy);
     setLessonsArr(lessonArrCopy);
   }, [searchWord]);
