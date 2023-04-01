@@ -36,7 +36,8 @@ function App() {
       <Switch>
         <Route path="/" exact component={Homepage}></Route>
         <Route path="/home"  component={Homepage}></Route>
-        <Route path="/lessons" component={LessonsPage}></Route>
+        {/* <Route path="/lessons" component={LessonsPage}></Route> */}
+        <Route path="/lessons/:search" component={LessonsPage}></Route>
         <Route path="/mylessons" component={MyLessonsPage}></Route>
         <Route path="/login" component={LoginPage}></Route>
         <Route path="/register" component={RegisterPage}></Route>

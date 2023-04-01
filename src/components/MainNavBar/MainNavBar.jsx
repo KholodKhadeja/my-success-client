@@ -10,8 +10,9 @@ import { useHistory } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 
 const MainNavBar = () => {
+  let emptyString="";
   let navLinks = [{label: "ראשי",url: "/home", },
-    {label: "שיעורים", url: "/lessons", },];
+    {label: "שיעורים", url: `/lessons/${emptyString}`, },];
 
   let authTeacherStudLinks = [
     {label: "ראשי",url: "/home", },
@@ -19,7 +20,7 @@ const MainNavBar = () => {
 
   let authAdminLinks = [
     {label: "ראשי",url: "/home", },
-   {label: "שיעורים",url: "/lessons", },
+   {label: "שיעורים",url: `/lessons/${emptyString}`, },
     {label: "ניהול משתמשים",url: "/usersadmin", },];
 
 const dispatch=useDispatch();  const history = useHistory();

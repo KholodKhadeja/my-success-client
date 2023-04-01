@@ -130,9 +130,9 @@
   border-bottom-right-radius: $basic-border-radius;
   background-color: $light-dark;
   display: flex;
-  flex-direction: row;
+  flex-direction:column;
   justify-content: space-between;
-  align-items: center;
+  // align-items: center;
   padding: 1em !important;
   text-align: right !important;
   p {
