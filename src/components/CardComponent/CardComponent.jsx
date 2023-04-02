@@ -39,12 +39,10 @@ else{
     setStarClicked(startClicked);
     basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";
 }
-
 setImagePath(basicPath);
 }
-    return (
-        <Fragment>
-
+return (
+<Fragment>
        <div className='lesson-card h-25'>
             <div className='star-section'>
                 <img id="star-img" src={imagePath}

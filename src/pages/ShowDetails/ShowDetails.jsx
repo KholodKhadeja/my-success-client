@@ -37,7 +37,6 @@ useEffect(() => {
 useEffect(() => {
 (async()=>{
 try{
-    console.log("entered the async");
     let { data } = await axios.get(`users/getuserbyid/${id}`);
      setUserDetails({
        firstname: data.firstname,

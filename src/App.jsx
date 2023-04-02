@@ -18,6 +18,7 @@ import ShowDetails from './pages/ShowDetails/ShowDetails';
 import AdminPage from './pages/AdminPage/AdminPage';
 import ConnectToLessonPage from './pages/ConnectToLesson/ConnectToLessonPage';
 import useAutoLogin from "./hooks/useAutoLogin";
+import TeacherStudentGuardRoute from 'components/TeacherStudentGuardRoute';
 
 function App() {
   const autoLoginFunction = useAutoLogin();
@@ -38,7 +39,8 @@ function App() {
         <Route path="/home"  component={Homepage}></Route>
         {/* <Route path="/lessons" component={LessonsPage}></Route> */}
         <Route path="/lessons/:search" component={LessonsPage}></Route>
-        <Route path="/mylessons" component={MyLessonsPage}></Route>
+        <TeacherStudentGuardRoute path="/mylessons" component={MyLessonsPage}></TeacherStudentGuardRoute>
+        {/* <Route path="/mylessons" component={MyLessonsPage}></Route> */}
         <Route path="/login" component={LoginPage}></Route>
         <Route path="/register" component={RegisterPage}></Route>
         <Route path="/favoritelessons" component={FavLessonPage}></Route>

@@ -1,7 +1,8 @@
 import "./MyLessonStyling.scss";
 import CardComponent from "../../components/CardComponent/CardComponent";
 import Pagination from "react-bootstrap/Pagination";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux';
 import { Fragment } from "react";
 import TitleFunction from "../../partial/TitleComponent/TitleFunction";
 import TeacherCardComponent from "../../components/CardComponent/TeacherCardComponent";
@@ -12,11 +13,39 @@ import InputGroup from "react-bootstrap/InputGroup";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
+import axios from "axios";
 import TitleFunctionSmall from "../../partial/TitleComponent/TitleFunctionSmall";
 
 let allMyLessons = [];
 const MyLessonsPage = () => {
+  let userId;
+  const userRole = useSelector((state)=>state.auth.role);
   const [selectedDate, setSelectedDate] = useState(null);
+  const loggedIn=useSelector((state)=>state.auth.loggedIn);
+  const userData = useSelector((state)=>state.auth.userData);
+  const [userLessons, setUserLessons] = useState([]);
+
+
+  useEffect(() => {
+    try{
+      userId=userData.id;
+      console.
+      console.log(userId,"id");
+    }catch(err){
+    }
+ }, [loggedIn]);
+
+ useEffect(() => {
+  (async()=>{
+  try{
+      let { data } = await axios.get(`users/getuserbyid/${userId}`);
+      console.log(data);
+      setUserLessons(data.mylessons)
+  }catch(err){
+      console.log(err);
+  }
+  })();
+  }, [userId]);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);

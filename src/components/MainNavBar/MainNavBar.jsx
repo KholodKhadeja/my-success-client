@@ -16,6 +16,7 @@ const MainNavBar = () => {
 
   let authTeacherStudLinks = [
     {label: "ראשי",url: "/home", },
+    {label: "שיעורים", url: `/lessons/${emptyString}`, },
    {label: "השיעורים שלי",url: "/mylessons",}, ];
 
   let authAdminLinks = [

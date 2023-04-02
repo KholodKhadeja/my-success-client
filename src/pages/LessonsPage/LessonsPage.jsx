@@ -29,7 +29,6 @@ useEffect(() => {
      else{
       setLessonsArr(OriginalLessonsArray);
      }
-
     } catch (err) {
       toast.error("😭 Something went wrong", {
         position: "top-right",
