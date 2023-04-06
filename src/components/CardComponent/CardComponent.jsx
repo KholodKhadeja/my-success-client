@@ -4,9 +4,11 @@ import "./card-styling.scss";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 const CardComponent = ({key,teacherid,topic, subject,date, hour, profileImg}) => {
+  const userRole = useSelector((state)=>state.auth.role);
   let basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";
 const [imagePath, setImagePath] =  useState(basicPath);
 const [startClicked, setStarClicked] = useState(false);
@@ -45,8 +47,11 @@ return (
 <Fragment>
        <div className='lesson-card h-25'>
             <div className='star-section'>
-                <img id="star-img" src={imagePath}
-                 alt="wishlist star" onClick={switchImg}/>
+              { userRole ==="student" && (<img id="star-img" src={imagePath}
+                 alt="wishlist star" onClick={switchImg}/>)
+            }
+                        { userRole ==="teacher" && (<br/>)
+            }
             </div>
             <div className='section-1'>
                  <div className='card-img-container'>

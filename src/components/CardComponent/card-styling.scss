@@ -73,6 +73,7 @@
   width: 20px !important;
   height: 20px !important;
 }
+
 .teacher-btns-div {
   @include star-section-mixin;
   flex-direction: row;
@@ -97,6 +98,11 @@
     display: flex;
     justify-content: center !important;
     align-items: center !important;
+
+    img{
+      width: 7.5rem !important;
+      height: 7rem !important;
+    }
   }
   .teacher-name {
     color: $light-dark;

@@ -15,7 +15,9 @@ import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import axios from "axios";
 import TitleFunctionSmall from "../../partial/TitleComponent/TitleFunctionSmall";
-import TimePicker from 'react-time-picker';
+// import TimePicker from 'react-time-picker';
+import TimePicker from "react-bootstrap-time-picker";
+import { toast } from "react-toastify";
 
 let allMyLessons = [];
 let profileImg;
@@ -36,7 +38,7 @@ const MyLessonsPage = () => {
      teacherId: userId,
      zoomLink:""
   });
-  const [selectedTime, setSelectedTime] = useState('12:00');
+  const [selectedTime, setSelectedTime] = useState('10:00');
 
 
   useEffect(() => {
@@ -49,7 +51,7 @@ const MyLessonsPage = () => {
  useEffect(() => {
   (async()=>{
   try{
-      let { data } = await axios.get(`users/getuserbyid/${ userId}`);
+      let { data } = await axios.get(`users/getuserbyid/${userId}`);
       profileImg=data.profileImg;
       setUserLessons(data.mylessons)
   }catch(err){
@@ -74,9 +76,49 @@ const MyLessonsPage = () => {
   // currentLessons = lessons.slice(firstLessonIndex, lastLessonIndex); // the new array
 
   const handleAddingUserRequest=(ev)=>{
+    console.log("entered the function");
      ev.preventDefault();
-     console.log(newLessonData);
-  }
+     axios.post(`users/${newLessonData.teacherId}/mylessons`,{
+      topic:newLessonData.topic,
+      subject:newLessonData.subject,
+      date:newLessonData.date,
+       hour:newLessonData.hour,
+       learningLevel:newLessonData.learningLevel,
+       zoomLink:newLessonData.zoomLink
+     }).then((res)=>{
+      console.log(res);
+      toast.success('Lesson Added Successfully!', {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+        handleClose();
+     }).catch((err)=>{
+      console.log(err);
+      // let errMsg;
+      // if(err.message === "Request failed with status code 400"){
+      //      errMsg=err.request.response;
+      // }
+      // if(err.message === "Network Error"){
+      //      errMsg= err.message;
+      // }
+      // toast.error(`${errMsg}`, {
+      //   position: "bottom-center",
+      //   autoClose: 5000,
+      //   hideProgressBar: false,
+      //   closeOnClick: true,
+      //   pauseOnHover: true,
+      //   draggable: true,
+      //   progress: undefined,
+      //   theme: "dark",
+      //   });
+    })
+     }
   const handleInputChanges=(ev)=>{
     ev.preventDefault();
     let newLesson = JSON.parse(JSON.stringify(newLessonData)); 
@@ -93,8 +135,17 @@ const MyLessonsPage = () => {
   }
 
   const handleTimeChange = (time)=>{
-    setSelectedTime(time);
+    const selectedDate = new Date(time * 1000);
+    const formattedTime = selectedDate.toISOString().substr(11, 5);
+    
+    setSelectedTime(formattedTime);
+    setNewLessonData(prevState => ({
+      ...prevState,
+      hour: formattedTime
+    }));
   }
+  Intl.DateTimeFormat().resolvedOptions().timeZone = 'UTC';
+
 const handleFormSelectChange = (event) =>{
   const learningLevel = event.target.value;
   setFormSelect(learningLevel);
@@ -103,6 +154,7 @@ const handleFormSelectChange = (event) =>{
     learningLevel: learningLevel
   }));
 }
+
   let items = [];
   for (let number = 1; number <= 5; number++) {
     items.push(
@@ -138,9 +190,10 @@ const handleFormSelectChange = (event) =>{
         </div>
        
         <div className="lessons-div-lessons">
+
           {/* for students show this */}
           { userRole=="student"&&(userLessons.map((item, index) => (
-              <CardComponent key={item._id} teacherid={item.teacherId} 
+              <CardComponent key={"card"+index} teacherId={newLessonData.teacherId} 
               topic={item.topic}
                subject={item.subject}
                date={item.date}
@@ -193,13 +246,15 @@ const handleFormSelectChange = (event) =>{
       placeholderText="בחר תאריך" className="form-control add-lesson-inputs mb-1" locale="he" withPortal
     />
 
-<TimePicker id="hour"
+{/* <TimePicker id="hour" className="hour-input"
         onChange={handleTimeChange}
         value={selectedTime}
         disableClock={true}
-        format="HH:mm"
-      />
+        format="HH:mm" 
+/> */}
 
+<TimePicker start="10:00" end="22:00" step={30} className="add-lesson-inputs mb-1" 
+ onChange={handleTimeChange} value={selectedTime}/>
 
    <Form.Select id="learningLevel" aria-label="Default select example" className="add-lesson-inputs mb-1" 
    value={formSelect} onChange={handleFormSelectChange}>

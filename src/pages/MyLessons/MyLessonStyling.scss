@@ -53,3 +53,18 @@
 .add-lesson-inputs option {
   direction: rtl !important;
 }
+
+.hour-input{
+  width: 150px; 
+  display: inline-block;
+}
+.hour-input input{
+  width: 50px; /* Set the width of the textboxes */
+  padding: 5px; /* Add some padding to the textboxes */
+  border: 1px solid #ccc; /* Add a border to the textboxes */
+  border-radius: 4px; /* Add some border radius to the textboxes */
+}
+
+  TimePicker{
+    width: 100px !important;
+  }

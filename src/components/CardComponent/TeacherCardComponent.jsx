@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import "./card-styling.scss";
 import { NavLink } from "react-router-dom";
 import Button from "react-bootstrap/Button";
@@ -10,9 +10,14 @@ import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import TitleFunctionSmall from '../../partial/TitleComponent/TitleFunctionSmall';
+import axios from "axios";
 
 
-const TeacherCardComponent = ({key, subject,topic, teachername,date, hour, learningLevel, zoomLink, profileImg}) => {
+const TeacherCardComponent = ({key, subject,topic, teacherid,date, hour, learningLevel, zoomLink, profileImg}) => {
+  const [actualteachername, setTeachername] = useState({
+    firstname:"",
+    lastname:""
+    });
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -24,13 +29,26 @@ const TeacherCardComponent = ({key, subject,topic, teachername,date, hour, learn
   const [lessonDetails, setLessonDetails] = useState({
     subject: subject,
     topic: topic,
-    teachername:teachername,
+    teacherid:teacherid,
     date:date,
     hour: hour,
     learningLevel: learningLevel,
     zoomLink: zoomLink,
   });
 
+  useEffect(() => {
+    (async()=>{
+      try{
+          let { data } = await axios.get(`users/getuserbyid/${teacherid}`);
+          setTeachername({
+             firstname: data.firstname,
+             lastname:data.lastname,
+           });
+      }catch(err){
+          console.log(err);
+      }
+      })();
+  }, [teacherid]);
   let basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";
 const [imagePath, setImagePath] =  useState(basicPath);
 const [selectedDate, setSelectedDate] = useState(date);
@@ -56,7 +74,7 @@ return (
      <div className='card-img-container'>
            <img src={profileImg} alt="teacher name"  />
      </div>
-     <p className='teacher-name'>{lessonDetails.teachername}</p>
+      <p className="teacher-name">{actualteachername.firstname} {actualteachername.lastname}</p>
 </div>
 <div className='section-2'>
      <p>
@@ -95,14 +113,6 @@ return (
           <Form.Control type="text" className="add-lesson-inputs mb-1" value={lessonDetails.topic}  
           onChange={handleLessonDetailsEdit} id="topic"/>
 
-   {/* <DatePicker
-      selected={selectedDate}
-      onChange={date => setSelectedDate(date)}
-      dateFormat="yyyy-mm-dd"
-      placeholderText="עדכן תאריך"
-      className="form-control add-lesson-inputs mb-1"
-      locale="he"withPortal
-    /> */}
   <Form.Select aria-label="Default select example" className="add-lesson-inputs mb-1" 
   onChange={handleLessonDetailsEdit} id="learningLevel">
       <option>רמת הלימוד</option>
