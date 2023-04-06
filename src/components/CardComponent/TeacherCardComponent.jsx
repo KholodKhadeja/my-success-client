@@ -12,7 +12,7 @@ import moment from 'moment';
 import TitleFunctionSmall from '../../partial/TitleComponent/TitleFunctionSmall';
 
 
-const TeacherCardComponent = ({key, subject,topic, teachername,date, hour, learningLevel, zoomLink}) => {
+const TeacherCardComponent = ({key, subject,topic, teachername,date, hour, learningLevel, zoomLink, profileImg}) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -54,7 +54,7 @@ return (
             </div>
 <div className='section-1'>
      <div className='card-img-container'>
-           {/* <img src="" alt="teacher name" /> */}
+           <img src={profileImg} alt="teacher name"  />
      </div>
      <p className='teacher-name'>{lessonDetails.teachername}</p>
 </div>
@@ -72,9 +72,9 @@ return (
 <div>
 <p>
 <span>מתחיל ב:</span>
-<span>{lessonDetails.date}</span>
+<span> {lessonDetails.date.slice(0,9)}</span>
 <br/>
-<span>{lessonDetails.hour}</span>
+<span> {new Date(lessonDetails.hour).toLocaleTimeString()}</span>
 </p>
 </div>
 <NavLink className="enter-lesson-btn" to="/connecttolesson">התחבר</NavLink>
@@ -136,6 +136,8 @@ return (
   <Button variant="secondary" onClick={handleCloseSec}> ביטול</Button>
 </Modal.Footer>
 </Modal>
+
+
 </Fragment> );
 }
 

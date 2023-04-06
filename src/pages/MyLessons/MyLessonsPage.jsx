@@ -15,22 +15,33 @@ import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import axios from "axios";
 import TitleFunctionSmall from "../../partial/TitleComponent/TitleFunctionSmall";
+import TimePicker from 'react-time-picker';
 
 let allMyLessons = [];
+let profileImg;
 const MyLessonsPage = () => {
   let userId;
   const userRole = useSelector((state)=>state.auth.role);
   const [selectedDate, setSelectedDate] = useState(null);
+  const [formSelect, setFormSelect] = useState(null);
   const loggedIn=useSelector((state)=>state.auth.loggedIn);
   const userData = useSelector((state)=>state.auth.userData);
-  const [userLessons, setUserLessons] = useState([]);
+  const [userLessons, setUserLessons] = useState(allMyLessons);
+  const [newLessonData, setNewLessonData] = useState({
+    topic:"",
+    subject:"",
+    date:selectedDate,
+     hour:"",
+     learningLevel: formSelect,
+     teacherId: userId,
+     zoomLink:""
+  });
+  const [selectedTime, setSelectedTime] = useState('12:00');
 
 
   useEffect(() => {
     try{
       userId=userData.id;
-      console.
-      console.log(userId,"id");
     }catch(err){
     }
  }, [loggedIn]);
@@ -38,14 +49,14 @@ const MyLessonsPage = () => {
  useEffect(() => {
   (async()=>{
   try{
-      let { data } = await axios.get(`users/getuserbyid/${userId}`);
-      console.log(data);
+      let { data } = await axios.get(`users/getuserbyid/${ userId}`);
+      profileImg=data.profileImg;
       setUserLessons(data.mylessons)
   }catch(err){
       console.log(err);
   }
   })();
-  }, [userId]);
+  }, [ userId]);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -55,13 +66,43 @@ const MyLessonsPage = () => {
   const handleCloseSec = () => setShowSec(false);
   const handleShowSec = () => setShowSec(true);
 
-  const [lessons, setLessons] = useState(allMyLessons);
   let [active, setActive] = useState(1);
   // let [currentPage, setCurrentPage] = useState(active);
   // let lessonsPerPage=12;
   // let lastLessonIndex = currentPage * lessonsPerPage;
   // let firstLessonIndex = lastLessonIndex - lessonsPerPage;
   // currentLessons = lessons.slice(firstLessonIndex, lastLessonIndex); // the new array
+
+  const handleAddingUserRequest=(ev)=>{
+     ev.preventDefault();
+     console.log(newLessonData);
+  }
+  const handleInputChanges=(ev)=>{
+    ev.preventDefault();
+    let newLesson = JSON.parse(JSON.stringify(newLessonData)); 
+    newLesson[ev.target.id] = ev.target.value;
+    setNewLessonData(newLesson); 
+  }
+
+  const handleDateSelect=(date)=>{
+    setSelectedDate(date);
+    setNewLessonData(prevState => ({
+      ...prevState,
+      date: date
+    }));
+  }
+
+  const handleTimeChange = (time)=>{
+    setSelectedTime(time);
+  }
+const handleFormSelectChange = (event) =>{
+  const learningLevel = event.target.value;
+  setFormSelect(learningLevel);
+  setNewLessonData(prevState => ({
+    ...prevState,
+    learningLevel: learningLevel
+  }));
+}
   let items = [];
   for (let number = 1; number <= 5; number++) {
     items.push(
@@ -98,13 +139,24 @@ const MyLessonsPage = () => {
        
         <div className="lessons-div-lessons">
           {/* for students show this */}
-          {/* <CardComponent key={0}/> */}
+          { userRole=="student"&&(userLessons.map((item, index) => (
+              <CardComponent key={item._id} teacherid={item.teacherId} 
+              topic={item.topic}
+               subject={item.subject}
+               date={item.date}
+                hour = {item.hour}/>)
+                ))}
           {/* for teachers show this */}
-          <TeacherCardComponent subject={"מתמטיקה"} topic={"היקף עיגול"} teachername={"מרווה נאטור"} date={"24-01-2023"}
-          hour={"15:00"} learningLevel={"3"} zoomLink={" "}/>
-           <TeacherCardComponent subject={"אנגלית"} topic={"הבנת הנקרא G"} teachername={"אמירה מנסור"} 
-           date={"25-01-2023"} hour={"15:00"} learningLevel={"4"}/>
-
+          { userRole=="teacher" && (userLessons.map((item, index) => (
+              <TeacherCardComponent key={item._id} teacherid={item.teacherId} 
+              topic={item.topic}
+               subject={item.subject}
+               date={item.date}
+                hour = {item.hour}
+                profileImg={profileImg}
+                learningLevel={item.learningLevel}
+                />)
+                ))}
         </div>
         {/* <div className='pagination-cont'>
             <Pagination size="sm">{items}</Pagination>
@@ -114,15 +166,15 @@ const MyLessonsPage = () => {
       {/* THIS IS THE MODAL */}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title>הוספת שיעור</Modal.Title>
+          <Modal.Title>          <span>
+            <TitleFunctionSmall className="title-text-sec" text={"הוספת שיעור"} />
+          </span> </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <span>
-            <TitleFunctionSmall className="title-text-sec" text={"הוספת שיעור"} />
-          </span> 
-          <br />
-          <Form.Control type="text" className="add-lesson-inputs mb-1" placeholder="שם השיעור"  />
-          <Form.Control type="text" className="add-lesson-inputs mb-1" placeholder="נושא השיעור"   />
+          <Form.Control type="text" id="subject" className="add-lesson-inputs mb-1" placeholder="המקצוע"  value={newLessonData.subject}
+          onChange={handleInputChanges}/>
+          <Form.Control type="text" id="topic" className="add-lesson-inputs mb-1" placeholder="נושא השיעור"  value={newLessonData.topic}  
+          onChange={handleInputChanges}/>
           {/* <Form.Select aria-label="Default select example" className="add-lesson-inputs mb-1">
       <option>יום</option>
       <option value="1">א</option>
@@ -134,25 +186,33 @@ const MyLessonsPage = () => {
       <option value="7">שבת</option>
     </Form.Select> */}
 
-   <DatePicker
-      selected={selectedDate}
-      onChange={date => setSelectedDate(date)}
-      dateFormat="yyyy-mm-dd"
-      placeholderText="בחר תאריך"
-      className="form-control add-lesson-inputs mb-1"
-      locale="he"
-      withPortal
+   <DatePicker id="date"
+      selected={selectedDate} 
+      onChange={handleDateSelect}
+      dateFormat="yyyy-MM-dd"
+      placeholderText="בחר תאריך" className="form-control add-lesson-inputs mb-1" locale="he" withPortal
     />
-          <Form.Select aria-label="Default select example" className="add-lesson-inputs mb-1">
+
+<TimePicker id="hour"
+        onChange={handleTimeChange}
+        value={selectedTime}
+        disableClock={true}
+        format="HH:mm"
+      />
+
+
+   <Form.Select id="learningLevel" aria-label="Default select example" className="add-lesson-inputs mb-1" 
+   value={formSelect} onChange={handleFormSelectChange}>
       <option>רמת הלימוד</option>
       <option value="3">3</option>
       <option value="4">4</option>
       <option value="5">5</option>
     </Form.Select>
-          <Form.Control type="text" className="add-lesson-inputs mb-1" placeholder="קישור לזום"  />
+          <Form.Control type="text" id="zoomLink" className="add-lesson-inputs mb-1" placeholder="קישור לזום" value={newLessonData.zoomLink}  
+          onChange={handleInputChanges}/>
         </Modal.Body>
         <Modal.Footer>
-          <Button className="add-lesson-btn" onClick={handleClose}>
+          <Button className="add-lesson-btn" onClick={handleAddingUserRequest}>
             הוספת שיעור
           </Button>
           <Button variant="secondary" onClick={handleClose}>

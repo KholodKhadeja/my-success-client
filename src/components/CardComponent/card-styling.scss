@@ -91,9 +91,12 @@
   .card-img-container {
     width: 6em;
     height: 6em;
-    background-color: $basic-clr;
+    background-color: $basic-clr ;
     border-radius: 50%;
     object-fit: cover;
+    display: flex;
+    justify-content: center !important;
+    align-items: center !important;
   }
   .teacher-name {
     color: $light-dark;

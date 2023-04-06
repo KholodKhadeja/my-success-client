@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { Link } from 'react-router-dom';
 
 
-const CardComponent = ({key,teacherid,topic, subject,date, hour}) => {
+const CardComponent = ({key,teacherid,topic, subject,date, hour, profileImg}) => {
   let basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";
 const [imagePath, setImagePath] =  useState(basicPath);
 const [startClicked, setStarClicked] = useState(false);
