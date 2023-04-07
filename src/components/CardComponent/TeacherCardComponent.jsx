@@ -89,7 +89,7 @@ return (
 <div className='section-3'>
 <div>
 <p>
-<span>מתחיל ב:</span>
+<span>מתחיל ב: &nbsp;</span>
 <span> {lessonDetails.date.slice(0,9)}</span>
 <br/>
 <span> {new Date(lessonDetails.hour).toLocaleTimeString()}</span>

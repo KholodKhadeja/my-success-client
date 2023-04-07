@@ -29,6 +29,8 @@ const MyLessonsPage = () => {
   const loggedIn=useSelector((state)=>state.auth.loggedIn);
   const userData = useSelector((state)=>state.auth.userData);
   const [userLessons, setUserLessons] = useState(allMyLessons);
+  const [selectedTime, setSelectedTime] = useState('10:00');
+   const [searchWord, setSearchWord] = useState("");
   const [newLessonData, setNewLessonData] = useState({
     topic:"",
     subject:"",
@@ -38,9 +40,7 @@ const MyLessonsPage = () => {
     //  teacherId: userId,
      zoomLink:""
   });
-  const [selectedTime, setSelectedTime] = useState('10:00');
-  const [lessonsArr, setLessonsArr]=  useState(allMyLessons);
-   const [searchWord, setSearchWord] = useState(null);
+
 
   useEffect(() => {
     try{
@@ -55,7 +55,8 @@ const MyLessonsPage = () => {
   try{
       let { data } = await axios.get(`users/getuserbyid/${userIdOriginal}`);
       profileImg=data.profileImg;
-      setUserLessons(data.mylessons)
+      allMyLessons=data.mylessons;
+      setUserLessons(data.mylessons);
   }catch(err){
       console.log(err);
   }
@@ -65,20 +66,12 @@ const MyLessonsPage = () => {
   useEffect(() => {
     let regex = new RegExp(searchWord, "i"); 
     let lessonArrCopy = JSON.parse(JSON.stringify(allMyLessons)); 
-    lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject) || regex.test(item.topic));
-    setLessonsArr(lessonArrCopy);
+    console.log("lesson from set", userLessons);
+    console.log("copy before filter", lessonArrCopy);
+    lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject));
+    console.log("lesson after filter", lessonArrCopy);
+    setUserLessons(lessonArrCopy);
   }, [searchWord]);
-  // useEffect(() => {
-  //   (async()=>{
-  //   try{
-  //       let { data } = await axios.get(`users/getuserbyid/${userId}`);
-  //       profileImg=data.profileImg;
-  //       setUserLessons(data.mylessons)
-  //   }catch(err){
-  //       console.log(err);
-  //   }
-  //   })();
-  //   }, [userId]);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -89,11 +82,6 @@ const MyLessonsPage = () => {
   const handleShowSec = () => setShowSec(true);
 
   let [active, setActive] = useState(1);
-  // let [currentPage, setCurrentPage] = useState(active);
-  // let lessonsPerPage=12;
-  // let lastLessonIndex = currentPage * lessonsPerPage;
-  // let firstLessonIndex = lastLessonIndex - lessonsPerPage;
-  // currentLessons = lessons.slice(firstLessonIndex, lastLessonIndex); // the new array
 
   const handleInputChanges=(ev)=>{
     ev.preventDefault();
@@ -113,7 +101,6 @@ const MyLessonsPage = () => {
   const handleTimeChange = (time)=>{
     const selectedDate = new Date(time * 1000);
     const formattedTime = selectedDate.toISOString().substr(11, 5);
-    
     setSelectedTime(formattedTime);
     setNewLessonData(prevState => ({
       ...prevState,
@@ -131,14 +118,6 @@ const handleFormSelectChange = (event) =>{
   }));
 }
 
-  let items = [];
-  for (let number = 1; number <= 5; number++) {
-    items.push(
-      <Pagination.Item key={number} active={number === active}>
-        {number}
-      </Pagination.Item>
-    );
-  }
   const handleSearchWordChange =(ev)=>{
     setSearchWord(ev.target.value);
     }
@@ -146,8 +125,6 @@ const handleFormSelectChange = (event) =>{
   const handleAddingUserRequest=(ev)=>{
     console.log("entered the function");
     //  ev.preventDefault();
-    console.log(userIdOriginal);
-  console.log(newLessonData);
      axios.post(`users/${userIdOriginal}/mylessons`,{
       topic:newLessonData.topic,
       subject:newLessonData.subject,
@@ -202,11 +179,7 @@ const handleFormSelectChange = (event) =>{
               הוספת שיעור
             </Button>
             <div className="input-group mb-3">
-              <input value={searchWord} onChange={handleSearchWordChange}
-                type="text"
-                className="form-control"
-                aria-label="Sizing example input"
-                aria-describedby="inputGroup-sizing-default"  />
+              <input   type="text" className="form-control" value={searchWord} onChange={handleSearchWordChange} />
               <span className="input-group-text" id="inputGroup-sizing-default">
                 <svg  xmlns="http://www.w3.org/2000/svg"   width="16"  height="16"   fill="currentColor"  className="bi bi-search" viewBox="0 0 16 16" >
                   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />

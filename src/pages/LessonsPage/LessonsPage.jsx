@@ -17,6 +17,14 @@ const LessonsPage = () => {
 const [lessonsArr, setLessonsArr]=  useState(OriginalLessonsArray);
 const [searchWord, setSearchWord] = useState(search);
 
+useEffect(() => {
+  let regex = new RegExp(searchWord, "i"); 
+  let lessonArrCopy = JSON.parse(JSON.stringify(OriginalLessonsArray)); 
+  console.log("original", OriginalLessonsArray);
+  console.log("the copy", lessonArrCopy);
+  lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject));
+  setLessonsArr(lessonArrCopy);
+}, [searchWord]);
 
 useEffect(() => {
   (async () => {
@@ -45,20 +53,10 @@ useEffect(() => {
 }, []);
 
 
-useEffect(() => {
-    let regex = new RegExp(searchWord, "i"); 
-    let lessonArrCopy = JSON.parse(JSON.stringify(OriginalLessonsArray)); 
-    lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject));
-    setLessonsArr(lessonArrCopy);
-  }, [searchWord]);
-  // const [lessons, setLessons] = useState(allLessons);
-let [active, setActive] = useState(1);
-// let [currentPage, setCurrentPage] = useState(active);
-// let lessonsPerPage=12;
-// let lastLessonIndex = currentPage * lessonsPerPage;
-// let firstLessonIndex = lastLessonIndex - lessonsPerPage;
-// currentLessons = lessons.slice(firstLessonIndex, lastLessonIndex); // the new array
 
+
+
+let [active, setActive] = useState(1);
 
 
 let items = [];
@@ -80,8 +78,7 @@ return(
             <span>
                  <TitleFunction text={"שיעורים"}/></span>
                  <div className="input-group mb-3 lessons-input-group">
-                 <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"
-                  value={searchWord} onChange={handleSearchWordChange}/>
+                 <input type="text" className="form-control" value={searchWord} onChange={handleSearchWordChange} placeholder='חיפוש לפי מקצוע'/>
                 <span className="input-group-text" id="inputGroup-sizing-default">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -99,7 +96,7 @@ return(
                 ))}
   </div>
   <div className='pagination-cont'>
-    <Pagination size="sm">{items}</Pagination>
+    {/* <Pagination size="sm">{items}</Pagination> */}
   </div>
 </div>
 </Fragment>
