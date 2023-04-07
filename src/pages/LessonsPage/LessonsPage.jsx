@@ -48,7 +48,7 @@ useEffect(() => {
 useEffect(() => {
     let regex = new RegExp(searchWord, "i"); 
     let lessonArrCopy = JSON.parse(JSON.stringify(OriginalLessonsArray)); 
-    lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject) || regex.test(item.topic));
+    lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject));
     setLessonsArr(lessonArrCopy);
   }, [searchWord]);
   // const [lessons, setLessons] = useState(allLessons);

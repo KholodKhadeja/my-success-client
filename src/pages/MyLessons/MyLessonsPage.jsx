@@ -39,6 +39,8 @@ const MyLessonsPage = () => {
      zoomLink:""
   });
   const [selectedTime, setSelectedTime] = useState('10:00');
+  const [lessonsArr, setLessonsArr]=  useState(allMyLessons);
+   const [searchWord, setSearchWord] = useState(null);
 
   useEffect(() => {
     try{
@@ -60,6 +62,12 @@ const MyLessonsPage = () => {
   })();
   }, []);
 
+  useEffect(() => {
+    let regex = new RegExp(searchWord, "i"); 
+    let lessonArrCopy = JSON.parse(JSON.stringify(allMyLessons)); 
+    lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject) || regex.test(item.topic));
+    setLessonsArr(lessonArrCopy);
+  }, [searchWord]);
   // useEffect(() => {
   //   (async()=>{
   //   try{
@@ -131,7 +139,9 @@ const handleFormSelectChange = (event) =>{
       </Pagination.Item>
     );
   }
-
+  const handleSearchWordChange =(ev)=>{
+    setSearchWord(ev.target.value);
+    }
 
   const handleAddingUserRequest=(ev)=>{
     console.log("entered the function");
@@ -146,10 +156,9 @@ const handleFormSelectChange = (event) =>{
        learningLevel:newLessonData.learningLevel,
        zoomLink:newLessonData.zoomLink
      }).then((res)=>{
-      console.log(res);
       toast.success('Lesson Added Successfully!', {
         position: "bottom-center",
-        autoClose: 3000,
+        autoClose: 6000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -158,6 +167,7 @@ const handleFormSelectChange = (event) =>{
         theme: "dark",
         });
         handleClose();
+        window.location.reload();
      }).catch((err)=>{
       console.log(err);
       let errMsg;
@@ -192,7 +202,7 @@ const handleFormSelectChange = (event) =>{
               הוספת שיעור
             </Button>
             <div className="input-group mb-3">
-              <input
+              <input value={searchWord} onChange={handleSearchWordChange}
                 type="text"
                 className="form-control"
                 aria-label="Sizing example input"
@@ -206,7 +216,7 @@ const handleFormSelectChange = (event) =>{
           </div>
         </div>
        
-        <div className="lessons-div-lessons">
+        <div className="lessons-div-lessons-page">
           {
             userLessons.length ==0 &&(
               <p className="fadeha-text">אולי כדאי לך להתחיל להשתמש במערכת ולהוסיף שיעורים!

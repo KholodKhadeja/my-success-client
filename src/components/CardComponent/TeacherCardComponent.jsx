@@ -63,7 +63,7 @@ const handleLessonDetailsEdit = (ev) =>{
 return (
     <Fragment>
     {
-<div className='my-lesson-card h-25'>
+<div className='my-lesson-card'>
             <div className='teacher-btns-div'>
                 <img className='teacher-btns-div-img' src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/Pencil.png?raw=true"
                  alt="edit icon" onClick={handleShow}/>

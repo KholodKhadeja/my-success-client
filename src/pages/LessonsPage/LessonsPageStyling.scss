@@ -14,7 +14,21 @@
 
 .lessons-div-lessons-page{
     display: grid;
-    grid-template-columns:repeat(3, 1fr);
-    grid-auto-rows:repeat(auto,200px);
-    grid-gap: 10px;
+    grid-template-columns:repeat(4, 1fr);
+    grid-auto-rows:auto;
 }
+
+// @media screen and (max-width: 1000px) {
+//     .upper-div {
+//       gap: 20px !important;
+//       flex-direction: column !important;
+//     }
+//     .my-lessons-upper-left-div {
+//       flex-direction: column !important;
+//     }
+//     .lessons-div-lessons {
+//       flex-direction: row !important;
+//       overflow-x: scroll;
+//       overflow-y: hidden;
+//     }
+//   }

@@ -33,6 +33,7 @@ function App() {
 
   return (
     <div className="App container">
+<ToastContainer/>
       <MainNavBar />
       <Switch>
         <Route path="/" exact component={Homepage}></Route>
