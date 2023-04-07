@@ -89,8 +89,8 @@ return(
 </span>
 </div></div>
 
-<div className='lessons-div-lessons'> 
-{lessonsArr.slice(0, 3).map((item, index) => (
+<div className='lessons-div-lessons-page'> 
+{lessonsArr.map((item, index) => (
               <CardComponent key={item._id} teacherid={item.teacherId} 
               topic={item.topic}
                subject={item.subject}

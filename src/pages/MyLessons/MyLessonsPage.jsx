@@ -20,7 +20,7 @@ import TimePicker from "react-bootstrap-time-picker";
 import { toast } from "react-toastify";
 
 let allMyLessons = [];
-let profileImg;
+let profileImg, userIdOriginal=null;
 const MyLessonsPage = () => {
   let userId;
   const userRole = useSelector((state)=>state.auth.role);
@@ -35,15 +35,15 @@ const MyLessonsPage = () => {
     date:selectedDate,
      hour:"",
      learningLevel: formSelect,
-     teacherId: userId,
+    //  teacherId: userId,
      zoomLink:""
   });
   const [selectedTime, setSelectedTime] = useState('10:00');
 
-
   useEffect(() => {
     try{
       userId=userData.id;
+      userIdOriginal=userId;
     }catch(err){
     }
  }, [loggedIn]);
@@ -51,14 +51,26 @@ const MyLessonsPage = () => {
  useEffect(() => {
   (async()=>{
   try{
-      let { data } = await axios.get(`users/getuserbyid/${userId}`);
+      let { data } = await axios.get(`users/getuserbyid/${userIdOriginal}`);
       profileImg=data.profileImg;
       setUserLessons(data.mylessons)
   }catch(err){
       console.log(err);
   }
   })();
-  }, [ userId]);
+  }, []);
+
+  // useEffect(() => {
+  //   (async()=>{
+  //   try{
+  //       let { data } = await axios.get(`users/getuserbyid/${userId}`);
+  //       profileImg=data.profileImg;
+  //       setUserLessons(data.mylessons)
+  //   }catch(err){
+  //       console.log(err);
+  //   }
+  //   })();
+  //   }, [userId]);
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -75,50 +87,6 @@ const MyLessonsPage = () => {
   // let firstLessonIndex = lastLessonIndex - lessonsPerPage;
   // currentLessons = lessons.slice(firstLessonIndex, lastLessonIndex); // the new array
 
-  const handleAddingUserRequest=(ev)=>{
-    console.log("entered the function");
-     ev.preventDefault();
-     axios.post(`users/${newLessonData.teacherId}/mylessons`,{
-      topic:newLessonData.topic,
-      subject:newLessonData.subject,
-      date:newLessonData.date,
-       hour:newLessonData.hour,
-       learningLevel:newLessonData.learningLevel,
-       zoomLink:newLessonData.zoomLink
-     }).then((res)=>{
-      console.log(res);
-      toast.success('Lesson Added Successfully!', {
-        position: "bottom-center",
-        autoClose: 3000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "dark",
-        });
-        handleClose();
-     }).catch((err)=>{
-      console.log(err);
-      // let errMsg;
-      // if(err.message === "Request failed with status code 400"){
-      //      errMsg=err.request.response;
-      // }
-      // if(err.message === "Network Error"){
-      //      errMsg= err.message;
-      // }
-      // toast.error(`${errMsg}`, {
-      //   position: "bottom-center",
-      //   autoClose: 5000,
-      //   hideProgressBar: false,
-      //   closeOnClick: true,
-      //   pauseOnHover: true,
-      //   draggable: true,
-      //   progress: undefined,
-      //   theme: "dark",
-      //   });
-    })
-     }
   const handleInputChanges=(ev)=>{
     ev.preventDefault();
     let newLesson = JSON.parse(JSON.stringify(newLessonData)); 
@@ -163,6 +131,55 @@ const handleFormSelectChange = (event) =>{
       </Pagination.Item>
     );
   }
+
+
+  const handleAddingUserRequest=(ev)=>{
+    console.log("entered the function");
+    //  ev.preventDefault();
+    console.log(userIdOriginal);
+  console.log(newLessonData);
+     axios.post(`users/${userIdOriginal}/mylessons`,{
+      topic:newLessonData.topic,
+      subject:newLessonData.subject,
+      date:newLessonData.date,
+       hour:newLessonData.hour,
+       learningLevel:newLessonData.learningLevel,
+       zoomLink:newLessonData.zoomLink
+     }).then((res)=>{
+      console.log(res);
+      toast.success('Lesson Added Successfully!', {
+        position: "bottom-center",
+        autoClose: 3000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        });
+        handleClose();
+     }).catch((err)=>{
+      console.log(err);
+      let errMsg;
+      if(err.message === "Request failed with status code 400"){
+    errMsg=err.request.response;
+   }
+  if(err.message === "Network Error"){
+   errMsg= err.message;
+  }
+   toast.error(`${errMsg}`, {
+      position: "bottom-center",
+     autoClose: 5000,
+     hideProgressBar: false,
+   closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+    })
+     }
+
   return (
     <Fragment>
       <div className="large-section lessons-section">
@@ -190,7 +207,15 @@ const handleFormSelectChange = (event) =>{
         </div>
        
         <div className="lessons-div-lessons">
+          {
+            userLessons.length ==0 &&(
+              <p className="fadeha-text">אולי כדאי לך להתחיל להשתמש במערכת ולהוסיף שיעורים!
+                <br/>
+                מה אתה חושב??
+              </p>
 
+            )
+          }
           {/* for students show this */}
           { userRole=="student"&&(userLessons.map((item, index) => (
               <CardComponent key={"card"+index} teacherId={newLessonData.teacherId} 
@@ -215,7 +240,7 @@ const handleFormSelectChange = (event) =>{
             <Pagination size="sm">{items}</Pagination>
           </div> */}
       </div>
-
+-
       {/* THIS IS THE MODAL */}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
@@ -243,7 +268,7 @@ const handleFormSelectChange = (event) =>{
       selected={selectedDate} 
       onChange={handleDateSelect}
       dateFormat="yyyy-MM-dd"
-      placeholderText="בחר תאריך" className="form-control add-lesson-inputs mb-1" locale="he" withPortal
+      placeholderText="בחר תאריך" className="form-control add-lesson-inputs mb-1" 
     />
 
 {/* <TimePicker id="hour" className="hour-input"

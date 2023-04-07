@@ -45,7 +45,7 @@ setImagePath(basicPath);
 }
 return (
 <Fragment>
-       <div className='lesson-card h-25'>
+       <div className='lesson-card'>
             <div className='star-section'>
               { userRole ==="student" && (<img id="star-img" src={imagePath}
                  alt="wishlist star" onClick={switchImg}/>)

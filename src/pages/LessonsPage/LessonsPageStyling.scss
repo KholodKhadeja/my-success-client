@@ -11,3 +11,10 @@
         width: 100% !important;
     }
 }
+
+.lessons-div-lessons-page{
+    display: grid;
+    grid-template-columns:repeat(3, 1fr);
+    grid-auto-rows:repeat(auto,200px);
+    grid-gap: 10px;
+}

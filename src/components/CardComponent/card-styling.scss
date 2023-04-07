@@ -4,13 +4,14 @@
 }
 @mixin staticCardStyling {
   width: 250px !important;
+  height: 350px !important;
   background-color: $light-dark !important;
   margin: 1em 1em !important;
   border-radius: $basic-border-radius;
   font-size: 1em !important;
 }
 @mixin star-section-mixin {
-  padding: 1em;
+  padding: 1.2em;
   width: 100%;
   height: 5% !important;
   border-radius: $basic-border-radius;
@@ -110,7 +111,7 @@
   }
 }
 .section-2 {
-  height: 40%;
+  height: fit-content !important;
   width: 100%;
   padding-top: 1em;
   padding-right: 1em;
@@ -133,7 +134,7 @@
     border: none;
 }
 .section-3 {
-  height: 20%;
+  height: fit-content !important;
   width: 100%;
   border-bottom-left-radius: $basic-border-radius;
   border-bottom-right-radius: $basic-border-radius;
