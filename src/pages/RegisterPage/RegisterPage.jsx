@@ -51,11 +51,29 @@ const RegisterPage = () => {
         profileImg:userInput.profileImg
       })
       .then((res) => {
-        console.log(res);
+        toast.success('ההרשמה הסתיימה בהצלחה!', {
+          position: "bottom-center",
+          autoClose:3000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
         history.push("/login");
       })
       .catch((err) => {
-        console.log(err)
+        toast.error(`${err}`, {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       });
   }
 

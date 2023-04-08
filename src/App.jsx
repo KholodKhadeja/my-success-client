@@ -33,18 +33,7 @@ function App() {
 
   return (
     <div className="App container">
-<ToastContainer
-position="top-right"
-autoClose={5000}
-hideProgressBar={false}
-newestOnTop={false}
-closeOnClick
-rtl={false}
-pauseOnFocusLoss
-draggable
-pauseOnHover
-theme="light"
-/>
+<ToastContainer/>
       <MainNavBar />
       <Switch>
         <Route path="/" exact component={Homepage}></Route>
@@ -60,7 +49,6 @@ theme="light"
         <Route path="/usersadmin" component={AdminPage}></Route>
         <Route path="/connecttolesson" component={ConnectToLessonPage}></Route>
         </Switch>
-        <ToastContainer />
     </div>
   );
 }

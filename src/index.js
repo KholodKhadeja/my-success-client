@@ -11,6 +11,7 @@ import axios from "axios";
 import { Provider } from "react-redux";
 import { BrowserRouter } from 'react-router-dom';
 import store from "../src/store/index";
+import "react-toastify/dist/ReactToastify.css";
 
 axios.defaults.baseURL = `https://my-success.onrender.com/api`;
 axios.interceptors.request.use((config) => {

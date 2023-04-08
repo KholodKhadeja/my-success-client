@@ -6,10 +6,15 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { useState, useEffect } from 'react';
 import Form from "react-bootstrap/Form";
+import axios from "axios";
+import { toast } from "react-toastify";
 import "./adminpage.scss";
 
+let allUsersArray=[];
 const AdminPage = () => {
     const [serialNum, setSerialNum] = useState(1);
+    const [allUsers, setAllUsers] = useState(allUsersArray);
+
         const [show, setShow] = useState(false);
         const [show2, setShow2] = useState(false);
     const handleClose = () => setShow(false);
@@ -23,19 +28,36 @@ const AdminPage = () => {
     const [showSpecialization, setShowSpecialization] = useState(false);
     const [userData,setUserData] = useState({
     num:{serialNum},
-      firstName:"",
-      lastName:"",
+      firstname:"",
+      lastname:"",
       checked: true,
       email:"",
       password:"",
       role:{userChosenRole},
-      class:null,
-      specialization:""
+      studentclass:"",
+      specialization:"",
     });
   
+    useEffect(() => {
+      (async()=>{
+        try{
+            let { data } = await axios.get(`users/`);
+           setAllUsers(data);
+        }catch(err){
+            console.log(err);
+        }
+        })();
+    }, []);
+
+
     const handleRoleChosing = (ev) => {
       setUserChosenRole(ev.target.value);
+      setUserData(prevState => ({
+        ...prevState,
+        role: ev.target.value
+      }));
     };
+
     const handleUserInputsEditing =()=>{
 
     }
@@ -57,6 +79,48 @@ const AdminPage = () => {
       }
     }, [userChosenRole]);
 
+const handleAddingUser = () =>{
+  console.log(userData);
+  axios.post("users/", {
+      firstname:userData.firstname,
+      lastname:userData.lastname,
+      email:userData.email,
+      password:userData.password,
+      role:userData.role,
+      studentclass: userData.studentclass,
+      specialization:userData.specialization,
+      userstatus:userData.checked,
+    })
+    .then((res) => {
+      toast.success('המשתמש התווסף בהצלחה', {
+        position: "bottom-center",
+        autoClose:5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+        setTimeout(() => {
+          window.location.reload();
+        }, 5000);
+      })
+    .catch((err) => {
+      toast.error(`${err}`, {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+    });
+}
+
+
     return (
         <Fragment>
 <div className="upper-div">
@@ -76,11 +140,10 @@ const AdminPage = () => {
 </span>
 </div>
 </div></div>
-
             <div className='admin-page-rows-group'>
                 <div className='admin-page-rows-group-row'>
                 <p>מס'</p>
-                 <p>משתמש</p>
+                 <p>שם מלא</p>
                  <p>פעיל</p>
             <p>דואר אלקטרוני</p>
             <p>תפקיד</p>
@@ -88,10 +151,12 @@ const AdminPage = () => {
             <p>התמחות</p>
             <p></p> <p></p>
                 </div>
-                <UserInfoRow num={1} firstName={" ח'ולוד"}  lastName={"ח'דיגה"} checked={"true"} email={"kholod@lnet.co.il"} password={"KK123456"} 
-                role={"מורה"} classN={"-"} specialization={"אנגלית"}/>
-                <UserInfoRow num={2} firstName={" ח'ולוד"}  lastName={"ח'דיגה"} checked={"true"} email={"kholod@lnet.co.il"} role={"תלמיד"}
-                 classN={"י'1"}  specialization={"-"} password={"KK123456"} />
+
+            {allUsers.map((item, index) => (
+              <UserInfoRow key={item._id} num={index+1} 
+              firstName={item.firstname}  lastName={item.lastname} checked={item.userstatus}
+              email={item.email} password={item.password} role={item.role} classN={item.studentclass} specialization={item.specialization}/>
+                ))}
             </div>
 
  {/* *********************************THIS IS THE MODAL *****************************************/}
@@ -103,21 +168,19 @@ const AdminPage = () => {
           <Form>
         <br />
         <Form.Group className="mb-2 names-div" >
-          <Form.Control id="firstName" className="form-controll short-input" type="text" placeholder="שם פרטי" 
-          value={userData.firstName} onChange={handleUserInputs}/>
+          <Form.Control id="firstname" className="form-controll short-input" type="text" placeholder="שם פרטי" 
+          value={userData.firstname} onChange={handleUserInputs}/>
           <Form.Control
-            className="form-controll short-input" type="text" placeholder="שם משפחה" id="lastName"
-            value={userData.lastName} onChange={handleUserInputs} />
+            className="form-controll short-input" type="text" placeholder="שם משפחה" id="lastname"
+            value={userData.lastname} onChange={handleUserInputs} />
         </Form.Group>
         <Form.Group className="mb-2" >
           <Form.Control className="form-controll" type="text" placeholder="דואר אלקטרוני"  id="email"
-          value={userData.email} onChange={handleUserInputs}
-          />
+          value={userData.email} onChange={handleUserInputs} />
         </Form.Group>
         <Form.Group className="mb-2" >
          <Form.Control className="form-controll" type="password" placeholder="סיסמה" id="password"
-         value={userData.password} onChange={handleUserInputs}
-         />
+         value={userData.password} onChange={handleUserInputs}  />
         </Form.Group>
         <Form.Group className="mb-2 names-div" >
           <Form.Select  aria-label="Default select example" id="role" className="short-input form-controll" value={userChosenRole} 
@@ -129,9 +192,8 @@ const AdminPage = () => {
           {showClass&&(
             <Form.Control
               className="form-controll short-input"
-              type="text" id="class"
-              placeholder="כיתה" value={userData.class} onChange={handleUserInputs}
-            /> )}
+              type="text" id="studentclass"
+              placeholder="כיתה" value={userData.studentclass} onChange={handleUserInputs}/> )}
           {showSpecialization&&(
             <Form.Control id="specialization" 
               className="form-controll short-input"
@@ -141,7 +203,7 @@ const AdminPage = () => {
       </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button className="add-lesson-btn" onClick={handleClose}>
+          <Button className="add-lesson-btn" onClick={handleAddingUser}>
             הוספת משתמש
           </Button>
           <Button variant="secondary" className="btn-danger" onClick={handleClose}>
@@ -160,10 +222,10 @@ const AdminPage = () => {
         <br />
         <Form.Group className="mb-2 names-div" >
           <Form.Control id="firstName" className="form-controll short-input" type="text" placeholder="שם פרטי" 
-          value={userData.firstName} onChange={handleUserInputsEditing}/>
+          value={userData.firstname} onChange={handleUserInputsEditing}/>
           <Form.Control
             className="form-controll short-input" type="text" placeholder="שם משפחה" id="lastName"
-            value={userData.lastName} onChange={handleUserInputsEditing} />
+            value={userData.lastname} onChange={handleUserInputsEditing} />
         </Form.Group>
         <Form.Group className="mb-2" >
           <Form.Control className="form-controll" type="text" placeholder="דואר אלקטרוני"  id="email"

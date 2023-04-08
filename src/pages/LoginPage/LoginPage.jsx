@@ -35,9 +35,9 @@ const LoginPage = () => {
     const { error } = validate(userInput, loginSchema);
 
     axios.post("/auth/login", userInput).then(async (res) => {
-      toast.success('Logged in successfully!', {
+      toast.success('ההתחברות הסתיימה בהצלחה', {
         position: "bottom-center",
-        autoClose: 5000,
+        autoClose: 3000,
         hideProgressBar: false,
         closeOnClick: true,
         pauseOnHover: true,
@@ -50,7 +50,7 @@ const LoginPage = () => {
         history.push("/home");
       })
       .catch((err) => {
-        toast.error("Something went wrong ${err}", {
+        toast.error(`${err}`, {
           position: "top-right",
           autoClose: 5000,
           hideProgressBar: false,

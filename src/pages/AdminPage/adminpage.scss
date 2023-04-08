@@ -2,8 +2,11 @@
 
 .admin-page-rows-group-row{
     width: 80vw !important;
-display: flex;flex-direction: row;
-justify-content: space-around;flex-wrap: wrap !important;
+    display: grid;grid-template-columns:0.5fr 1fr 0.2fr 1.5fr 1fr 1fr 1fr 1.5fr;
+    column-gap: 5px;
+    justify-items: center !important;
+// display: flex;flex-direction: row;
+// justify-content: space-around;flex-wrap: wrap !important;
 background-color: #c780fa84;
 border-radius: 50px;
 padding-top: 1em; 
@@ -18,9 +21,13 @@ margin-bottom: 5px !important;
     }
 
 .admin-page-rows-group-row:first-child{
+    width: 80vw !important;    display: grid;grid-template-columns:0.5fr 1fr 0.2fr 1.5fr 1fr 1fr 1fr 1.5fr;
+    column-gap: 5px;
+    justify-items: center !important;
     background-color: transparent !important;
     font-weight: bolder;
     padding-left: 1em;padding-right:1em;
+    margin-bottom: -20px !important;
 }
 .user-icon-div{
     display: flex;

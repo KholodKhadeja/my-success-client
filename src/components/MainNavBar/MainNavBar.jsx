@@ -60,7 +60,14 @@ const handleLogoutBtnClick = () => {
                   label={item.label}
                   link={item.url} />
               ))}
-             { loggedIn && userRole !=="admin" && authTeacherStudLinks.map((item, idx) => (
+             { loggedIn && userRole =="admin" && authAdminLinks.map((item, idx) => (
+                <NavBarLinkPartial
+                  key={"navlinks" + idx}
+                  label={item.label}
+                  link={item.url} />
+              ))}
+
+          { loggedIn && (userRole =="teacher" || userRole =="student") && authTeacherStudLinks.map((item, idx) => (
                 <NavBarLinkPartial
                   key={"navlinks" + idx}
                   label={item.label}
