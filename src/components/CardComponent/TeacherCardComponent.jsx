@@ -46,7 +46,7 @@ const TeacherCardComponent = ({key, subject,topic, teacherid,date, hour, learnin
              lastname:data.lastname,
            });
       }catch(err){
-          console.log(err);
+    
       }
       })();
   }, [teacherid]);

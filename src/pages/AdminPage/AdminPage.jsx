@@ -47,7 +47,16 @@ const handleClose = () => setShow(false);
             allUsersArray=JSON.parse(JSON.stringify(data)); 
            setAllUsers(data);
         }catch(err){
-            console.log(err);
+          toast.error('שגיאה בטעינת נתונים', {
+            position: "top-right",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+            });
         }
         })();
     }, []);
@@ -92,7 +101,6 @@ const handleSearchWordChange = (ev) =>{
     }, [userChosenRole]);
 
 const handleAddingUser = () =>{
-  console.log(userData);
   axios.post("users/", {
       firstname:userData.firstname,
       lastname:userData.lastname,

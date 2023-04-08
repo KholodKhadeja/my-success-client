@@ -71,7 +71,6 @@ const submitChangesForUser =  async () => {
       studentclass:userData.class,
       specialization:userData.specialization,
     });
-    console.log(data);
     toast.success('העדכון נשמר בהצלחה', {
       position: "bottom-center",
       autoClose:5000,
@@ -82,7 +81,6 @@ const submitChangesForUser =  async () => {
       progress: undefined,
       theme: "light",
       });
-      console.log(userData);
       setTimeout(() => {
         window.location.reload();
       }, 5000);

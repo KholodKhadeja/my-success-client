@@ -39,7 +39,7 @@
             padding-right: 300px !important;
     }
     .quoete-card{
-        width: 300px !important;height:200px !important;
+        width: 300px !important;height:150px !important;
     }
     }
     @media  (max-width:480px) {
@@ -47,7 +47,7 @@
             padding-right: 350px !important;
     }
     .quoete-card{
-        width: 300px !important;height:200px !important;
+        width: 300px !important;height:150px !important;
     }
     }
     .quoete-card-slider::-webkit-scrollbar-track
@@ -72,7 +72,7 @@ padding: 1em !important;
 background-color: $basic-clr-sec;
 display: flex;
 flex-direction: column;
-width: 300px !important;height:200px !important;
+width: 300px !important;height:150px !important;
 border-radius: $basic-border-radius;
 img{
     width: 20px !important;height: 20px !important;

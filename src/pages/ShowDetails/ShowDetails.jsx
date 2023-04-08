@@ -27,7 +27,6 @@ const ShowDetails = () => {
 useEffect(() => {
    try{
      id=userData.id;
-     console.log(id,"id");
    }catch(err){
 
    }
@@ -48,7 +47,16 @@ try{
        profileImg:data.profileImg,
      });
 }catch(err){
-    console.log(err);
+    toast.error('שגיאה בטעינת נתונים', {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
 }
 })();
 }, [id]);

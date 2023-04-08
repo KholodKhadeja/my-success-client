@@ -7,9 +7,10 @@ const SaysAboutUsSection = () => {
         <div className='large-section main-div-says-about-us'>
             <TitleFunction text={"מה אומרים עלינו?"} />
             <div className='quoete-card-slider'>
-            <SliderItem num={1} content={"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}/>
-            <SliderItem num={2} content={"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}/>
-            <SliderItem  num={3} content={"Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book."}/>
+            <SliderItem num={1} content=
+            {"קל לשימוש, ויש מבחר טוב של שיעורים"}/>
+            <SliderItem num={2} content={"בזכות המערכת My success יכלתי ללמוד מכל מקום וזמן ולהצליח"}/>
+            <SliderItem  num={3} content={"כל תלמיד בתיכון חייב להכיר את המערכת הזאת."}/>
            <img src=""/>
             </div>
         </div>

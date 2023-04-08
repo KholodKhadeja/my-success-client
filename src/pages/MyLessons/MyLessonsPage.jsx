@@ -58,7 +58,16 @@ const MyLessonsPage = () => {
       allMyLessons=data.mylessons;
       setUserLessons(data.mylessons);
   }catch(err){
-      console.log(err);
+    toast.error('שגיאה בטעינת נתונים', {
+      position: "top-right",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
   }
   })();
   }, []);
@@ -66,10 +75,7 @@ const MyLessonsPage = () => {
   useEffect(() => {
     let regex = new RegExp(searchWord, "i"); 
     let lessonArrCopy = JSON.parse(JSON.stringify(allMyLessons)); 
-    console.log("lesson from set", userLessons);
-    console.log("copy before filter", lessonArrCopy);
     lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject));
-    console.log("lesson after filter", lessonArrCopy);
     setUserLessons(lessonArrCopy);
   }, [searchWord]);
 
@@ -123,7 +129,6 @@ const handleFormSelectChange = (event) =>{
     }
 
   const handleAddingUserRequest=(ev)=>{
-    console.log("entered the function");
     //  ev.preventDefault();
      axios.post(`users/${userIdOriginal}/mylessons`,{
       topic:newLessonData.topic,
@@ -146,7 +151,6 @@ const handleFormSelectChange = (event) =>{
         handleClose();
         window.location.reload();
      }).catch((err)=>{
-      console.log(err);
       let errMsg;
       if(err.message === "Request failed with status code 400"){
     errMsg=err.request.response;
@@ -205,7 +209,7 @@ const handleFormSelectChange = (event) =>{
               topic={item.topic}
                subject={item.subject}
                date={item.date}
-                hour = {item.hour}/>)
+                hour = {item.hour}  profileImg={profileImg}/>)
                 ))}
           {/* for teachers show this */}
           { userRole=="teacher" && (userLessons.map((item, index) => (

@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 
 const CardComponent = ({key,teacherid,topic, subject,date, hour, profileImg}) => {
   const userRole = useSelector((state)=>state.auth.role);
+  const [profileImgS, setProfileImg] = useState(profileImg);
   let basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";
 const [imagePath, setImagePath] =  useState(basicPath);
 const [startClicked, setStarClicked] = useState(false);
@@ -21,16 +22,15 @@ useEffect(() => {
   (async()=>{
     try{
         let { data } = await axios.get(`users/getuserbyid/${teacherid}`);
+       setProfileImg(data.profileImg);
         setTeachername({
            firstname: data.firstname,
            lastname:data.lastname,
          });
     }catch(err){
-        console.log(err);
     }
     })();
-}, [teacherid]);
-
+}, []);
 
 const switchImg =()=>{
     if(!startClicked){
@@ -47,7 +47,7 @@ return (
 <Fragment>
        <div className='lesson-card'>
             <div className='star-section'>
-              { userRole ==="student" && (<img id="star-img" src={imagePath}
+              { userRole ==="student" && (<img id="star-img" src={basicPath}
                  alt="wishlist star" onClick={switchImg}/>)
             }
                         { userRole ==="teacher" && (<br/>)
@@ -55,7 +55,7 @@ return (
             </div>
             <div className='section-1'>
                  <div className='card-img-container'>
-                       {/* <img src="" alt="teacher name" /> */}
+                       <img src={profileImg} alt="teacher name" />
                  </div>
                  <p className="teacher-name">{actualteachername.firstname} {actualteachername.lastname}</p>
             </div>

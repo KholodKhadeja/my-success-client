@@ -18,13 +18,6 @@ const [lessonsArr, setLessonsArr]=  useState(OriginalLessonsArray);
 const [searchWord, setSearchWord] = useState(search);
 
 useEffect(() => {
-  let regex = new RegExp(searchWord, "i"); 
-  let lessonArrCopy = JSON.parse(JSON.stringify(OriginalLessonsArray)); 
-  lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject));
-  setLessonsArr(lessonArrCopy);
-}, [searchWord]);
-
-useEffect(() => {
   (async () => {
     try {
       let { data } = await axios.get("/lessons");
@@ -49,6 +42,15 @@ useEffect(() => {
     }
   })();
 }, []);
+
+useEffect(() => {
+  let regex = new RegExp(searchWord, "i"); 
+  let lessonArrCopy = JSON.parse(JSON.stringify(OriginalLessonsArray)); 
+  lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject));
+  setLessonsArr(lessonArrCopy);
+}, [searchWord]);
+
+
 
 
 let [active, setActive] = useState(1);
@@ -86,7 +88,8 @@ return(
               topic={item.topic}
                subject={item.subject}
                date={item.date}
-                hour = {item.hour}/>
+                hour = {item.hour}
+                profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
                 ))}
   </div>
   <div className='pagination-cont'>

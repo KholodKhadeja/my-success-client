@@ -30,6 +30,7 @@ useEffect(() => {
     })();
   }, []);
 
+
 //   useEffect(() => {
 //     let regex = new RegExp(searchInput, "i"); 
 //     let bizCardArrCopy = JSON.parse(JSON.stringify(initialBizCardArray)); 
@@ -48,7 +49,7 @@ return (
             <span>
                  <TitleFunction text={"שיעורים"}/></span>
                  <div className="input-group mb-3 w-25">
-                 <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default"  value={searchInput}
+                 <input type="text" className="form-control" placeholder="הכניסו מילת חיפוש ולחצו" value={searchInput}
           onChange={handleSearchInputChange} />
        
                 <span  className="input-group-text" id="inputGroup-sizing-default">
@@ -66,14 +67,17 @@ return (
               topic={item.topic}
                subject={item.subject}
                date={item.date}
-                hour = {item.hour}/>
+                hour = {item.hour}
+                profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
                 ))}
            </div>
 
            <Link className="view-more-lessons" to={`/lessons/${emptyString}`}>
             <p>ראו עוד</p>
            </Link>
+           <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
         </div>
+        
     );
 }
 
