@@ -13,7 +13,7 @@ import TitleFunctionSmall from '../../partial/TitleComponent/TitleFunctionSmall'
 import axios from "axios";
 
 
-const TeacherCardComponent = ({key, subject,topic, teacherid,date, hour, learningLevel, zoomLink, profileImg}) => {
+const TeacherCardComponent = ({key, subject,topic, teacherid,date, hour, learningLevel, zoomLink, profileImg,  lessonId}) => {
   const [actualteachername, setTeachername] = useState({
     firstname:"",
     lastname:""
@@ -34,6 +34,7 @@ const TeacherCardComponent = ({key, subject,topic, teacherid,date, hour, learnin
     hour: hour,
     learningLevel: learningLevel,
     zoomLink: zoomLink,
+    lessonId:  lessonId,
   });
 
   useEffect(() => {

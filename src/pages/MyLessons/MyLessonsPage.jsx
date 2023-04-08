@@ -216,6 +216,7 @@ const handleFormSelectChange = (event) =>{
                 hour = {item.hour}
                 profileImg={profileImg}
                 learningLevel={item.learningLevel}
+                lessonId={item._id}
                 />)
                 ))}
         </div>
