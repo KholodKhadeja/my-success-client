@@ -20,8 +20,6 @@ const [searchWord, setSearchWord] = useState(search);
 useEffect(() => {
   let regex = new RegExp(searchWord, "i"); 
   let lessonArrCopy = JSON.parse(JSON.stringify(OriginalLessonsArray)); 
-  console.log("original", OriginalLessonsArray);
-  console.log("the copy", lessonArrCopy);
   lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject));
   setLessonsArr(lessonArrCopy);
 }, [searchWord]);
@@ -30,7 +28,7 @@ useEffect(() => {
   (async () => {
     try {
       let { data } = await axios.get("/lessons");
-      OriginalLessonsArray = data; 
+      OriginalLessonsArray = JSON.parse(JSON.stringify(data));
       if(search==="" || search===null){
         let lessonArrCopy = JSON.parse(JSON.stringify(OriginalLessonsArray)); 
         setLessonsArr(lessonArrCopy);
@@ -53,11 +51,7 @@ useEffect(() => {
 }, []);
 
 
-
-
-
 let [active, setActive] = useState(1);
-
 
 let items = [];
 for (let number = 1; number <= 5; number++) {

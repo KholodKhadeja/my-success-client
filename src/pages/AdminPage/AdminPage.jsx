@@ -14,11 +14,12 @@ let allUsersArray=[];
 const AdminPage = () => {
     const [serialNum, setSerialNum] = useState(1);
     const [allUsers, setAllUsers] = useState(allUsersArray);
+    const [searchInput, setSearchInput] = useState("");
 
-        const [show, setShow] = useState(false);
-        const [show2, setShow2] = useState(false);
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
+const [show, setShow] = useState(false);
+const [show2, setShow2] = useState(false);
+const handleClose = () => setShow(false);
+ const handleShow = () => setShow(true);
 
     const handleClose2 = () => setShow2(false);
     const handleShow2 = () => setShow2(true);
@@ -28,6 +29,7 @@ const AdminPage = () => {
     const [showSpecialization, setShowSpecialization] = useState(false);
     const [userData,setUserData] = useState({
     num:{serialNum},
+    userId:null,
       firstname:"",
       lastname:"",
       checked: true,
@@ -42,6 +44,7 @@ const AdminPage = () => {
       (async()=>{
         try{
             let { data } = await axios.get(`users/`);
+            allUsersArray=JSON.parse(JSON.stringify(data)); 
            setAllUsers(data);
         }catch(err){
             console.log(err);
@@ -49,7 +52,16 @@ const AdminPage = () => {
         })();
     }, []);
 
+    useEffect(() => {
+      let regex = new RegExp(searchInput, "i"); 
+      let usersCopyArr = JSON.parse(JSON.stringify(allUsersArray)); 
+      usersCopyArr =  usersCopyArr.filter((item) => regex.test(item.firstname) || regex.test(item.lastname));
+      setAllUsers(usersCopyArr);
+    }, [searchInput]);
 
+const handleSearchWordChange = (ev) =>{
+   setSearchInput(ev.target.value);
+}
     const handleRoleChosing = (ev) => {
       setUserChosenRole(ev.target.value);
       setUserData(prevState => ({
@@ -132,7 +144,7 @@ const handleAddingUser = () =>{
             </Button>
 
                  <div className="input-group mb-3">
-                 <input type="text" className="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-default" />
+                 <input type="text" className="form-control" value={searchInput} onChange={handleSearchWordChange}  />
                 <span className="input-group-text" id="inputGroup-sizing-default">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
@@ -154,7 +166,7 @@ const handleAddingUser = () =>{
 
             {allUsers.map((item, index) => (
               <UserInfoRow key={item._id} num={index+1} 
-              firstName={item.firstname}  lastName={item.lastname} checked={item.userstatus}
+              firstName={item.firstname}  lastName={item.lastname} checked={item.userstatus} userId={item._id}
               email={item.email} password={item.password} role={item.role} classN={item.studentclass} specialization={item.specialization}/>
                 ))}
             </div>

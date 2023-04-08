@@ -3,20 +3,26 @@ import { Switch } from 'antd';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 import Form from "react-bootstrap/Form";
+import axios from "axios";
+import { toast } from "react-toastify";
+import { useEffect } from 'react';
 
-const UserInfoRow = ({num,firstName, lastName,checked,email,role,classN, specialization, password}) => {
-    const [userData,setUserData] = useState({
+const UserInfoRow = ({num,firstName, lastName,checked,userId, email,role,classN, specialization, password}) => {
+  const [userChosenRole, setUserChosenRole] = useState(role);  
+  const [toggle, settoggle] = useState(checked);
+  const [userData,setUserData] = useState({
           num:num,
+          userId:userId,
           firstName:firstName,
           lastName:lastName,
-          checked: checked,
+          checked: toggle,
           email:email,
-          role:role,
+          role:{userChosenRole},
           class:classN,
           specialization:specialization,
           password:password,
         });
-
+      
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -25,23 +31,103 @@ const UserInfoRow = ({num,firstName, lastName,checked,email,role,classN, special
     const handleCloseSec = () => setShowSec(false);
     const handleShowSec = () => setShowSec(true);
 
-    const [toggle, settoggle] = useState(checked);
+
     const handleToggle=()=>{
-        toggle ? settoggle(false) : settoggle(true);
-        //  axios update request
+        toggle ? settoggle(false) && (userData(prevState => ({
+          ...prevState,
+           checked:false,
+        }))) : settoggle(true) &&(userData(prevState => ({
+          ...prevState,
+          checked:true,
+        })));
+        submitChangesForUser();
     }
 
+    const handleRoleChosing = (ev) => {
+      setUserChosenRole(ev.target.value);
+      userData(prevState => ({
+        ...prevState,
+        role: ev.target.value
+      }));
+    };
 
-    const handleUserInputs = (ev) =>{
+    const handleUserInputsEditing = (ev) =>{
         let userInfo=JSON.parse(JSON.stringify(userData));
         if(userInfo.hasOwnProperty(ev.target.id)){
           userInfo[ev.target.id]=ev.target.value;
           setUserData(userInfo);
         }
     }
-    const handleUserInputsEditing = ()=>{
 
-    }
+const submitChangesForUser =  async () => {
+  try {
+    let { data } = await axios.patch("users/", {
+      _id:userId,
+      firstname:userData.firstName,
+      lastname:userData.lastName,
+      userstatus: userData.checked,
+      email:userData.email,
+      role:userChosenRole,
+      studentclass:userData.class,
+      specialization:userData.specialization,
+    });
+    console.log(data);
+    toast.success('העדכון נשמר בהצלחה', {
+      position: "bottom-center",
+      autoClose:5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+      console.log(userData);
+      setTimeout(() => {
+        window.location.reload();
+      }, 5000);
+  } catch (err) {
+    toast.error(`${err}`, {
+      position: "bottom-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+}; 
+}
+const deletingUserFunc = async() =>{
+  try {
+    let { data } = await axios.delete(`/users/${userId}`);
+    toast.success('המשתמש נמחק בהצלחה', {
+      position: "bottom-center",
+      autoClose:5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 5000);
+  } catch (err) {
+    toast.error(`${err}`, {
+      position: "bottom-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+}; 
+}
     return (
         <Fragment>
         <div className="admin-page-rows-group-row">
@@ -68,6 +154,7 @@ const UserInfoRow = ({num,firstName, lastName,checked,email,role,classN, special
         </div>
 
 
+{/* deletion modal */}
 <Modal show={show} onHide={handleClose}>
 <Modal.Header closeButton>
   <Modal.Title>מחיקת משתמש</Modal.Title>
@@ -76,12 +163,12 @@ const UserInfoRow = ({num,firstName, lastName,checked,email,role,classN, special
 <br/>
 אולי כדאי להפוך המשתמש ללא פעיל במקום למחוק?!	&#128513; </Modal.Body>
 <Modal.Footer>
-<Button variant="primary" onClick={handleClose}>  למחוק</Button>
-  <Button variant="secondary" onClick={handleClose}> עזוב</Button>
+<Button className="add-lesson-btn" onClick={deletingUserFunc}>  למחוק</Button>
+  <Button variant="danger" onClick={handleClose}> עזוב</Button>
 </Modal.Footer>
 </Modal>
 
-
+{/* editing user modal */}
 <Modal show={showSec} onHide={handleCloseSec}>
 <Modal.Header closeButton>
   <Modal.Title>עריכת משתמש</Modal.Title>
@@ -96,41 +183,41 @@ const UserInfoRow = ({num,firstName, lastName,checked,email,role,classN, special
             className="form-controll short-input" type="text" placeholder="שם משפחה" id="lastName"
             value={userData.lastName} onChange={handleUserInputsEditing} />
         </Form.Group>
-        <div className='d-flex gap-2 float-start'>
+        <div className='d-flex gap-2'>
             <p>סטטוס משתמש:</p><Switch onClick={handleToggle} checked={toggle}/></div>
         <Form.Group className="mb-2" >
           <Form.Control className="form-controll" type="text" placeholder="דואר אלקטרוני"  id="email"
           value={userData.email} onChange={handleUserInputsEditing}
           />
         </Form.Group>
-        <Form.Group className="mb-2" >
-         <Form.Control className="form-controll" type="password" placeholder="סיסמה" id="password"
-         value={userData.password} onChange={handleUserInputsEditing} />
-        </Form.Group>
 
         <Form.Group className="mb-2" >
-         <Form.Control className="form-controll" type="text" placeholder="תפקיד" id="role"
-         value={userData.role} onChange={handleUserInputsEditing} />
+        <Form.Select   id="role" className="form-controll" value={userChosenRole} 
+          onChange={handleRoleChosing} >
+            <option>בחר תפקיד</option>
+            <option value="teacher">מורה</option>
+            <option value="student">תלמיד</option>
+          </Form.Select>
         </Form.Group>
 {
-        role == "תלמיד" ?
+       userChosenRole == "student" &&(
         <Form.Group className="mb-2" >
-        <Form.Control className="form-controll" type="text" id="class"
+        <Form.Control className="form-controll" type="text" id="class" placeholder='כיתה'
         value={userData.class} onChange={handleUserInputsEditing} />
-       </Form.Group> : undefined
+       </Form.Group> )
   }
-{  role == "מורה" ?
+{  userChosenRole  == "teacher" && (
             <Form.Group className="mb-2" >
-            <Form.Control className="form-controll" type="text" id="specialization"
+            <Form.Control className="form-controll" type="text" id="specialization" placeholder='התמחות'
         value={userData.specialization} onChange={handleUserInputsEditing} />
-           </Form.Group> : undefined
-        }
+           </Form.Group>)
+ }
       </Form>
 </Modal.Body>
 <Modal.Footer>
-<Button variant="primary" onClick={handleCloseSec}>
+<Button className="add-lesson-btn" onClick={submitChangesForUser}>
    שמור שינויים</Button>
-  <Button variant="secondary" onClick={handleCloseSec}>  ביטול</Button>
+  <Button variant="danger" onClick={handleCloseSec}>  ביטול</Button>
 </Modal.Footer>
 </Modal>
 
