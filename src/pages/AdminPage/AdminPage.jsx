@@ -127,21 +127,25 @@ const handleAddingUser = () =>{
         }, 5000);
       })
     .catch((err) => {
-      toast.error(`${err}`, {
-        position: "bottom-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        });
-    });
+      console.log(err);
+    //   let errorMsgs = "";
+    //   for (let errorItem of err.response.data.err.details) {
+    //     errorMsgs += `${errorItem.message}`;
+    //   }
+    // toast.error(`${errorMsgs}`, {
+    //   position: "bottom-center",
+    //   autoClose: 5000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    //   draggable: true,
+    //   progress: undefined,
+    //   theme: "light",
+    //   });
+  });
 }
 
-
-    return (
+return (
         <Fragment>
 <div className="upper-div">
             <span>

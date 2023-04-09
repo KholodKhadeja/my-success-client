@@ -22,9 +22,9 @@ const FavLessonPage = () => {
 </span>
 </div></div></div>
 <div className='mt-5 lessons-div-lessons'> 
+{/* <CardComponent />
 <CardComponent />
-<CardComponent />
-<CardComponent />
+<CardComponent /> */}
 
   </div>
         </Fragment>

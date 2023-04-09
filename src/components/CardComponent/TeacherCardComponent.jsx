@@ -11,6 +11,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import moment from 'moment';
 import TitleFunctionSmall from '../../partial/TitleComponent/TitleFunctionSmall';
 import axios from "axios";
+import { toast } from "react-toastify";
 
 
 const TeacherCardComponent = ({key, subject,topic, teacherid,date, hour, learningLevel, zoomLink, profileImg,  lessonId}) => {
@@ -46,7 +47,16 @@ const TeacherCardComponent = ({key, subject,topic, teacherid,date, hour, learnin
              lastname:data.lastname,
            });
       }catch(err){
-    
+        toast.error('לא מצליח לטעון נתונים, תרענן עמוד', {
+          position: "bottom-center",
+          autoClose: 5000,
+          hideProgressBar: false,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+          progress: undefined,
+          theme: "light",
+          });
       }
       })();
   }, [teacherid]);
@@ -73,6 +83,7 @@ return (
             </div>
 <div className='section-1'>
      <div className='card-img-container'>
+      <br/>
            <img src={profileImg} alt="teacher name"  />
      </div>
       <p className="teacher-name">{actualteachername.firstname} {actualteachername.lastname}</p>
@@ -121,8 +132,9 @@ return (
       <option value="4" selected>4</option>
       <option value="5">5</option>
     </Form.Select>
-    <Form.Control type="text" className="add-lesson-inputs mb-1" value={lessonDetails.hour} 
+    <Form.Control type="text" className="add-lesson-inputs mb-1" value={new Date(lessonDetails.hour).toLocaleTimeString()} 
     onChange={handleLessonDetailsEdit} id="hour"/>
+
           <Form.Control type="text" className="add-lesson-inputs mb-1" value={lessonDetails.zoomLink}  
           onChange={handleLessonDetailsEdit} id="zoomLink"/>
         </Modal.Body>

@@ -17,26 +17,20 @@ useEffect(() => {
         OriginalLessonsArray = data;
         setLessonsArr(OriginalLessonsArray);
       } catch (err) {
-        toast.error("😭 Something went wrong", {
-          position: "top-right",
+        toast.error('לא מצליח לטעון נתונים, תרענן עמוד', {
+          position: "bottom-center",
           autoClose: 5000,
           hideProgressBar: false,
           closeOnClick: true,
           pauseOnHover: true,
           draggable: true,
           progress: undefined,
-        });
+          theme: "light",
+          });
       }
     })();
   }, []);
 
-
-//   useEffect(() => {
-//     let regex = new RegExp(searchInput, "i"); 
-//     let bizCardArrCopy = JSON.parse(JSON.stringify(initialBizCardArray)); 
-//     bizCardArrCopy = bizCardArrCopy.filter((item) => regex.test(item.title));
-//     setBizCardArr(bizCardArrCopy);
-//   }, [searchInput]);
 
 const handleSearchInputChange = (ev) =>{
    setSearchInput(ev.target.value);

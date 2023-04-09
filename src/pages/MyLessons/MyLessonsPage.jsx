@@ -19,7 +19,7 @@ import TitleFunctionSmall from "../../partial/TitleComponent/TitleFunctionSmall"
 import TimePicker from "react-bootstrap-time-picker";
 import { toast } from "react-toastify";
 
-let allMyLessons = [];
+let allMyLessons = [],allMyLessonsFetch=[], lessonsIdArray=[];
 let profileImg, userIdOriginal=null;
 const MyLessonsPage = () => {
   let userId;
@@ -41,7 +41,6 @@ const MyLessonsPage = () => {
      zoomLink:""
   });
 
-
   useEffect(() => {
     try{
       userId=userData.id;
@@ -54,8 +53,14 @@ const MyLessonsPage = () => {
   (async()=>{
   try{
       let { data } = await axios.get(`users/getuserbyid/${userIdOriginal}`);
+      console.log(data);
       profileImg=data.profileImg;
-      allMyLessons=data.mylessons;
+      if(userRole === "student"){
+        lessonsIdArray=JSON.parse(JSON.stringify(data.mylessons));
+      }
+      if(userRole === "teacher"){
+        lessonsIdArray=JSON.parse(JSON.stringify(data.mylessons));
+      }
       setUserLessons(data.mylessons);
   }catch(err){
     toast.error('שגיאה בטעינת נתונים', {
@@ -78,6 +83,30 @@ const MyLessonsPage = () => {
     lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject));
     setUserLessons(lessonArrCopy);
   }, [searchWord]);
+
+  useEffect(() => {
+    lessonsIdArray.map((item) => {
+      (async () => {
+        try {
+          let { datasec } = await axios.get(`lessons/getbyid/${item}`);
+          allMyLessons.push(datasec);
+          console.log(datasec);
+        } catch (err) {
+          toast.error('לא מצליח לטעון נתונים, תרענן עמוד', {
+            position: "bottom-center",
+            autoClose: 5000,
+            hideProgressBar: false,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+            progress: undefined,
+            theme: "light",
+          });
+        }
+      })()
+    })
+  }, [allMyLessons]);
+  
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -138,7 +167,7 @@ const handleFormSelectChange = (event) =>{
        learningLevel:newLessonData.learningLevel,
        zoomLink:newLessonData.zoomLink
      }).then((res)=>{
-      toast.success('Lesson Added Successfully!', {
+      toast.success('השיעור התווסף בהצלחה', {
         position: "bottom-center",
         autoClose: 6000,
         hideProgressBar: false,
@@ -149,7 +178,10 @@ const handleFormSelectChange = (event) =>{
         theme: "dark",
         });
         handleClose();
-        window.location.reload();
+        setTimeout(() => {
+          window.location.reload();
+        }, 5000);
+        handleClose();
      }).catch((err)=>{
       let errMsg;
       if(err.message === "Request failed with status code 400"){
@@ -209,7 +241,9 @@ const handleFormSelectChange = (event) =>{
               topic={item.topic}
                subject={item.subject}
                date={item.date}
-                hour = {item.hour}  profileImg={profileImg}/>)
+                hour = {item.hour}    profileImg={profileImg}
+                learningLevel={item.learningLevel}
+                lessonId={item._id}/>)
                 ))}
           {/* for teachers show this */}
           { userRole=="teacher" && (userLessons.map((item, index) => (

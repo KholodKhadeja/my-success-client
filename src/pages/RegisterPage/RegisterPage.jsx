@@ -2,13 +2,17 @@ import "./RegisterPageStyling.scss";
 import TitleFunction from "../../partial/TitleComponent/TitleFunction";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { toast } from "react-toastify";
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
 const RegisterPage = () => {
   const history = useHistory();
+  const emailRef = useRef(null);
+  const emailEvRef = useRef(null);
+  const passwordRef = useRef(null);
+  const passwordEvRef = useRef(null);
   // const [userChosenRole, setUserChosenRole] = useState(null);
   const [showClass, setShowClass] = useState(false);
   const [showSpecialization, setShowSpecialization] = useState(false);
@@ -37,6 +41,40 @@ const RegisterPage = () => {
 
   const submitRegisterForm = (ev) =>{
     ev.preventDefault();
+   if(userInput.email !== userInput.emailver){
+    emailRef.current.style.borderColor = 'red';
+    emailEvRef.current.style.borderColor = 'red';
+      toast.warn('הדואר האלקטרוני חייב להיות דומה בשני השדות', {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+        return;
+    }
+    if(userInput.password !== userInput.passwordver){
+      passwordRef.current.style.borderColor = 'red';
+      passwordEvRef.current.style.borderColor = 'red';
+      toast.warn('תקליד בבקשה אותה סיסמה פעמיים', {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+        return;
+    }
+    emailRef.current.style.borderColor = 'transparent';
+    emailEvRef.current.style.borderColor = 'transparent';
+    passwordRef.current.style.borderColor = 'transparent';
+    passwordEvRef.current.style.borderColor = 'transparent';
     axios.post("/auth/register", {
         email:userInput.email,
         firstname:userInput.firstname,
@@ -64,7 +102,11 @@ const RegisterPage = () => {
         history.push("/login");
       })
       .catch((err) => {
-        toast.error(`${err}`, {
+          let errorMsgs = "";
+          for (let errorItem of err.response.data.err.details) {
+            errorMsgs += `${errorItem.message}`;
+          }
+        toast.error(`${errorMsgs}`, {
           position: "bottom-center",
           autoClose: 5000,
           hideProgressBar: false,
@@ -94,7 +136,7 @@ const RegisterPage = () => {
       <span>
         <TitleFunction text={"הירשם למערכת"} />
       </span>
-      <Form>
+      <Form className="align-to-center-page">
         <img
           className="register-img"
           src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/logo.png?raw=true"
@@ -116,28 +158,28 @@ const RegisterPage = () => {
           <Form.Control
             className="form-controll"
             type="text"
-            placeholder="דואר אלקטרוני" id="email" value={userInput.email} onChange={handleUserInputChange}
+            placeholder="דואר אלקטרוני" id="email" value={userInput.email} onChange={handleUserInputChange} ref={emailRef}
           />
         </Form.Group>
         <Form.Group className="mb-2" >
           <Form.Control
             className="form-controll"
             type="text"
-            placeholder="אימות דואר אלקטרוני" id="emailver" value={userInput.emailver} onChange={handleUserInputChange}
+            placeholder="אימות דואר אלקטרוני" id="emailver" value={userInput.emailver} onChange={handleUserInputChange} ref={emailEvRef}
           />
         </Form.Group>
         <Form.Group className="mb-2" >
           <Form.Control
             className="form-controll"
             type="password"
-            placeholder="סיסמה" id="password" value={userInput.password} onChange={handleUserInputChange}
+            placeholder="סיסמה" id="password" value={userInput.password} onChange={handleUserInputChange} ref={passwordRef}
           />
         </Form.Group>
         <Form.Group className="mb-2" >
           <Form.Control
             className="form-controll"
             type="password"
-            placeholder="אימות סיסמה" id="passwordver" value={userInput.passwordver} onChange={handleUserInputChange}
+            placeholder="אימות סיסמה" id="passwordver" value={userInput.passwordver} onChange={handleUserInputChange} ref={passwordEvRef}
           />
         </Form.Group>
         <Form.Group className="mb-2 names-div" >

@@ -49,43 +49,22 @@ const LoginPage = () => {
         autoLoginFunction(res.data.token);
         history.push("/home");
       })
-      .catch((err) => {
-        toast.error(`${err}`, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-        });
-      });
-      if (error) {
+      .catch((error) => {
         let errorMsgs = "";
-        for (let errorItem of error.details) {
-          switch (errorItem.type) {
-            case "string.min":
-              errorMsgs += `${errorItem.context.label} length must be at least ${errorItem.context.limit} characters long, `;
-              break;
-            case "string.max":
-              errorMsgs += `${errorItem.context.label} length must be at least ${errorItem.context.limit} characters long, `;
-              break;
-            default:
-              errorMsgs += "something went wrong,";
-              break;
-          }
-        }
-        toast.error(errorMsgs, {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
+      errorMsgs =error.response.data.err;
+      if(errorMsgs == "invalid email") errorMsgs="דואר אלקטרוני לא קיים, תירשם למערכת בבקשה";
+      if(errorMsgs == "invalid password") errorMsgs="אחד או יותר מהפרטים שגוי";
+      toast.error(`${errorMsgs}`, {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
         });
-        return;
-      }
+    });
   };
 
   const handleEmailInputInvalid = (ev) => {
@@ -94,7 +73,7 @@ const LoginPage = () => {
     return (
      <div>
        <span><TitleFunction text={"התחברות"}/></span>
-<Form>
+<Form className="align-to-center-page">
 <img className="register-img" src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/logo.png?raw=true" />
       <br/>
       <Form.Group className="mb-2">

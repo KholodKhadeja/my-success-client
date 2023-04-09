@@ -30,7 +30,7 @@ useEffect(() => {
       setLessonsArr(OriginalLessonsArray);
      }
     } catch (err) {
-      toast.error("😭 Something went wrong", {
+      toast.error("שגיאה בטעינת נתונים", {
         position: "top-right",
         autoClose: 5000,
         hideProgressBar: false,
