@@ -19,7 +19,7 @@ import TitleFunctionSmall from "../../partial/TitleComponent/TitleFunctionSmall"
 import TimePicker from "react-bootstrap-time-picker";
 import { toast } from "react-toastify";
 
-let allMyLessons = [],allMyLessonsFetch=[], lessonsIdArray=[];
+let allMyLessons = [], lessonsIdArray=[];
 let profileImg, userIdOriginal=null;
 const MyLessonsPage = () => {
   let userId;
@@ -53,15 +53,9 @@ const MyLessonsPage = () => {
   (async()=>{
   try{
       let { data } = await axios.get(`users/getuserbyid/${userIdOriginal}`);
-      console.log(data);
       profileImg=data.profileImg;
-      if(userRole === "student"){
-        lessonsIdArray=JSON.parse(JSON.stringify(data.mylessons));
-      }
-      if(userRole === "teacher"){
-        lessonsIdArray=JSON.parse(JSON.stringify(data.mylessons));
-      }
-      setUserLessons(data.mylessons);
+     allMyLessons=JSON.parse(JSON.stringify(data.mylessons));
+      setUserLessons(allMyLessons);
   }catch(err){
     toast.error('שגיאה בטעינת נתונים', {
       position: "top-right",
@@ -77,36 +71,37 @@ const MyLessonsPage = () => {
   })();
   }, []);
 
+  // useEffect(() => {
+  //   lessonsIdArray.map((item) => {
+  //     (async () => {
+  //       try {
+  //         let { datasec } = await axios.get(`lessons/getbyid/${item}`);
+  //         allMyLessons.push(datasec);
+  //         console.log(allMyLessons);
+  //       } catch (err) {
+  //         toast.error('לא מצליח לטעון נתונים, תרענן עמוד', {
+  //           position: "bottom-center",
+  //           autoClose: 5000,
+  //           hideProgressBar: false,
+  //           closeOnClick: true,
+  //           pauseOnHover: true,
+  //           draggable: true,
+  //           progress: undefined,
+  //           theme: "light",
+  //         });
+  //       }
+  //     })()
+  //     setUserLessons(allMyLessons);
+  //     JSON.parse(JSON.stringify(allMyLessons)); 
+  //   })
+  // }, [allMyLessons]);
+  
   useEffect(() => {
     let regex = new RegExp(searchWord, "i"); 
     let lessonArrCopy = JSON.parse(JSON.stringify(allMyLessons)); 
     lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject));
     setUserLessons(lessonArrCopy);
   }, [searchWord]);
-
-  useEffect(() => {
-    lessonsIdArray.map((item) => {
-      (async () => {
-        try {
-          let { datasec } = await axios.get(`lessons/getbyid/${item}`);
-          allMyLessons.push(datasec);
-          console.log(datasec);
-        } catch (err) {
-          toast.error('לא מצליח לטעון נתונים, תרענן עמוד', {
-            position: "bottom-center",
-            autoClose: 5000,
-            hideProgressBar: false,
-            closeOnClick: true,
-            pauseOnHover: true,
-            draggable: true,
-            progress: undefined,
-            theme: "light",
-          });
-        }
-      })()
-    })
-  }, [allMyLessons]);
-  
 
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -228,11 +223,7 @@ const handleFormSelectChange = (event) =>{
         <div className="lessons-div-lessons-page">
           {
             userLessons.length ==0 &&(
-              <p className="fadeha-text">אולי כדאי לך להתחיל להשתמש במערכת ולהוסיף שיעורים!
-                <br/>
-                מה אתה חושב??
-              </p>
-
+              <p className="fadeha-text">אין שיעורים להצגה </p>
             )
           }
           {/* for students show this */}
@@ -255,6 +246,7 @@ const handleFormSelectChange = (event) =>{
                 profileImg={profileImg}
                 learningLevel={item.learningLevel}
                 lessonId={item._id}
+                zoomLink={item.zoomLink}
                 />)
                 ))}
         </div>
@@ -275,16 +267,6 @@ const handleFormSelectChange = (event) =>{
           onChange={handleInputChanges}/>
           <Form.Control type="text" id="topic" className="add-lesson-inputs mb-1" placeholder="נושא השיעור"  value={newLessonData.topic}  
           onChange={handleInputChanges}/>
-          {/* <Form.Select aria-label="Default select example" className="add-lesson-inputs mb-1">
-      <option>יום</option>
-      <option value="1">א</option>
-      <option value="2">ב</option>
-      <option value="3">ג</option>
-      <option value="4">ד</option>
-      <option value="5">ה</option>
-      <option value="6">ו</option>
-      <option value="7">שבת</option>
-    </Form.Select> */}
 
    <DatePicker id="date"
       selected={selectedDate} 

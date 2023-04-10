@@ -50,19 +50,16 @@ useEffect(() => {
   setLessonsArr(lessonArrCopy);
 }, [searchWord]);
 
-
-
-
 let [active, setActive] = useState(1);
 
-let items = [];
-for (let number = 1; number <= 5; number++) {
-  items.push(
-    <Pagination.Item key={number} active={number === active}>
-    {number}
-    </Pagination.Item>,
-  );
-}
+// let items = [];
+// for (let number = 1; number <= 5; number++) {
+//   items.push(
+//     <Pagination.Item key={number} active={number === active}>
+//     {number}
+//     </Pagination.Item>,
+//   );
+// }
 
 const handleSearchWordChange =(ev)=>{
   setSearchWord(ev.target.value);
