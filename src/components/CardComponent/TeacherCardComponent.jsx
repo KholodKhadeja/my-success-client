@@ -1,5 +1,6 @@
 import React, { Fragment } from 'react';
 import { useState, useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import "./card-styling.scss";
 import { NavLink } from "react-router-dom";
 import Button from "react-bootstrap/Button";
@@ -14,7 +15,9 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 
-const TeacherCardComponent = ({key, subject,topic, teacherid,date, hour, learningLevel, zoomLink, profileImg,  lessonId}) => {
+const TeacherCardComponent = ({key, subject,topic, teacherid,date, hour, learningLevel, zoomLink, profileImg, lessonId}) => {
+  const loggedIn=useSelector((state)=>state.auth.loggedIn);
+  const [selectedDate, setSelectedDate] = useState(null);
   const [actualteachername, setTeachername] = useState({
     firstname:"",
     lastname:""
@@ -31,14 +34,15 @@ const TeacherCardComponent = ({key, subject,topic, teacherid,date, hour, learnin
     subject: subject,
     topic: topic,
     teacherid:teacherid,
-    date:date,
-    hour: hour,
+    date:date.toISOString,
+    hour:new Date(hour).toLocaleTimeString(),
     learningLevel: learningLevel,
     zoomLink: zoomLink,
     lessonId:  lessonId,
   });
 
   useEffect(() => {
+    loggedIn &&(
     (async()=>{
       try{
           let { data } = await axios.get(`users/getuserbyid/${teacherid}`);
@@ -58,17 +62,96 @@ const TeacherCardComponent = ({key, subject,topic, teacherid,date, hour, learnin
           theme: "light",
           });
       }
-      })();
+      })());
   }, [teacherid]);
+
   let basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";
 const [imagePath, setImagePath] =  useState(basicPath);
-const [selectedDate, setSelectedDate] = useState(date);
 
 const handleLessonDetailsEdit = (ev) =>{
   let lessonData=JSON.parse(JSON.stringify(lessonDetails));
   if(lessonData.hasOwnProperty(ev.target.id)){
     lessonData[ev.target.id] = ev.target.value;
     setLessonDetails(lessonData);
+  }
+}
+
+const handleDateSelect=(date)=>{
+  setSelectedDate(date);
+  setLessonDetails(prevState => ({
+    ...prevState,
+    date: date.toISOString
+  }));
+}
+
+const handleUpdateLesson = async()=>{
+  try {
+    let { data } = await axios.patch("lessons/", {
+      id:lessonId,
+      subject: lessonDetails.subject,
+      topic: lessonDetails.topic,
+      date:selectedDate,
+      hour: lessonDetails.hour,
+      learningLevel: lessonDetails.learningLevel,
+      zoomLink: lessonDetails.zoomLink,
+    });
+    console.log(data);
+    toast.success('העדכון נשמר בהצלחה', {
+      position: "bottom-center",
+      autoClose:5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+      setTimeout(() => {
+        window.location.reload();
+      }, 5000);
+  } catch (err) {
+    // let errorMsgs = "";
+    // for (let errorItem of err.response.data.err.details) {
+    //   errorMsgs += `${errorItem.message}`;
+    // }
+  toast.error(`${err}`, {
+    position: "bottom-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    });
+}; 
+}
+
+const handleDeleteLessonFunction =async()=>{
+  try {
+    await axios.delete(`/lessons/${lessonId}`);
+    toast.success('השיעור נמחק בהצלחה', {
+      position: "bottom-center",
+      autoClose:5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
+  } catch (err) {
+    console.log(err);
+    toast.error(`יש בעיה במחיקת השיעור`, {
+      position: "bottom-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
   }
 }
 return (
@@ -102,9 +185,9 @@ return (
 <div>
 <p>
 <span>מתחיל ב: &nbsp;</span>
-<span> {lessonDetails.date.slice(0,9)}</span>
+<span> {date.slice(0,9)}</span>
 <br/>
-<span> {new Date(lessonDetails.hour).toLocaleTimeString()}</span>
+<span> {lessonDetails.hour}</span>
 </p>
 </div>
 <NavLink className="enter-lesson-btn" to="/connecttolesson">התחבר</NavLink>
@@ -113,7 +196,7 @@ return (
 }
 
 
-{/* THIS IS THE MODAL */}
+{/* THIS IS THE EDIT MODAL */}
       <Modal show={show} onHide={handleClose}>
         <Modal.Header closeButton>
           <Modal.Title>עריכת שיעור</Modal.Title>
@@ -124,7 +207,6 @@ return (
           onChange={handleLessonDetailsEdit} id="subject"/>
           <Form.Control type="text" className="add-lesson-inputs mb-1" value={lessonDetails.topic}  
           onChange={handleLessonDetailsEdit} id="topic"/>
-
   <Form.Select aria-label="Default select example" className="add-lesson-inputs mb-1" 
   onChange={handleLessonDetailsEdit} id="learningLevel">
       <option>רמת הלימוד</option>
@@ -132,15 +214,22 @@ return (
       <option value="4" selected>4</option>
       <option value="5">5</option>
     </Form.Select>
-    <Form.Control type="text" className="add-lesson-inputs mb-1" value={new Date(lessonDetails.hour).toLocaleTimeString()} 
+
+    <DatePicker id="date"
+      selected={selectedDate} 
+      onChange={handleDateSelect}
+      dateFormat="yyyy-MM-dd"
+      placeholderText="בחר תאריך" className="form-control add-lesson-inputs mb-1" 
+    />
+    <Form.Control type="text" className="add-lesson-inputs mb-1" value={lessonDetails.hour} 
     onChange={handleLessonDetailsEdit} id="hour"/>
 
-          <Form.Control type="text" className="add-lesson-inputs mb-1" value={lessonDetails.zoomLink}  
-          onChange={handleLessonDetailsEdit} id="zoomLink"/>
+<Form.Control type="text" className="add-lesson-inputs mb-1" value={lessonDetails.zoomLink}  
+onChange={handleLessonDetailsEdit} id="zoomLink"/>
         </Modal.Body>
         <Modal.Footer>
-          <Button className="add-lesson-btn" onClick={handleClose}>
-            הוספת שיעור
+          <Button className="add-lesson-btn" onClick={handleUpdateLesson}>
+            עדכון שיעור
           </Button>
           <Button variant="secondary" onClick={handleClose}>
             ביטול
@@ -155,7 +244,7 @@ return (
 </Modal.Header>
 <Modal.Body>רוצה למחוק את השיעור סופית מהמערכת?</Modal.Body>
 <Modal.Footer>
-<Button variant="danger" onClick={handleCloseSec}>  למחוק</Button>
+<Button variant="danger" onClick={handleDeleteLessonFunction}>  למחוק</Button>
   <Button variant="secondary" onClick={handleCloseSec}> ביטול</Button>
 </Modal.Footer>
 </Modal>

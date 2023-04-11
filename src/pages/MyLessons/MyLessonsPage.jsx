@@ -37,7 +37,6 @@ const MyLessonsPage = () => {
     date:selectedDate,
      hour:"",
      learningLevel: formSelect,
-    //  teacherId: userId,
      zoomLink:""
   });
 
@@ -71,31 +70,6 @@ const MyLessonsPage = () => {
   })();
   }, []);
 
-  // useEffect(() => {
-  //   lessonsIdArray.map((item) => {
-  //     (async () => {
-  //       try {
-  //         let { datasec } = await axios.get(`lessons/getbyid/${item}`);
-  //         allMyLessons.push(datasec);
-  //         console.log(allMyLessons);
-  //       } catch (err) {
-  //         toast.error('לא מצליח לטעון נתונים, תרענן עמוד', {
-  //           position: "bottom-center",
-  //           autoClose: 5000,
-  //           hideProgressBar: false,
-  //           closeOnClick: true,
-  //           pauseOnHover: true,
-  //           draggable: true,
-  //           progress: undefined,
-  //           theme: "light",
-  //         });
-  //       }
-  //     })()
-  //     setUserLessons(allMyLessons);
-  //     JSON.parse(JSON.stringify(allMyLessons)); 
-  //   })
-  // }, [allMyLessons]);
-  
   useEffect(() => {
     let regex = new RegExp(searchWord, "i"); 
     let lessonArrCopy = JSON.parse(JSON.stringify(allMyLessons)); 
@@ -234,7 +208,7 @@ const handleFormSelectChange = (event) =>{
                date={item.date}
                 hour = {item.hour}    profileImg={profileImg}
                 learningLevel={item.learningLevel}
-                lessonId={item._id}/>)
+                lessonId={item._id}  zoomLink={item.zoomLink}/>)
                 ))}
           {/* for teachers show this */}
           { userRole=="teacher" && (userLessons.map((item, index) => (

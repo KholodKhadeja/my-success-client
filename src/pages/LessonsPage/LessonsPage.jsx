@@ -7,7 +7,7 @@ import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useHistory } from 'react-router-dom';
+import { useHistory, useSelector } from 'react-router-dom';
 
 
 

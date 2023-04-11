@@ -127,33 +127,32 @@ const handleAddingUser = () =>{
         }, 5000);
       })
     .catch((err) => {
-      console.log(err);
-    //   let errorMsgs = "";
-    //   for (let errorItem of err.response.data.err.details) {
-    //     errorMsgs += `${errorItem.message}`;
-    //   }
-    // toast.error(`${errorMsgs}`, {
-    //   position: "bottom-center",
-    //   autoClose: 5000,
-    //   hideProgressBar: false,
-    //   closeOnClick: true,
-    //   pauseOnHover: true,
-    //   draggable: true,
-    //   progress: undefined,
-    //   theme: "light",
-    //   });
+      let errorMsgs = "";
+      for (let errorItem of err.response.data.err.details) {
+        errorMsgs += `${errorItem.message}`;
+      }
+    toast.error(`${errorMsgs}`, {
+      position: "bottom-center",
+      autoClose: 5000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+      });
   });
 }
 
 return (
-        <Fragment>
+<Fragment>
 <div className="upper-div">
-            <span>
-            <TitleFunction text={"ניהול משתמשים"}/></span>
-            <div className="my-lessons-upper-left-div">
-            <Button className="add-lesson-btn mb-3" onClick={handleShow}>
-          הוספת משתמש
-            </Button>
+     <span>
+       <TitleFunction text={"ניהול משתמשים"}/></span>
+       <div className="my-lessons-upper-left-div">
+       <Button className="add-lesson-btn mb-3" onClick={handleShow}>
+       הוספת משתמש
+        </Button>
 
                  <div className="input-group mb-3">
                  <input type="text" className="form-control" value={searchInput} onChange={handleSearchWordChange}  />

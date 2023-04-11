@@ -33,13 +33,7 @@ const UserInfoRow = ({num,firstName, lastName,checked,userId, email,role,classN,
 
 
     const handleToggle=()=>{
-        toggle ? settoggle(false) && (userData(prevState => ({
-          ...prevState,
-           checked:false,
-        }))) : settoggle(true) &&(userData(prevState => ({
-          ...prevState,
-          checked:true,
-        })));
+        toggle ? settoggle(false) : settoggle(true);
         submitChangesForUser();
     }
 
@@ -65,7 +59,7 @@ const submitChangesForUser =  async () => {
       _id:userId,
       firstname:userData.firstName,
       lastname:userData.lastName,
-      userstatus: userData.checked,
+      userstatus: toggle,
       email:userData.email,
       role:userChosenRole,
       studentclass:userData.class,
@@ -84,23 +78,22 @@ const submitChangesForUser =  async () => {
       });
       setTimeout(() => {
         window.location.reload();
-      }, 5000);
+      }, 10000);
   } catch (err) {
-    console.log(err);
-  //   let errorMsgs = "";
-  //   for (let errorItem of err.response.data.err.details) {
-  //     errorMsgs += `${errorItem.message}`;
-  //   }
-  // toast.error(`${errorMsgs}`, {
-  //   position: "bottom-center",
-  //   autoClose: 5000,
-  //   hideProgressBar: false,
-  //   closeOnClick: true,
-  //   pauseOnHover: true,
-  //   draggable: true,
-  //   progress: undefined,
-  //   theme: "light",
-  //   });
+    let errorMsgs = "";
+    for (let errorItem of err.response.data.err.details) {
+      errorMsgs += `${errorItem.message}`;
+    }
+  toast.error(`${errorMsgs}`, {
+    position: "bottom-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    pauseOnHover: true,
+    draggable: true,
+    progress: undefined,
+    theme: "light",
+    });
 }; 
 }
 const deletingUserFunc = async() =>{
@@ -187,8 +180,8 @@ const deletingUserFunc = async() =>{
             className="form-controll short-input" type="text" placeholder="שם משפחה" id="lastName"
             value={userData.lastName} onChange={handleUserInputsEditing} />
         </Form.Group>
-        <div className='d-flex gap-2'>
-            <p>סטטוס משתמש:</p><Switch onClick={handleToggle} checked={toggle}/></div>
+        {/* <div className='d-flex gap-2'>
+            <p>סטטוס משתמש:</p><Switch onClick={handleToggle} checked={toggle}/></div> */}
         <Form.Group className="mb-2" >
           <Form.Control className="form-controll" type="text" placeholder="דואר אלקטרוני"  id="email"
           value={userData.email} onChange={handleUserInputsEditing}
