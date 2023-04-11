@@ -61,6 +61,7 @@ useEffect(() => {
 }, []);
 
 useEffect(() => {
+  loggedIn&&(
   (async () => {
     try {
   let { data } = await axios.get(`users/getuserbyid/${currentUserId}`);
@@ -76,7 +77,7 @@ useEffect(() => {
      catch(err){
       console.log(err);
      }
-    })();
+    })());
 }, []);
 
 useEffect(() => {
@@ -116,22 +117,31 @@ return(
 </div></div>
 
 <div className='lessons-div-lessons-page'> 
-{notMatchLessonsArrState.map((item, index) => (
+{userRole=="student"&&(notMatchLessonsArrState.map((item, index) => (
       <CardComponent key={index} teacherid={item.teacherId} lessonid={item._id}
               topic={item.topic}
                subject={item.subject}
                date={item.date}
                 hour = {item.hour} userid={currentUserId}
                 profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
-                ))}
-{matchLessonsArrState.map((item, index) => (
+                )))}
+{userRole=="student"&&(matchLessonsArrState.map((item, index) => (
       <FavCardComponent key={index} teacherid={item.teacherId} lessonid={item._id}
               topic={item.topic}
                subject={item.subject}
                date={item.date}
                 hour = {item.hour} userid={currentUserId}
                 profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
-                ))}
+                )))}
+
+{(userRole=="teacher" || userRole=="admin")&&(lessonsArr.map((item, index) => (
+      <CardComponent key={index} teacherid={item.teacherId} lessonid={item._id}
+              topic={item.topic}
+               subject={item.subject}
+               date={item.date}
+                hour = {item.hour} userid={currentUserId}
+                profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
+                )))}
   </div>
   <div className='pagination-cont'>
     {/* <Pagination size="sm">{items}</Pagination> */}

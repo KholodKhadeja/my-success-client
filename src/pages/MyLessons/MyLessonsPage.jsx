@@ -203,7 +203,7 @@ const handleFormSelectChange = (event) =>{
             )
           }
           {/* for students show this */}
-          { userRole=="student"&&(userLessons.map((item, index) => (
+          { (userRole=="student" || userRole=="admin")&&(userLessons.map((item, index) => (
               <CardComponent key={"card"+index} teacherid={item.teacherId} 
               topic={item.topic}
                subject={item.subject}

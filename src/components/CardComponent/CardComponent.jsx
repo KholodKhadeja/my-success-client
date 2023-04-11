@@ -102,7 +102,7 @@ return (
               { userRole ==="student" && (<img id="star-img" src={imagePath}
                  alt="wishlist star" onClick={switchImg}/>)
             }
-                        { userRole ==="teacher" && (<br/>)
+                        { (userRole =="teacher" || userRole=="admin") && (<br/>)
             }
             </div>
             <div className='section-1'>
