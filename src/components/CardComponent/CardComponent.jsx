@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 
-const CardComponent = ({key,teacherid,topic, subject,date, hour, profileImg}) => {
+const CardComponent = ({key,teacherid,topic, subject,date, hour, profileImg, favLesson=true}) => {
   const userRole = useSelector((state)=>state.auth.role);
   const loggedIn=useSelector((state)=>state.auth.loggedIn);
   const [profileImgS, setProfileImg] = useState(profileImg);

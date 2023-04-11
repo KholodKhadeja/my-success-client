@@ -2,11 +2,60 @@ import { Fragment } from "react";
 import "./favlessons.scss";
 import TitleFunction from '../../partial/TitleComponent/TitleFunction';
 import CardComponent from "../../components/CardComponent/CardComponent";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import { toast } from "react-toastify";
+import Spinner from 'react-bootstrap/Spinner';
 
-let favUserLessonsArray=[];
+
+let favUserLessonsArray=[], userId,originalId,profileImg;
 const FavLessonPage = () => {
    let [userLessonsArray, setUserLessonsArray] = useState(favUserLessonsArray);
+   const userRole = useSelector((state)=>state.auth.role);
+   const loggedIn=useSelector((state)=>state.auth.loggedIn);
+   const userData = useSelector((state)=>state.auth.userData);
+   
+   const [searchWord, setSearchWord] = useState("");
+
+   useEffect(() => {
+    try{
+      userId=userData.id;
+      originalId=userId;
+    }catch(err){
+    }
+ }, [loggedIn]);
+
+ useEffect(() => {
+  (async()=>{
+  try{
+      let { data } = await axios.get(`users/getuserbyid/${originalId}`);
+      profileImg=data.profileImg;
+      favUserLessonsArray=JSON.parse(JSON.stringify(data.favlessons));
+     setUserLessonsArray(favUserLessonsArray);
+  }catch(err){
+    console.log(err);
+    // toast.error('שגיאה בטעינת נתונים', {
+    //   position: "top-right",
+    //   autoClose: 5000,
+    //   hideProgressBar: false,
+    //   closeOnClick: true,
+    //   pauseOnHover: true,
+    //   draggable: true,
+    //   progress: undefined,
+    //   theme: "light",
+    //   });
+  }
+  })();
+  }, [originalId]);
+  //  useEffect(() => {
+  //   let regex = new RegExp(searchWord, "i"); 
+  //   let lessonArrCopy = JSON.parse(JSON.stringify(allMyLessons)); 
+  //   lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject));
+  //   setUserLessons(lessonArrCopy);
+  // }, [searchWord]);
+
+
     return (
 <Fragment>
 <div className='lessons-section mini-large-section'>
@@ -22,9 +71,24 @@ const FavLessonPage = () => {
 </span>
 </div></div></div>
 <div className='mt-5 lessons-div-lessons'> 
-{/* <CardComponent />
-<CardComponent />
-<CardComponent /> */}
+{
+  favUserLessonsArray.length==0 &&(
+    <div className="spinnerName">
+    <Spinner animation="border" role="status">
+    <span className="visually-hidden">Loading...</span>
+  </Spinner>
+  </div>
+  )
+}
+{ userLessonsArray.map((item, index) => (
+              <CardComponent key={index} teacherid={item.teacherId} 
+              topic={item.topic}
+               subject={item.subject}
+               date={item.date}
+                hour = {item.hour}    profileImg={profileImg}
+                learningLevel={item.learningLevel}
+                lessonId={item._id}  zoomLink={item.zoomLink}/>)
+ )}
 
   </div>
         </Fragment>

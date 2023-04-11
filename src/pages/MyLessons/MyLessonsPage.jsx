@@ -37,10 +37,11 @@ const MyLessonsPage = () => {
     date:selectedDate,
      hour:"",
      learningLevel: formSelect,
-     zoomLink:""
+     zoomLink:"",
+     students:[],
   });
 
-  useEffect(() => {
+useEffect(() => {
     try{
       userId=userData.id;
       userIdOriginal=userId;
@@ -134,7 +135,8 @@ const handleFormSelectChange = (event) =>{
       date:newLessonData.date,
        hour:newLessonData.hour,
        learningLevel:newLessonData.learningLevel,
-       zoomLink:newLessonData.zoomLink
+       zoomLink:newLessonData.zoomLink,
+       students:newLessonData.students,
      }).then((res)=>{
       toast.success('השיעור התווסף בהצלחה', {
         position: "bottom-center",

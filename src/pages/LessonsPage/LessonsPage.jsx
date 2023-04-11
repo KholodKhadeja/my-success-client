@@ -81,7 +81,7 @@ return(
 
 <div className='lessons-div-lessons-page'> 
 {lessonsArr.map((item, index) => (
-              <CardComponent key={item._id} teacherid={item.teacherId} 
+              <CardComponent key={index} teacherid={item.teacherId} 
               topic={item.topic}
                subject={item.subject}
                date={item.date}

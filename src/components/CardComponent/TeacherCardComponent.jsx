@@ -39,6 +39,7 @@ const TeacherCardComponent = ({key, subject,topic, teacherid,date, hour, learnin
     learningLevel: learningLevel,
     zoomLink: zoomLink,
     lessonId:  lessonId,
+    students:[]
   });
 
   useEffect(() => {
