@@ -1,27 +1,44 @@
 import React, { Fragment } from 'react';
 import TitleFunction from '../../partial/TitleComponent/TitleFunction';
 import CardComponent from '../../components/CardComponent/CardComponent';
+import FavCardComponent from 'components/CardComponent/FavCardComponent';
 import "./LessonsPageStyling.scss";
 import Pagination from 'react-bootstrap/Pagination';
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useHistory, useSelector } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 
-let OriginalLessonsArray=[];
+let OriginalLessonsArray=[], currentUserId, idkeeper;
+let currentStudentFavLessons=[], myLessons=[], matchLessonsArr=[],notMatchLessonsArr=[] ;
 const LessonsPage = () => {
   let {search}=useParams();
 const [lessonsArr, setLessonsArr]=  useState(OriginalLessonsArray);
+const userRole = useSelector((state)=>state.auth.role);
+const userData = useSelector((state)=>state.auth.userData);
+const loggedIn=useSelector((state)=>state.auth.loggedIn);
 const [searchWord, setSearchWord] = useState(search);
+const [matchLessonsArrState, setMatchLessonsArrState] = useState([]);
+const [notMatchLessonsArrState, setNotMatchLessonsArrState] =  useState([]);
+
+useEffect(() => {
+  try{
+    currentUserId=userData.id;
+    idkeeper=currentUserId;
+  }catch(err){
+  }
+}, []);
 
 useEffect(() => {
   (async () => {
     try {
       let { data } = await axios.get("/lessons");
       OriginalLessonsArray = JSON.parse(JSON.stringify(data));
+      console.log(currentUserId);
       if(search==="" || search===null){
         let lessonArrCopy = JSON.parse(JSON.stringify(OriginalLessonsArray)); 
         setLessonsArr(lessonArrCopy);
@@ -41,6 +58,25 @@ useEffect(() => {
       });
     }
   })();
+}, []);
+
+useEffect(() => {
+  (async () => {
+    try {
+  let { data } = await axios.get(`users/getuserbyid/${currentUserId}`);
+  if(userRole=="student") {
+    currentStudentFavLessons=JSON.parse(JSON.stringify(data.favlessons));
+    const matchLessonsArr = OriginalLessonsArray.filter(item1 => currentStudentFavLessons.some(item2 => item1._id === item2._id));
+    setMatchLessonsArrState(JSON.parse(JSON.stringify(matchLessonsArr)));
+    console.log(matchLessonsArr);
+    const notMatchLessonsArr = [...OriginalLessonsArray, ...currentStudentFavLessons].filter(item => !matchLessonsArr.some(commonItem => commonItem._id === item._id));
+    setNotMatchLessonsArrState(JSON.parse(JSON.stringify(notMatchLessonsArr)));  
+  }
+ }
+     catch(err){
+      console.log(err);
+     }
+    })();
 }, []);
 
 useEffect(() => {
@@ -80,12 +116,20 @@ return(
 </div></div>
 
 <div className='lessons-div-lessons-page'> 
-{lessonsArr.map((item, index) => (
-              <CardComponent key={index} teacherid={item.teacherId} 
+{notMatchLessonsArrState.map((item, index) => (
+      <CardComponent key={index} teacherid={item.teacherId} lessonid={item._id}
               topic={item.topic}
                subject={item.subject}
                date={item.date}
-                hour = {item.hour}
+                hour = {item.hour} userid={currentUserId}
+                profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
+                ))}
+{matchLessonsArrState.map((item, index) => (
+      <FavCardComponent key={index} teacherid={item.teacherId} lessonid={item._id}
+              topic={item.topic}
+               subject={item.subject}
+               date={item.date}
+                hour = {item.hour} userid={currentUserId}
                 profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
                 ))}
   </div>

@@ -2,6 +2,7 @@ import { Fragment } from "react";
 import "./favlessons.scss";
 import TitleFunction from '../../partial/TitleComponent/TitleFunction';
 import CardComponent from "../../components/CardComponent/CardComponent";
+import FavCardComponent from "components/CardComponent/FavCardComponent";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -81,7 +82,7 @@ const FavLessonPage = () => {
   )
 }
 { userLessonsArray.map((item, index) => (
-              <CardComponent key={index} teacherid={item.teacherId} 
+              <FavCardComponent key={index} teacherid={item.teacherId} 
               topic={item.topic}
                subject={item.subject}
                date={item.date}

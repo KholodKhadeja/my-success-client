@@ -204,13 +204,13 @@ const handleFormSelectChange = (event) =>{
           }
           {/* for students show this */}
           { userRole=="student"&&(userLessons.map((item, index) => (
-              <CardComponent key={"card"+index} teacherId={newLessonData.teacherId} 
+              <CardComponent key={"card"+index} teacherid={item.teacherId} 
               topic={item.topic}
                subject={item.subject}
                date={item.date}
                 hour = {item.hour}    profileImg={profileImg}
-                learningLevel={item.learningLevel}
-                lessonId={item._id}  zoomLink={item.zoomLink}/>)
+                learningLevel={item.learningLevel} userid={userId}
+                lessonid={item._id}  zoomLink={item.zoomLink}/>)
                 ))}
           {/* for teachers show this */}
           { userRole=="teacher" && (userLessons.map((item, index) => (

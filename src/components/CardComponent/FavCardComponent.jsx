@@ -7,21 +7,20 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 
-const CardComponent = ({key,teacherid,topic, subject,date, hour, profileImg,lessonid, userid}) => {
-  let currentUserId=userid;
+const FavCardComponent = ({key,teacherid,topic, subject,date, hour, profileImg}) => {
   const userRole = useSelector((state)=>state.auth.role);
   const loggedIn=useSelector((state)=>state.auth.loggedIn);
   const [profileImgS, setProfileImg] = useState(profileImg);
-  let basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";
+  let basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/signed-star.png?raw=true";
 const [imagePath, setImagePath] =  useState(basicPath);
-const [startClicked, setStarClicked] = useState(false);
+const [startClicked, setStarClicked] = useState(true);
 const [actualteachername, setTeachername] = useState({
 firstname:"",
 lastname:""
 });
 
-
 useEffect(() => {
+  loggedIn &&(
   (async()=>{
     try{
         let { data } = await axios.get(`users/getuserbyid/${teacherid}`);
@@ -42,58 +41,21 @@ useEffect(() => {
         theme: "light",
         });
     }
-    })();
+    })());
 }, []);
 
 const switchImg =()=>{
   /*هاي لما يكبس على النجمة عشان يقيم من المفضلة */
     if(startClicked){
-    basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";
+    basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";  
     setStarClicked(false);
-    setImagePath(basicPath);
 }
-/*هون ننشغل راوتر الاضافة للمفضلة*/
+/*مش المفروض يفوت هون لأنو الدرس رح يطلع من المفضلة بالمررررةةة */
 else{
-  basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/signed-star.png?raw=true";  
-  setStarClicked(true);
-  setImagePath(basicPath);
-  axios.post(`users/${userid}/favlessons/${lessonid}`,{
-   }).then((res)=>{
-    toast.success('השיעור התווסף לרשימת המועדפים בהצלחה', {
-      position: "bottom-center",
-      autoClose: 6000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      });
-      setTimeout(() => {
-        window.location.reload();
-      }, 5000);
-   }).catch((err)=>{
-    let errMsg;
-    if(err.message === "Request failed with status code 400"){
-  errMsg=err.request.response;
- }
-if(err.message === "Network Error"){
- errMsg= err.message;
+    basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/signed-star.png?raw=true";  
+    setStarClicked(true);
 }
- toast.error(`${errMsg}`, {
-    position: "bottom-center",
-   autoClose: 5000,
-   hideProgressBar: false,
- closeOnClick: true,
-    pauseOnHover: true,
-    draggable: true,
-    progress: undefined,
-    theme: "dark",
-  });
-  })
-
-}
-
+setImagePath(basicPath);
 }
 return (
 <Fragment>
@@ -102,8 +64,7 @@ return (
               { userRole ==="student" && (<img id="star-img" src={imagePath}
                  alt="wishlist star" onClick={switchImg}/>)
             }
-                        { userRole ==="teacher" && (<br/>)
-            }
+
             </div>
             <div className='section-1'>
                  <div className='card-img-container'>
@@ -157,4 +118,4 @@ return (
     );
 }
 
-export default CardComponent;
+export default FavCardComponent;
