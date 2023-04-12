@@ -77,6 +77,7 @@ const submitChangesForUser =  async () => {
       theme: "light",
       });
       setTimeout(() => {
+        window.location.href ='/usersadmin';
         window.location.reload();
       }, 10000);
   } catch (err) {
@@ -110,6 +111,7 @@ const deletingUserFunc = async() =>{
       theme: "light",
       });
       setTimeout(() => {
+        window.location.href ='/usersadmin';
         window.location.reload();
       }, 5000);
   } catch (err) {

@@ -1,6 +1,6 @@
 import "./MyLessonStyling.scss";
 import CardComponent from "../../components/CardComponent/CardComponent";
-import Pagination from "react-bootstrap/Pagination";
+import FavCardComponent from "components/CardComponent/FavCardComponent";
 import { useState, useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import { Fragment } from "react";
@@ -19,10 +19,13 @@ import TitleFunctionSmall from "../../partial/TitleComponent/TitleFunctionSmall"
 import TimePicker from "react-bootstrap-time-picker";
 import { toast } from "react-toastify";
 
-let allMyLessons = [], lessonsIdArray=[];
+let allMyLessons = [];
 let profileImg, userIdOriginal=null;
 const MyLessonsPage = () => {
+  let currentStudentFavLessons=[];
   let userId;
+  const [matchLessonsArrState, setMatchLessonsArrState] = useState([]);
+const [notMatchLessonsArrState, setNotMatchLessonsArrState] =  useState([]);
   const userRole = useSelector((state)=>state.auth.role);
   const [selectedDate, setSelectedDate] = useState(null);
   const [formSelect, setFormSelect] = useState(null);
@@ -55,7 +58,16 @@ useEffect(() => {
       let { data } = await axios.get(`users/getuserbyid/${userIdOriginal}`);
       profileImg=data.profileImg;
      allMyLessons=JSON.parse(JSON.stringify(data.mylessons));
-      setUserLessons(allMyLessons);
+     currentStudentFavLessons=JSON.parse(JSON.stringify(data.favlessons));
+     setUserLessons(allMyLessons);
+     if(userRole==="student") {
+      const matchLessonsArr = allMyLessons.filter(item1 => {currentStudentFavLessons.some(item2 => item1._id === item2._id)});
+      setMatchLessonsArrState(JSON.parse(JSON.stringify(matchLessonsArr)));
+      console.log(allMyLessons);
+      
+      const notMatchLessonsArr = allMyLessons.filter(item1 => !matchLessonsArr.some(item2 => item1._id === item2._id));
+      setNotMatchLessonsArrState(JSON.parse(JSON.stringify(notMatchLessonsArr)));
+     }
   }catch(err){
     toast.error('שגיאה בטעינת נתונים', {
       position: "top-right",
@@ -150,6 +162,7 @@ const handleFormSelectChange = (event) =>{
         });
         handleClose();
         setTimeout(() => {
+          window.location.href ='/usersadmin';
           window.location.reload();
         }, 5000);
         handleClose();
@@ -182,9 +195,9 @@ const handleFormSelectChange = (event) =>{
             <TitleFunction text={"השיעורים שלי"} />
           </span>
           <div className="my-lessons-upper-left-div">
-            <Button className="add-lesson-btn mb-3" onClick={handleShow}>
+          {userRole=="teacher"&&(<Button className="add-lesson-btn mb-3" onClick={handleShow}>
               הוספת שיעור
-            </Button>
+            </Button>)} 
             <div className="input-group mb-3">
               <input   type="text" className="form-control" value={searchWord} onChange={handleSearchWordChange} />
               <span className="input-group-text" id="inputGroup-sizing-default">
@@ -203,18 +216,38 @@ const handleFormSelectChange = (event) =>{
             )
           }
           {/* for students show this */}
-          { (userRole=="student" || userRole=="admin")&&(userLessons.map((item, index) => (
-              <CardComponent key={"card"+index} teacherid={item.teacherId} 
+          {userRole=="student"&&(notMatchLessonsArrState.map((item, index) => (
+      <CardComponent cardKey={index} teacherid={item.teacherId} lessonid={item._id}
               topic={item.topic}
                subject={item.subject}
                date={item.date}
-                hour = {item.hour}    profileImg={profileImg}
-                learningLevel={item.learningLevel} userid={userId}
-                lessonid={item._id}  zoomLink={item.zoomLink}/>)
-                ))}
-          {/* for teachers show this */}
+                hour = {item.hour} userid={userIdOriginal} 
+                profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
+                )))}
+{userRole=="student"&&(matchLessonsArrState.map((item, index) => (
+      <FavCardComponent cardKey={index} teacherid={item.teacherId} lessonid={item._id}
+              topic={item.topic}
+               subject={item.subject}
+               date={item.date}
+                hour = {item.hour} userid={userIdOriginal}
+                profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
+                )))}
+
           { userRole=="teacher" && (userLessons.map((item, index) => (
-              <TeacherCardComponent key={item._id} teacherid={item.teacherId} 
+              <TeacherCardComponent cardKey={item._id} teacherid={item.teacherId} 
+              topic={item.topic}
+               subject={item.subject}
+               date={item.date}
+                hour = {item.hour}
+                profileImg={profileImg}
+                learningLevel={item.learningLevel}
+                lessonId={item._id}
+                zoomLink={item.zoomLink}
+                />)
+                ))}
+
+{ userRole=="admin" && (userLessons.map((item, index) => (
+              <CardComponent cardKey={item._id} teacherid={item.teacherId} 
               topic={item.topic}
                subject={item.subject}
                date={item.date}

@@ -1,7 +1,6 @@
 import { Fragment } from "react";
 import "./favlessons.scss";
 import TitleFunction from '../../partial/TitleComponent/TitleFunction';
-import CardComponent from "../../components/CardComponent/CardComponent";
 import FavCardComponent from "components/CardComponent/FavCardComponent";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
@@ -49,6 +48,7 @@ const FavLessonPage = () => {
   }
   })();
   }, [originalId]);
+
   //  useEffect(() => {
   //   let regex = new RegExp(searchWord, "i"); 
   //   let lessonArrCopy = JSON.parse(JSON.stringify(allMyLessons)); 
@@ -86,9 +86,9 @@ const FavLessonPage = () => {
               topic={item.topic}
                subject={item.subject}
                date={item.date}
-                hour = {item.hour}    profileImg={profileImg}
-                learningLevel={item.learningLevel}
-                lessonId={item._id}  zoomLink={item.zoomLink}/>)
+                hour = {item.hour}  profileImg={profileImg}
+                learningLevel={item.learningLevel} userid={originalId}
+                lessonid={item._id}  zoomLink={item.zoomLink}/>)
  )}
 
   </div>

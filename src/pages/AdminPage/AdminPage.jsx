@@ -123,6 +123,7 @@ const handleAddingUser = () =>{
         theme: "light",
         });
         setTimeout(() => {
+          window.location.href ='/usersadmin';
           window.location.reload();
         }, 5000);
       })

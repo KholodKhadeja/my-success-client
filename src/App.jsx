@@ -48,6 +48,7 @@ function App() {
         <Route path="/showdetails" component={ShowDetails}></Route>
         <Route path="/usersadmin" component={AdminPage}></Route>
         <Route path="/connecttolesson" component={ConnectToLessonPage}></Route>
+        <Route path="*" exact component={Homepage}></Route>
         </Switch>
     </div>
   );

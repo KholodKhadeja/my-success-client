@@ -158,6 +158,17 @@
     background-color: $basic-clr;
     color: white !important;
   }
+
+.connect-lesson-btn{
+  @include lesson-card-btn;
+  background-color: $basic-clr-sec;
+  color: $dark-clr;
+}
+.remove-lesson-btn{
+  @include lesson-card-btn;
+  background-color: #E20808;
+  color: $dark-clr;
+}
 }
 .enter-lesson-btn{
     @include lesson-card-btn;

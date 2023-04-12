@@ -1,6 +1,6 @@
 import "./lessoncompstyling.scss";
 import TitleFunction from "../../partial/TitleComponent/TitleFunction";
-import CardComponent from "../CardComponent/CardComponent";
+import BasicCardComponent from "components/CardComponent/BasicCardComponent";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Link } from 'react-router-dom';
@@ -57,7 +57,7 @@ return (
            
            <div className="lesson-div d-flex justify-content-around">
            {lessonsArr.slice(0, 3).map((item, index) => (
-              <CardComponent key={item._id} teacherid={item.teacherId} 
+              <BasicCardComponent cardKey={item._id} teacherid={item.teacherId} 
               topic={item.topic}
                subject={item.subject}
                date={item.date}

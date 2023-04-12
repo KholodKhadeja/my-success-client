@@ -15,7 +15,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 
-const TeacherCardComponent = ({key, subject,topic, teacherid,date, hour, learningLevel, zoomLink, profileImg, lessonId}) => {
+const TeacherCardComponent = ({cardKey, subject,topic, teacherid,date, hour, learningLevel, zoomLink, profileImg, lessonId}) => {
   const loggedIn=useSelector((state)=>state.auth.loggedIn);
   const [selectedDate, setSelectedDate] = useState(null);
   const [actualteachername, setTeachername] = useState({
@@ -108,6 +108,7 @@ const handleUpdateLesson = async()=>{
       theme: "light",
       });
       setTimeout(() => {
+        window.location.href ='/mylessons';
         window.location.reload();
       }, 5000);
   } catch (err) {
@@ -142,7 +143,6 @@ const handleDeleteLessonFunction =async()=>{
       theme: "light",
       });
   } catch (err) {
-    console.log(err);
     toast.error(`יש בעיה במחיקת השיעור`, {
       position: "bottom-center",
       autoClose: 5000,

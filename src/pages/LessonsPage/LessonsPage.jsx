@@ -118,15 +118,15 @@ return(
 
 <div className='lessons-div-lessons-page'> 
 {userRole=="student"&&(notMatchLessonsArrState.map((item, index) => (
-      <CardComponent key={index} teacherid={item.teacherId} lessonid={item._id}
+      <CardComponent cardKey={index} teacherid={item.teacherId} lessonid={item._id}
               topic={item.topic}
                subject={item.subject}
                date={item.date}
-                hour = {item.hour} userid={currentUserId}
+                hour = {item.hour} userid={currentUserId} 
                 profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
                 )))}
 {userRole=="student"&&(matchLessonsArrState.map((item, index) => (
-      <FavCardComponent key={index} teacherid={item.teacherId} lessonid={item._id}
+      <FavCardComponent cardKey={index} teacherid={item.teacherId} lessonid={item._id}
               topic={item.topic}
                subject={item.subject}
                date={item.date}
@@ -135,7 +135,7 @@ return(
                 )))}
 
 {(userRole=="teacher" || userRole=="admin")&&(lessonsArr.map((item, index) => (
-      <CardComponent key={index} teacherid={item.teacherId} lessonid={item._id}
+      <CardComponent cardKey={index} teacherid={item.teacherId} lessonid={item._id}
               topic={item.topic}
                subject={item.subject}
                date={item.date}

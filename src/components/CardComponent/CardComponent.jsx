@@ -7,8 +7,10 @@ import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 
 
-const CardComponent = ({key,teacherid,topic, subject,date, hour, profileImg,lessonid, userid}) => {
+const CardComponent = ({cardKey,teacherid,topic, subject,date, hour, profileImg,lessonid, userid}) => {
   let currentUserId=userid;
+  const [alreadyRegisteredUser, setAlreadyRegisteredUser]=useState(false);
+  const [lessonStudentsArr, setLessonStudentsArr] = useState([]);
   const userRole = useSelector((state)=>state.auth.role);
   const loggedIn=useSelector((state)=>state.auth.loggedIn);
   const [profileImgS, setProfileImg] = useState(profileImg);
@@ -19,7 +21,6 @@ const [actualteachername, setTeachername] = useState({
 firstname:"",
 lastname:""
 });
-
 
 useEffect(() => {
   (async()=>{
@@ -45,14 +46,104 @@ useEffect(() => {
     })();
 }, []);
 
+useEffect(() => {
+  axios.get(`lessons/getbyid/${lessonid}`)
+    .then((res) => {
+      const lessonStudentsArr = JSON.parse(JSON.stringify(res.data.students));
+      const foundIStudent = lessonStudentsArr.findIndex(elem => elem === userid);
+      if (foundIStudent !== -1) {
+        setAlreadyRegisteredUser(true);
+      } else {
+        setAlreadyRegisteredUser(false);
+      }
+      console.log(alreadyRegisteredUser);
+    })
+    .catch((err) => {
+      toast.error('לא מצליח לטעון נתונים, תרענן עמוד', {
+        position: "bottom-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+      });
+    });
+}, [lessonid]);
+
+// const removeLessonFromMyLesson = ()=>{
+//   try {
+//     axios.delete(`users/${userid}/favlessons/${lessonid}`);
+//     toast.success('השיעור הוסר מרשימת מועדפים', {
+//       position: "bottom-center",
+//       autoClose:5000,
+//       hideProgressBar: false,
+//       closeOnClick: true,
+//       pauseOnHover: true,
+//       draggable: true,
+//       progress: undefined,
+//       theme: "light",
+//       });
+//       setTimeout(() => {
+//         window.location.href =`/lessons/${" "}`;
+//         window.location.reload();
+//       }, 5000);
+//   } catch (err) {
+//     toast.error(`יש בעיה במחיקת השיעור`, {
+//       position: "bottom-center",
+//       autoClose: 5000,
+//       hideProgressBar: false,
+//       closeOnClick: true,
+//       pauseOnHover: true,
+//       draggable: true,
+//       progress: undefined,
+//       theme: "light",
+//       });
+//   }
+// }
+
 const switchImg =()=>{
-  /*هاي لما يكبس على النجمة عشان يقيم من المفضلة */
     if(startClicked){
     basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";
     setStarClicked(false);
-    setImagePath(basicPath);
+    setImagePath(basicPath);  
+    axios.delete(`users/${userid}/favlessons/${lessonid}`,{
+    }).then((res)=>{
+     toast.success('השיעור הוסר מרשימת המועדפים', {
+       position: "bottom-center",
+       autoClose: 6000,
+       hideProgressBar: false,
+       closeOnClick: true,
+       pauseOnHover: true,
+       draggable: true,
+       progress: undefined,
+       theme: "light",
+       });
+       setTimeout(() => {
+        window.location.href =`/lessons/${" "}`;
+        window.location.reload();
+       }, 5000);
+    }).catch((err)=>{
+     let errMsg;
+     if(err.message === "Request failed with status code 400"){
+   errMsg=err.request.response;
+  }
+ if(err.message === "Network Error"){
+  errMsg= err.message;
+ }
+  toast.error(`${errMsg}`, {
+     position: "bottom-center",
+    autoClose: 5000,
+    hideProgressBar: false,
+  closeOnClick: true,
+     pauseOnHover: true,
+     draggable: true,
+     progress: undefined,
+     theme: "dark",
+   });
+   })
 }
-/*هون ننشغل راوتر الاضافة للمفضلة*/
 else{
   basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/signed-star.png?raw=true";  
   setStarClicked(true);
@@ -70,6 +161,7 @@ else{
       theme: "light",
       });
       setTimeout(() => {
+        window.location.href =`/lessons/${" "}`;
         window.location.reload();
       }, 5000);
    }).catch((err)=>{
@@ -91,10 +183,51 @@ if(err.message === "Network Error"){
     theme: "dark",
   });
   })
+}
+}
+
+const handleStudentRegisterToLesson = ()=>{
+  axios.post(`users/${userid}/registertolesson/${lessonid}`,{
+  }).then((res)=>{
+   toast.success('התלמיד נרשם לשיעור בהצלחה', {
+     position: "bottom-center",
+     autoClose: 6000,
+     hideProgressBar: false,
+     closeOnClick: true,
+     pauseOnHover: true,
+     draggable: true,
+     progress: undefined,
+     theme: "light",
+     });
+     setTimeout(() => {
+       window.location.href =`/lessons/${""}`;
+       window.location.reload();
+     }, 5000);
+  }).catch((err)=>{
+   let errMsg;
+   console.log(err);
+//    if(err.message === "Request failed with status code 400"){
+//  errMsg=err.request.response;
+// }
+// if(err.message === "Network Error"){
+// errMsg= err.message;
+// }
+// toast.error(`${errMsg}`, {
+//    position: "bottom-center",
+//   autoClose: 5000,
+//   hideProgressBar: false,
+// closeOnClick: true,
+//    pauseOnHover: true,
+//    draggable: true,
+//    progress: undefined,
+//    theme: "dark",
+//  });
+ })
+}
+const handleCancelRegisteration=()=>{
 
 }
 
-}
 return (
 <Fragment>
        <div className='lesson-card'>
@@ -102,7 +235,7 @@ return (
               { userRole ==="student" && (<img id="star-img" src={imagePath}
                  alt="wishlist star" onClick={switchImg}/>)
             }
-                        { (userRole =="teacher" || userRole=="admin") && (<br/>)
+            { (userRole =="teacher" || userRole=="admin") && (<br/>)
             }
             </div>
             <div className='section-1'>
@@ -130,8 +263,16 @@ return (
         <span>{new Date(hour).toLocaleTimeString()}</span>
     </p>
   </div>
-<button type="button" className="sign-up-lesson-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  הרשמה </button>
+  { alreadyRegisteredUser &&(
+    <div className='d-flex justify-content-evenly'>
+           <button type="button" className="connect-lesson-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+     התחבר</button> 
+      <button type="button" className="remove-lesson-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={handleCancelRegisteration}>
+                הסרה</button></div>)}
+ { !alreadyRegisteredUser &&(
+            <button type="button" className="sign-up-lesson-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" >
+            הרשמה </button>)
+  }
 </div>
 </div>
 
@@ -144,10 +285,10 @@ return (
         <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div className="modal-body">
-      ההרשמה הסתיימה בהצלחה!
+      צריך אישור להרשמה סופית לשיעור בבקשה
       </div>
       <div className="modal-footer">
-      <button type="button" className="btn btn-success" data-bs-dismiss="modal">אישור</button>
+      <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={handleStudentRegisterToLesson}>אישור</button>
         <button type="button" className="btn btn-danger" data-bs-dismiss="modal">סגירה</button>
       </div>
     </div>
