@@ -79,9 +79,9 @@ const handleSearchWordChange = (ev) =>{
       }));
     };
 
-    const handleUserInputsEditing =()=>{
+const handleUserInputsEditing =()=>{
 
-    }
+}
   
     const handleUserInputs = (ev) =>{
         let userInfo=JSON.parse(JSON.stringify(userData));

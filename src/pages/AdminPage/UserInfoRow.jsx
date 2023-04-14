@@ -10,6 +10,7 @@ import { useEffect } from 'react';
 const UserInfoRow = ({num,firstName, lastName,checked,userId, email,role,classN, specialization, password}) => {
   const [userChosenRole, setUserChosenRole] = useState(role);  
   const [toggle, settoggle] = useState(checked);
+  const [toggleSec, settoggleSec] = useState(checked);
   const [userData,setUserData] = useState({
           num:num,
           userId:userId,
@@ -31,11 +32,16 @@ const UserInfoRow = ({num,firstName, lastName,checked,userId, email,role,classN,
     const handleCloseSec = () => setShowSec(false);
     const handleShowSec = () => setShowSec(true);
 
-
+let toggleValue;
     const handleToggle=()=>{
         toggle ? settoggle(false) : settoggle(true);
-        submitChangesForUser();
+        submitChangesForUser(toggle);
     }
+  //   const handleToggleSec=()=>{
+  //     toggleSec ? settoggleSec(false) : settoggleSec(true);
+  //     toggleValue=toggleSec;
+  //     submitChangesForUser(toggleValue);
+  // }
 
     const handleRoleChosing = (ev) => {
       setUserChosenRole(ev.target.value);
@@ -53,34 +59,32 @@ const UserInfoRow = ({num,firstName, lastName,checked,userId, email,role,classN,
         }
     }
 
-const submitChangesForUser =  async () => {
-  try {
-    let { data } = await axios.patch("users/", {
+const submitChangesForUser =  () => {
+  axios.patch("users/", {
       _id:userId,
       firstname:userData.firstName,
       lastname:userData.lastName,
-      userstatus: toggle,
+      userstatus: toggleValue,
       email:userData.email,
       role:userChosenRole,
       studentclass:userData.class,
       specialization:userData.specialization,
-    });
-    console.log(data);
-    toast.success('העדכון נשמר בהצלחה', {
-      position: "bottom-center",
-      autoClose:5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      });
-      setTimeout(() => {
-        window.location.href ='/usersadmin';
-        window.location.reload();
-      }, 10000);
-  } catch (err) {
+    }).then((res)=>{
+      toast.success('העדכון נשמר בהצלחה', {
+        position: "bottom-center",
+        autoClose:5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+        setTimeout(() => {
+          window.location.href ='/usersadmin';
+          window.location.reload();
+        }, 10000);
+    }).catch ((err) =>{
     let errorMsgs = "";
     for (let errorItem of err.response.data.err.details) {
       errorMsgs += `${errorItem.message}`;
@@ -95,7 +99,7 @@ const submitChangesForUser =  async () => {
     progress: undefined,
     theme: "light",
     });
-}; 
+}); 
 }
 const deletingUserFunc = async() =>{
   try {
