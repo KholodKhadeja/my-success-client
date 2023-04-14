@@ -61,7 +61,7 @@ return (
               topic={item.topic}
                subject={item.subject}
                date={item.date}
-                hour = {item.hour}
+                hour = {item.hour} zoomLink={item.zoomLink}
                 profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
                 ))}
            </div>

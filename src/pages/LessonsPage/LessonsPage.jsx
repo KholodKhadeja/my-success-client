@@ -129,13 +129,13 @@ return(
               topic={item.topic}
                subject={item.subject}
                date={item.date}
-                hour = {item.hour} userid={currentUserId} 
+                hour = {item.hour} userid={currentUserId} zoomLink={item.zoomLink}
                 profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
                 )))}
 {userRole=="student"&&(matchLessonsArrState.map((item, index) => (
       <FavCardComponent key={"index"+item._id} teacherid={item.teacherId} lessonid={item._id}
               topic={item.topic}
-               subject={item.subject}
+               subject={item.subject} zoomLink={item.zoomLink}
                date={item.date}
                 hour = {item.hour} userid={currentUserId}
                 profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
@@ -155,7 +155,7 @@ return(
               topic={item.topic}
                subject={item.subject}
                date={item.date}
-                hour = {item.hour} userid={currentUserId}
+                hour = {item.hour} userid={currentUserId} zoomLink={item.zoomLink}
                 profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
                 )))}
   </div>

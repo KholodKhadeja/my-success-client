@@ -3,10 +3,19 @@ import TitleFunction from '../../partial/TitleComponent/TitleFunction';
 import { useState } from 'react';
 import "./ConnectToLessonPage.scss";
 
-const ConnectToLessonPage = () => {
+const ConnectToLessonPage = ({zoomLink, date, hour}) => {
+  let lessonTiming= {date}+" "+{hour};
   const [lessonName, setLessonName] = useState("");
-  const [lessonTiming, setLessonTiming] = useState("היום בשעה 16:00");
-  const [lessonZoomLink, setLessonZoomLink] = useState("https://edu-il.zoom.us/j/86008743727");
+  const [lessonTimingState, setLessonTimingState] = useState(lessonTiming);
+  const [lessonZoomLink, setLessonZoomLink] = useState("https://edu-il.zoom.us/meetingsdk/86008743727");
+  const token = localStorage.getItem("token");
+ const cutURLAfterLastSlash=(url)=> {
+    const parts = url.split("/");
+    const lastPart = parts[parts.length - 1];
+    return lastPart;
+  }
+   let meetingid=cutURLAfterLastSlash(lessonZoomLink);
+  
     return (
         <div>
           <span>
@@ -19,8 +28,10 @@ const ConnectToLessonPage = () => {
         </svg>
         <p>{lessonTiming}</p>
           </span>
-          <iframe className="iframe-class"  src={lessonZoomLink} width="1000" height="400" frameborder="2"></iframe>
-
+          {/* <iframe className="iframe-class"  src={lessonZoomLink} width="900" height="500" frameBorder="2" allowFullScreen></iframe> */}
+          <iframe className="iframe-class" width="900" height="500"
+src={`https://zoom.us/meetingsdk?id=${meetingid}&allow=camera microphone fullscreen display-capture picture-in-picture clipboard-write`}
+></iframe>
         </div>
     );
 }

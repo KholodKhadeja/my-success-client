@@ -216,7 +216,10 @@ const handleFormSelectChange = (event) =>{
             </div>
           </div>
         </div>
-       
+        <br/>
+        { userRole=="teacher"&&(
+        <div className="text-div">
+          <p>מורה יקר/ה, כדי להתחיל את השיעור תכנס לזום שלך ותפתח את השיעור</p></div>)}
         <div className="lessons-div-lessons-page">
         {
          userLessons.length==0&&(
@@ -232,7 +235,7 @@ const handleFormSelectChange = (event) =>{
               topic={item.topic}
                subject={item.subject}
                date={item.date}
-                hour = {item.hour} userid={userIdOriginal}
+                hour = {item.hour} userid={userIdOriginal} zoomLink={item.zoomLink}
                 profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
                 )))}
           {userRole=="student"&&(notMatchLessonsArrState.map((item, index) => (
@@ -240,7 +243,7 @@ const handleFormSelectChange = (event) =>{
               topic={item.topic}
                subject={item.subject}
                date={item.date}
-                hour = {item.hour} userid={userIdOriginal} 
+                hour = {item.hour} userid={userIdOriginal}  zoomLink={item.zoomLink}
                 profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
                 )))}
 
@@ -271,9 +274,7 @@ const handleFormSelectChange = (event) =>{
                 />)
                 ))}
         </div>
-        {/* <div className='pagination-cont'>
-            <Pagination size="sm">{items}</Pagination>
-          </div> */}
+
       </div>
 -
       {/* THIS IS THE MODAL */}

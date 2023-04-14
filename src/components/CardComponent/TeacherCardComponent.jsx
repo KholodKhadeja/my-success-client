@@ -191,7 +191,7 @@ return (
 <span> {lessonDetails.hour}</span>
 </p>
 </div>
-<NavLink className="enter-lesson-btn" to="/connecttolesson">התחבר</NavLink>
+{/* <NavLink className="enter-lesson-btn" to="/connecttolesson">התחבר</NavLink> */}
 </div>
 </div>
 }

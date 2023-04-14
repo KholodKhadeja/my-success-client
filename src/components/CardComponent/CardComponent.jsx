@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 
-const CardComponent = ({cardKey,teacherid,topic, subject,date, hour, profileImg,lessonid, userid}) => {
+const CardComponent = ({cardKey,teacherid,topic, subject,date, hour, profileImg,lessonid, userid, zoomLink}) => {
   const [thisLessonId, setThisUserId] = useState(null);
   // console.log(lessonid);
   let currentUserId=userid;
@@ -279,14 +279,14 @@ return (
         <span>{new Date(hour).toLocaleTimeString()}</span>
     </p>
   </div>
-  { alreadyRegisteredUser &&(
+  { alreadyRegisteredUser && userRole == "student"&&(
     <div className='d-flex justify-content-evenly'>
-           <button type="button" className="connect-lesson-btn" 
-           data-bs-toggle="modal" data-bs-target="#exampleModal">
-     התחבר</button> 
+           <button  className="connect-lesson-btn" onClick={()=>{
+             window.open(zoomLink, "_blank");
+           }}>התחבר</button> 
       <button  className="remove-lesson-btn" onClick={handleShowSec}>
                 הסרה</button></div>)}
- { !alreadyRegisteredUser &&(
+  {!alreadyRegisteredUser && userRole == "student"&&(
             <button className="sign-up-lesson-btn" onClick={handleShow} >
             הרשמה </button>)
   }

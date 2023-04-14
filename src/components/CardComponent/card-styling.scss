@@ -134,6 +134,8 @@
     border-radius: $basic-border-radius;
     font-weight: bold;
     border: none;
+    text-decoration: none !important;
+    text-align: center !important;
 }
 .section-3 {
   height: fit-content !important;
@@ -174,7 +176,6 @@
     @include lesson-card-btn;
     background-color: $basic-clr-sec;
     color: $dark-clr;
-
     text-decoration: none !important;
     text-align: center !important;
 }

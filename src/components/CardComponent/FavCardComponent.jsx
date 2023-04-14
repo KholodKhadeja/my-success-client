@@ -11,7 +11,7 @@ import Modal from 'react-bootstrap/Modal';
 
 
 
-const FavCardComponent = ({cardKey,teacherid,topic, subject,date, hour, profileImg,lessonid, userid}) => {
+const FavCardComponent = ({cardKey,teacherid,topic, subject,date, hour, profileImg,lessonid, userid, zoomLink}) => {
   const history = useHistory();
   const [show, setShow] = useState(false);
 const [showSec, setShowSec] = useState(false);
@@ -278,15 +278,15 @@ return (
         <span>{new Date(hour).toLocaleTimeString()}</span>
     </p>
   </div>
-  { alreadyRegisteredUser &&(
+  { alreadyRegisteredUser && userRole=="student"&&(
     <div className='d-flex justify-content-evenly'>
-           <button type="button" className="connect-lesson-btn" 
-           data-bs-toggle="modal" data-bs-target="#exampleModal">
-     התחבר</button>
+           <button  className="connect-lesson-btn" onClick={()=>{
+             window.open(zoomLink, "_blank");
+           }}>התחבר</button>
        <button type="button" className="remove-lesson-btn"  onClick={handleShowSec}>
                 הסרה</button></div>
      )}
- { !alreadyRegisteredUser &&(
+ { !alreadyRegisteredUser &&userRole=="student"&&(
        <button type="button" className="sign-up-lesson-btn"  onClick={handleShow}>
        הרשמה </button>)
   }
@@ -343,7 +343,7 @@ return (
           </Button>
         </Modal.Footer>
       </Modal>
-      
+
 </Fragment>
     );
 }
