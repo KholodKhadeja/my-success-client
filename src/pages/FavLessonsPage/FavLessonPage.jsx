@@ -82,7 +82,7 @@ const FavLessonPage = () => {
   )
 }
 { userLessonsArray.map((item, index) => (
-              <FavCardComponent key={index} teacherid={item.teacherId} 
+              <FavCardComponent key={"index"+item._id} teacherid={item.teacherId} 
               topic={item.topic}
                subject={item.subject}
                date={item.date}

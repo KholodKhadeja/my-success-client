@@ -10,11 +10,11 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-
+import Spinner from 'react-bootstrap/Spinner';
 
 
 let OriginalLessonsArray=[], currentUserId, idkeeper;
-let currentStudentFavLessons=[], myLessons=[], matchLessonsArr=[],notMatchLessonsArr=[] ;
+let currentStudentFavLessons=[];
 const LessonsPage = () => {
   let {search}=useParams();
 const [lessonsArr, setLessonsArr]=  useState(OriginalLessonsArray);
@@ -115,8 +115,17 @@ return(
 </div></div>
 
 <div className='lessons-div-lessons-page'> 
+{
+  userRole=="student"&&notMatchLessonsArrState.length==0 &&matchLessonsArrState.length==0&&(
+    <div className="spinnerName">
+    <Spinner animation="border" role="status">
+    <span className="visually-hidden">Loading...</span>
+  </Spinner>
+  </div>
+  )
+}
 {userRole=="student"&&(notMatchLessonsArrState.map((item, index) => (
-      <CardComponent cardKey={index} teacherid={item.teacherId} lessonid={item._id}
+      <CardComponent key={"index"+item._id} teacherid={item.teacherId} lessonid={item._id}
               topic={item.topic}
                subject={item.subject}
                date={item.date}
@@ -124,7 +133,7 @@ return(
                 profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
                 )))}
 {userRole=="student"&&(matchLessonsArrState.map((item, index) => (
-      <FavCardComponent cardKey={index} teacherid={item.teacherId} lessonid={item._id}
+      <FavCardComponent key={"index"+item._id} teacherid={item.teacherId} lessonid={item._id}
               topic={item.topic}
                subject={item.subject}
                date={item.date}
@@ -132,8 +141,17 @@ return(
                 profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
                 )))}
 
+{
+  (userRole=="teacher" || userRole=="admin")&&(lessonsArr.length==0)&&(
+    <div className="spinnerName">
+    <Spinner animation="border" role="status">
+    <span className="visually-hidden">Loading...</span>
+  </Spinner>
+  </div>
+  )
+}
 {(userRole=="teacher" || userRole=="admin")&&(lessonsArr.map((item, index) => (
-      <CardComponent cardKey={index} teacherid={item.teacherId} lessonid={item._id}
+      <CardComponent key={"index"+item._id} teacherid={item.teacherId} lessonid={item._id}
               topic={item.topic}
                subject={item.subject}
                date={item.date}
@@ -142,7 +160,6 @@ return(
                 )))}
   </div>
   <div className='pagination-cont'>
-    {/* <Pagination size="sm">{items}</Pagination> */}
   </div>
 </div>
 </Fragment>

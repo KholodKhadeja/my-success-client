@@ -6,11 +6,15 @@ import { toast } from "react-toastify";
 import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
+import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 
 
 
 const FavCardComponent = ({cardKey,teacherid,topic, subject,date, hour, profileImg,lessonid, userid}) => {
   const history = useHistory();
+  const [show, setShow] = useState(false);
+const [showSec, setShowSec] = useState(false);
   const userRole = useSelector((state)=>state.auth.role);
   const loggedIn=useSelector((state)=>state.auth.loggedIn);
   const [profileImgS, setProfileImg] = useState(profileImg);
@@ -23,6 +27,11 @@ const [actualteachername, setTeachername] = useState({
 firstname:"",
 lastname:""
 });
+
+const handleClose = () => setShow(false);
+const handleShow = () => setShow(true);
+const handleCloseSec = () => setShowSec(false);
+const handleShowSec = () => setShowSec(true);
 
 useEffect(() => {
   axios.get(`lessons/getbyid/${lessonid}`)
@@ -132,7 +141,7 @@ else{
         theme: "light",
         });
         setTimeout(() => {
-          window.location.href =`/lessons/${" "}`;
+          window.location.href =`/mylessons`;
           window.location.reload();
         }, 5000);
      }).catch((err)=>{
@@ -162,7 +171,7 @@ const handleStudentRegisterToLesson = ()=>{
   }).then((res)=>{
    toast.success('התלמיד נרשם לשיעור בהצלחה', {
      position: "bottom-center",
-     autoClose: 6000,
+     autoClose: 5000,
      hideProgressBar: false,
      closeOnClick: true,
      pauseOnHover: true,
@@ -170,35 +179,71 @@ const handleStudentRegisterToLesson = ()=>{
      progress: undefined,
      theme: "light",
      });
+     handleClose();
      setTimeout(() => {
-       window.location.href =`/lessons/${""}`;
        window.location.reload();
      }, 5000);
   }).catch((err)=>{
    let errMsg;
    console.log(err);
-//    if(err.message === "Request failed with status code 400"){
-//  errMsg=err.request.response;
-// }
-// if(err.message === "Network Error"){
-// errMsg= err.message;
-// }
-// toast.error(`${errMsg}`, {
-//    position: "bottom-center",
-//   autoClose: 5000,
-//   hideProgressBar: false,
-// closeOnClick: true,
-//    pauseOnHover: true,
-//    draggable: true,
-//    progress: undefined,
-//    theme: "dark",
-//  });
+   if(err.message === "Request failed with status code 400"){
+ errMsg=err.request.response;
+}
+if(err.message === "Network Error"){
+errMsg= err.message;
+}
+toast.error(`${errMsg}`, {
+   position: "bottom-center",
+  autoClose: 5000,
+  hideProgressBar: false,
+closeOnClick: true,
+   pauseOnHover: true,
+   draggable: true,
+   progress: undefined,
+   theme: "dark",
+ });
  })
 }
 
 const handleCancelRegisteration=()=>{
-  
+  axios.delete(`users/${userid}/mylessons/${lessonid}`,{
+  }).then((res)=>{
+   toast.success('ההרשמה בוטלה', {
+     position: "bottom-center",
+     autoClose: 5000,
+     hideProgressBar: false,
+     closeOnClick: true,
+     pauseOnHover: true,
+     draggable: true,
+     progress: undefined,
+     theme: "light",
+     });
+     handleCloseSec();
+     setTimeout(() => {
+       window.location.reload();
+     }, 5000);
+  }).catch((err)=>{
+   let errMsg;
+   console.log(err);
+   if(err.message === "Request failed with status code 400"){
+ errMsg=err.request.response;
 }
+if(err.message === "Network Error"){
+errMsg= err.message;
+}
+toast.error(`${errMsg}`, {
+   position: "bottom-center",
+  autoClose: 5000,
+  hideProgressBar: false,
+closeOnClick: true,
+   pauseOnHover: true,
+   draggable: true,
+   progress: undefined,
+   theme: "dark",
+ });
+ })
+}
+
 return (
 <Fragment>
        <div className='lesson-card'>
@@ -235,13 +280,14 @@ return (
   </div>
   { alreadyRegisteredUser &&(
     <div className='d-flex justify-content-evenly'>
-           <button type="button" className="connect-lesson-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+           <button type="button" className="connect-lesson-btn" 
+           data-bs-toggle="modal" data-bs-target="#exampleModal">
      התחבר</button>
-       <button type="button" className="remove-lesson-btn" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={handleCancelRegisteration}>
+       <button type="button" className="remove-lesson-btn"  onClick={handleShowSec}>
                 הסרה</button></div>
      )}
  { !alreadyRegisteredUser &&(
-       <button type="button" className="sign-up-lesson-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+       <button type="button" className="sign-up-lesson-btn"  onClick={handleShow}>
        הרשמה </button>)
   }
 </div>
@@ -259,12 +305,45 @@ return (
       צריך אישור להרשמה סופית לשיעור בבקשה
       </div>
       <div className="modal-footer">
-      <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={handleStudentRegisterToLesson}>אישור</button>
+      <button type="button" className="btn btn-success" data-bs-dismiss="modal" onClick={() => this.handleStudentRegisterToLesson(lessonid)}>אישור</button>
         <button type="button" className="btn btn-danger" data-bs-dismiss="modal">סגירה</button>
       </div>
     </div>
   </div>
 </div>
+
+{/* ------------------------------------אישור הרשמה לשיעור -------------------------------------------- */}
+<Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>אישור הרשמה לשיעור</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>      צריך אישור להרשמה סופית לשיעור בבקשה</Modal.Body>
+        <Modal.Footer>
+          <Button className="add-lesson-btn" onClick={handleStudentRegisterToLesson}>
+            אישור
+          </Button>
+          <Button variant="danger" onClick={handleClose}>
+            סגירה
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* ------------------------------------אישור הסרת הרשמה-------------------------------------------- */}
+<Modal show={showSec} onHide={handleCloseSec}>
+        <Modal.Header closeButton>
+          <Modal.Title>אישור הסרת השיעור</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>אתה בטוח שרוצה להסיר את ההרשמה </Modal.Body>
+        <Modal.Footer>
+          <Button className="add-lesson-btn" onClick={handleCancelRegisteration}>
+            אישור
+          </Button>
+          <Button variant="danger" onClick={handleCloseSec}>
+            סגירה
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      
 </Fragment>
     );
 }

@@ -177,7 +177,7 @@ return (
                 </div>
 
             {allUsers.map((item, index) => (
-              <UserInfoRow key={item._id} num={index+1} 
+              <UserInfoRow key={"user"+item._id} num={index+1} 
               firstName={item.firstname}  lastName={item.lastname} checked={item.userstatus} userId={item._id}
               email={item.email} password={item.password} role={item.role} classN={item.studentclass} specialization={item.specialization}/>
                 ))}

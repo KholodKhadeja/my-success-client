@@ -57,7 +57,7 @@ return (
            
            <div className="lesson-div d-flex justify-content-around">
            {lessonsArr.slice(0, 3).map((item, index) => (
-              <BasicCardComponent cardKey={item._id} teacherid={item.teacherId} 
+              <BasicCardComponent key={"card"+item._id} teacherid={item.teacherId} 
               topic={item.topic}
                subject={item.subject}
                date={item.date}

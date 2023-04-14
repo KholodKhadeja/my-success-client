@@ -18,6 +18,7 @@ import TitleFunctionSmall from "../../partial/TitleComponent/TitleFunctionSmall"
 // import TimePicker from 'react-time-picker';
 import TimePicker from "react-bootstrap-time-picker";
 import { toast } from "react-toastify";
+import Spinner from 'react-bootstrap/Spinner';
 
 let allMyLessons = []; 
 let profileImg, userIdOriginal=null;
@@ -217,13 +218,17 @@ const handleFormSelectChange = (event) =>{
         </div>
        
         <div className="lessons-div-lessons-page">
-          {
-            userLessons.length ==0 &&(
-              <p className="fadeha-text">אין שיעורים להצגה </p>
-            )
-          }
+        {
+         userLessons.length==0&&(
+    <div className="spinnerName">
+    <Spinner animation="border" role="status">
+    <span className="visually-hidden">Loading...</span>
+  </Spinner>
+  </div>
+  )
+}
           {userRole=="student"&&(matchLessonsArrState.map((item, index) => (
-      <FavCardComponent cardKey={index} teacherid={item.teacherId} lessonid={item._id}
+      <FavCardComponent key={"index"+item._id} teacherid={item.teacherId} lessonid={item._id}
               topic={item.topic}
                subject={item.subject}
                date={item.date}
@@ -231,7 +236,7 @@ const handleFormSelectChange = (event) =>{
                 profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
                 )))}
           {userRole=="student"&&(notMatchLessonsArrState.map((item, index) => (
-      <CardComponent cardKey={index} teacherid={item.teacherId} lessonid={item._id}
+      <CardComponent key={"index"+item._id} teacherid={item.teacherId} lessonid={item._id}
               topic={item.topic}
                subject={item.subject}
                date={item.date}
@@ -241,7 +246,7 @@ const handleFormSelectChange = (event) =>{
 
 
           { userRole=="teacher" && (userLessons.map((item, index) => (
-              <TeacherCardComponent cardKey={item._id} teacherid={item.teacherId} 
+              <TeacherCardComponent key={"index"+item._id} teacherid={item.teacherId} 
               topic={item.topic}
                subject={item.subject}
                date={item.date}
@@ -254,7 +259,7 @@ const handleFormSelectChange = (event) =>{
                 ))}
 
 { userRole=="admin" && (userLessons.map((item, index) => (
-              <CardComponent cardKey={item._id} teacherid={item.teacherId} 
+              <CardComponent key={"index"+item._id} teacherid={item.teacherId} 
               topic={item.topic}
                subject={item.subject}
                date={item.date}
