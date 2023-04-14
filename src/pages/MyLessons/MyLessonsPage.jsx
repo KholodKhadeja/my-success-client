@@ -19,7 +19,7 @@ import TitleFunctionSmall from "../../partial/TitleComponent/TitleFunctionSmall"
 import TimePicker from "react-bootstrap-time-picker";
 import { toast } from "react-toastify";
 
-let allMyLessons = [];
+let allMyLessons = []; 
 let profileImg, userIdOriginal=null;
 const MyLessonsPage = () => {
   let currentStudentFavLessons=[];
@@ -61,14 +61,21 @@ useEffect(() => {
      currentStudentFavLessons=JSON.parse(JSON.stringify(data.favlessons));
      setUserLessons(allMyLessons);
      if(userRole==="student") {
-      const matchLessonsArr = allMyLessons.filter(item1 => {currentStudentFavLessons.some(item2 => item1._id === item2._id)});
+      let matchLessonsArr = [];
+      for (let i = 0; i < allMyLessons.length; i++) {
+        let item2 = allMyLessons[i];
+       let commonItem = currentStudentFavLessons.find(item => item._id == item2._id);
+        if (commonItem) {
+          matchLessonsArr.push(commonItem);
+        }
+      }
       setMatchLessonsArrState(JSON.parse(JSON.stringify(matchLessonsArr)));
-      console.log(allMyLessons);
-      
       const notMatchLessonsArr = allMyLessons.filter(item1 => !matchLessonsArr.some(item2 => item1._id === item2._id));
       setNotMatchLessonsArrState(JSON.parse(JSON.stringify(notMatchLessonsArr)));
+
      }
   }catch(err){
+    console.log(err);
     toast.error('שגיאה בטעינת נתונים', {
       position: "top-right",
       autoClose: 5000,
@@ -215,7 +222,14 @@ const handleFormSelectChange = (event) =>{
               <p className="fadeha-text">אין שיעורים להצגה </p>
             )
           }
-          {/* for students show this */}
+          {userRole=="student"&&(matchLessonsArrState.map((item, index) => (
+      <FavCardComponent cardKey={index} teacherid={item.teacherId} lessonid={item._id}
+              topic={item.topic}
+               subject={item.subject}
+               date={item.date}
+                hour = {item.hour} userid={userIdOriginal}
+                profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
+                )))}
           {userRole=="student"&&(notMatchLessonsArrState.map((item, index) => (
       <CardComponent cardKey={index} teacherid={item.teacherId} lessonid={item._id}
               topic={item.topic}
@@ -224,14 +238,7 @@ const handleFormSelectChange = (event) =>{
                 hour = {item.hour} userid={userIdOriginal} 
                 profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
                 )))}
-{userRole=="student"&&(matchLessonsArrState.map((item, index) => (
-      <FavCardComponent cardKey={index} teacherid={item.teacherId} lessonid={item._id}
-              topic={item.topic}
-               subject={item.subject}
-               date={item.date}
-                hour = {item.hour} userid={userIdOriginal}
-                profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
-                )))}
+
 
           { userRole=="teacher" && (userLessons.map((item, index) => (
               <TeacherCardComponent cardKey={item._id} teacherid={item.teacherId} 

@@ -38,7 +38,6 @@ useEffect(() => {
     try {
       let { data } = await axios.get("/lessons");
       OriginalLessonsArray = JSON.parse(JSON.stringify(data));
-      console.log(currentUserId);
       if(search==="" || search===null){
         let lessonArrCopy = JSON.parse(JSON.stringify(OriginalLessonsArray)); 
         setLessonsArr(lessonArrCopy);
@@ -69,7 +68,6 @@ useEffect(() => {
     currentStudentFavLessons=JSON.parse(JSON.stringify(data.favlessons));
     const matchLessonsArr = OriginalLessonsArray.filter(item1 => currentStudentFavLessons.some(item2 => item1._id === item2._id));
     setMatchLessonsArrState(JSON.parse(JSON.stringify(matchLessonsArr)));
-    console.log(matchLessonsArr);
     const notMatchLessonsArr = [...OriginalLessonsArray, ...currentStudentFavLessons].filter(item => !matchLessonsArr.some(commonItem => commonItem._id === item._id));
     setNotMatchLessonsArrState(JSON.parse(JSON.stringify(notMatchLessonsArr)));  
   }

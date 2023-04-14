@@ -56,7 +56,6 @@ useEffect(() => {
       } else {
         setAlreadyRegisteredUser(false);
       }
-      console.log(alreadyRegisteredUser);
     })
     .catch((err) => {
       toast.error('לא מצליח לטעון נתונים, תרענן עמוד', {

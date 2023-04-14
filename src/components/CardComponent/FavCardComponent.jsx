@@ -34,7 +34,6 @@ useEffect(() => {
       } else {
         setAlreadyRegisteredUser(false);
       }
-      console.log(alreadyRegisteredUser);
     })
     .catch((err) => {
       toast.error('לא מצליח לטעון נתונים, תרענן עמוד', {
@@ -120,6 +119,41 @@ else{
     basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/signed-star.png?raw=true";  
     setStarClicked(true);
     setImagePath(basicPath);
+    axios.post(`users/${userid}/favlessons/${lessonid}`,{
+     }).then((res)=>{
+      toast.success('השיעור התווסף לרשימת המועדפים בהצלחה', {
+        position: "bottom-center",
+        autoClose: 6000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "light",
+        });
+        setTimeout(() => {
+          window.location.href =`/lessons/${" "}`;
+          window.location.reload();
+        }, 5000);
+     }).catch((err)=>{
+      let errMsg;
+      if(err.message === "Request failed with status code 400"){
+    errMsg=err.request.response;
+   }
+  if(err.message === "Network Error"){
+   errMsg= err.message;
+  }
+   toast.error(`${errMsg}`, {
+      position: "bottom-center",
+     autoClose: 5000,
+     hideProgressBar: false,
+   closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+    })
 }
 }
 
