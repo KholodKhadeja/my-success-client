@@ -138,10 +138,10 @@ const deletingUserFunc = async() =>{
             <p>{email}</p>
             <p>{role}</p>
             {
-                (!classN || classN ==" "||  classN =="null"  || classN =="" ||  classN==null) ? <p>אין</p> : <p>{classN}</p>
+                (!classN || classN ===" "||  classN ==="null"  || classN ==="" ||  classN===null) ? <p>אין</p> : <p>{classN}</p>
             }
             {
-               (!specialization || specialization ==" "|| specialization =="null" || specialization ==="" ||  specialization== null) ? 
+               (!specialization || specialization ===" "|| specialization ==="null" || specialization ==="" ||  specialization=== null) ? 
                <p>אין</p> : <p>{specialization}</p>
             }
 
@@ -201,13 +201,13 @@ const deletingUserFunc = async() =>{
           </Form.Select>
         </Form.Group>
 {
-       userChosenRole == "student" &&(
+       userChosenRole === "student" &&(
         <Form.Group className="mb-2" >
         <Form.Control className="form-controll" type="text" id="class" placeholder='כיתה'
         value={userData.class} onChange={handleUserInputsEditing} />
        </Form.Group> )
   }
-{  userChosenRole  == "teacher" && (
+{  userChosenRole  === "teacher" && (
             <Form.Group className="mb-2" >
             <Form.Control className="form-controll" type="text" id="specialization" placeholder='התמחות'
         value={userData.specialization} onChange={handleUserInputsEditing} />

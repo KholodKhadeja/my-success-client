@@ -76,10 +76,6 @@ return (
         <span>{new Date(hour).toLocaleTimeString()}</span>
     </p>
   </div>
-  {/* {
-    userRole == "student"&&(<button type="button" className="sign-up-lesson-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-    הרשמה </button>)
-  } */}
 </div>
 </div>
 

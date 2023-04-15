@@ -20,7 +20,8 @@ import TimePicker from "react-bootstrap-time-picker";
 import { toast } from "react-toastify";
 import Spinner from 'react-bootstrap/Spinner';
 
-let allMyLessons = []; 
+let allMyLessons = [];    let matchLessonsArr=[];
+let notMatchLessonsArr=[];
 let profileImg, userIdOriginal=null;
 const MyLessonsPage = () => {
   let currentStudentFavLessons=[];
@@ -35,6 +36,7 @@ const [notMatchLessonsArrState, setNotMatchLessonsArrState] =  useState([]);
   const [userLessons, setUserLessons] = useState(allMyLessons);
   const [selectedTime, setSelectedTime] = useState('10:00');
    const [searchWord, setSearchWord] = useState("");
+
   const [newLessonData, setNewLessonData] = useState({
     topic:"",
     subject:"",
@@ -62,18 +64,16 @@ useEffect(() => {
      currentStudentFavLessons=JSON.parse(JSON.stringify(data.favlessons));
      setUserLessons(allMyLessons);
      if(userRole==="student") {
-      let matchLessonsArr = [];
       for (let i = 0; i < allMyLessons.length; i++) {
         let item2 = allMyLessons[i];
-       let commonItem = currentStudentFavLessons.find(item => item._id == item2._id);
+       let commonItem = currentStudentFavLessons.find(item => item._id === item2._id);
         if (commonItem) {
           matchLessonsArr.push(commonItem);
         }
       }
       setMatchLessonsArrState(JSON.parse(JSON.stringify(matchLessonsArr)));
-      const notMatchLessonsArr = allMyLessons.filter(item1 => !matchLessonsArr.some(item2 => item1._id === item2._id));
+      notMatchLessonsArr = allMyLessons.filter(item1 => !matchLessonsArr.some(item2 => item1._id === item2._id));
       setNotMatchLessonsArrState(JSON.parse(JSON.stringify(notMatchLessonsArr)));
-
      }
   }catch(err){
     console.log(err);
@@ -93,9 +93,20 @@ useEffect(() => {
 
   useEffect(() => {
     let regex = new RegExp(searchWord, "i"); 
-    let lessonArrCopy = JSON.parse(JSON.stringify(allMyLessons)); 
-    lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject));
-    setUserLessons(lessonArrCopy);
+    if (userRole === "teacher" || userRole==="admin" || !loggedIn){
+     let lessonArrCopy = JSON.parse(JSON.stringify(allMyLessons)); 
+     lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject));
+     setUserLessons(lessonArrCopy);
+    }
+   if(userRole === "student"){
+     let matchArrCopy = JSON.parse(JSON.stringify(matchLessonsArr)); 
+     matchArrCopy = matchArrCopy.filter((item) => regex.test(item.subject));
+     setMatchLessonsArrState(matchArrCopy);
+  
+     let noMatchArrCopy = JSON.parse(JSON.stringify(notMatchLessonsArr)); 
+     noMatchArrCopy = noMatchArrCopy.filter((item) => regex.test(item.subject));
+     setNotMatchLessonsArrState(noMatchArrCopy);
+    }
   }, [searchWord]);
 
   const [show, setShow] = useState(false);
@@ -203,11 +214,11 @@ const handleFormSelectChange = (event) =>{
             <TitleFunction text={"השיעורים שלי"} />
           </span>
           <div className="my-lessons-upper-left-div">
-          {userRole=="teacher"&&(<Button className="add-lesson-btn mb-3" onClick={handleShow}>
+          {userRole==="teacher"&&(<Button className="add-lesson-btn mb-3" onClick={handleShow}>
               הוספת שיעור
             </Button>)} 
             <div className="input-group mb-3">
-              <input   type="text" className="form-control" value={searchWord} onChange={handleSearchWordChange} />
+              <input   type="text" className="form-control" value={searchWord} onChange={handleSearchWordChange} placeholder="חיפוש לפי שם מקצוע"/>
               <span className="input-group-text" id="inputGroup-sizing-default">
                 <svg  xmlns="http://www.w3.org/2000/svg"   width="16"  height="16"   fill="currentColor"  className="bi bi-search" viewBox="0 0 16 16" >
                   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z" />
@@ -217,12 +228,12 @@ const handleFormSelectChange = (event) =>{
           </div>
         </div>
         <br/>
-        { userRole=="teacher"&&(
+        { userRole==="teacher"&&(
         <div className="text-div">
           <p>מורה יקר/ה, כדי להתחיל את השיעור תכנס לזום שלך ותפתח את השיעור</p></div>)}
         <div className="lessons-div-lessons-page">
         {
-         userLessons.length==0&&(
+         userLessons.length===0&&(
     <div className="spinnerName">
     <Spinner animation="border" role="status">
     <span className="visually-hidden">Loading...</span>
@@ -230,7 +241,7 @@ const handleFormSelectChange = (event) =>{
   </div>
   )
 }
-          {userRole=="student"&&(matchLessonsArrState.map((item, index) => (
+          {userRole==="student"&&(matchLessonsArrState.map((item, index) => (
       <FavCardComponent key={"index"+item._id} teacherid={item.teacherId} lessonid={item._id}
               topic={item.topic}
                subject={item.subject}
@@ -238,7 +249,7 @@ const handleFormSelectChange = (event) =>{
                 hour = {item.hour} userid={userIdOriginal} zoomLink={item.zoomLink}
                 profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
                 )))}
-          {userRole=="student"&&(notMatchLessonsArrState.map((item, index) => (
+          {userRole==="student"&&(notMatchLessonsArrState.map((item, index) => (
       <CardComponent key={"index"+item._id} teacherid={item.teacherId} lessonid={item._id}
               topic={item.topic}
                subject={item.subject}
@@ -248,7 +259,7 @@ const handleFormSelectChange = (event) =>{
                 )))}
 
 
-          { userRole=="teacher" && (userLessons.map((item, index) => (
+          { userRole==="teacher" && (userLessons.map((item, index) => (
               <TeacherCardComponent key={"index"+item._id} teacherid={item.teacherId} 
               topic={item.topic}
                subject={item.subject}
@@ -256,12 +267,12 @@ const handleFormSelectChange = (event) =>{
                 hour = {item.hour}
                 profileImg={profileImg}
                 learningLevel={item.learningLevel}
-                lessonId={item._id}
+                lessonId={item._id} userid={userIdOriginal}
                 zoomLink={item.zoomLink}
                 />)
                 ))}
 
-{ userRole=="admin" && (userLessons.map((item, index) => (
+{ userRole==="admin" && (userLessons.map((item, index) => (
               <CardComponent key={"index"+item._id} teacherid={item.teacherId} 
               topic={item.topic}
                subject={item.subject}
@@ -269,7 +280,7 @@ const handleFormSelectChange = (event) =>{
                 hour = {item.hour}
                 profileImg={profileImg}
                 learningLevel={item.learningLevel}
-                lessonId={item._id}
+                lessonId={item._id} userid={userIdOriginal}
                 zoomLink={item.zoomLink}
                 />)
                 ))}

@@ -14,8 +14,8 @@ import Spinner from 'react-bootstrap/Spinner';
 
 
 let OriginalLessonsArray=[], currentUserId, idkeeper;
-const matchLessonsArr=[];
-const notMatchLessonsArr=[];
+let matchLessonsArr=[];
+let notMatchLessonsArr=[];
 let currentStudentFavLessons=[];
 const LessonsPage = () => {
   // let {search}=useParams();
@@ -60,12 +60,16 @@ useEffect(() => {
   (async () => {
     try {
   let { data } = await axios.get(`users/getuserbyid/${currentUserId}`);
-  if(userRole=="student") {
+  if(userRole==="student") {
     currentStudentFavLessons=JSON.parse(JSON.stringify(data.favlessons));
     matchLessonsArr = OriginalLessonsArray.filter(item1 => currentStudentFavLessons.some(item2 => item1._id === item2._id));
     setMatchLessonsArrState(JSON.parse(JSON.stringify(matchLessonsArr)));
     notMatchLessonsArr = [...OriginalLessonsArray, ...currentStudentFavLessons].filter(item => !matchLessonsArr.some(commonItem => commonItem._id === item._id));
     setNotMatchLessonsArrState(JSON.parse(JSON.stringify(notMatchLessonsArr)));  
+  }
+  if(userRole=="admin" || userRole=="teacher" || !loggedIn){
+    OriginalLessonsArray = JSON.parse(JSON.stringify(data));
+    setLessonsArr(OriginalLessonsArray);
   }
  }
      catch(err){
@@ -76,7 +80,7 @@ useEffect(() => {
 
 useEffect(() => {
   let regex = new RegExp(searchWord, "i"); 
- if (userRole === "teacher" || userRole==="admin"){
+ if (userRole === "teacher" || userRole==="admin" || !loggedIn){
   let lessonArrCopy = JSON.parse(JSON.stringify(OriginalLessonsArray)); 
   lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject));
   setLessonsArr(lessonArrCopy);
@@ -84,11 +88,11 @@ useEffect(() => {
 if(userRole === "student"){
   let matchArrCopy = JSON.parse(JSON.stringify(matchLessonsArr)); 
   matchArrCopy = matchArrCopy.filter((item) => regex.test(item.subject));
-  setLessonsArr(matchArrCopy);
+  setMatchLessonsArrState(matchArrCopy);
 
   let noMatchArrCopy = JSON.parse(JSON.stringify(notMatchLessonsArr)); 
   noMatchArrCopy = noMatchArrCopy.filter((item) => regex.test(item.subject));
-  setLessonsArr(noMatchArrCopy);
+  setNotMatchLessonsArrState(noMatchArrCopy);
   }
 }, [searchWord]);
 
@@ -102,7 +106,8 @@ return(
             <span>
                  <TitleFunction text={"שיעורים"}/></span>
                  <div className="input-group mb-3 lessons-input-group">
-                 <input type="text" className="form-control" value={searchWord} onChange={handleSearchWordChange} placeholder='חיפוש לפי מקצוע'/>
+                 <input type="text" className="form-control" value={searchWord} 
+                 onChange={handleSearchWordChange} placeholder="חיפוש לפי שם מקצוע"/>
                 <span className="input-group-text" id="inputGroup-sizing-default">
                 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-search" viewBox="0 0 16 16">
   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>

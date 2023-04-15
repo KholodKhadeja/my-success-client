@@ -60,14 +60,14 @@ const handleLogoutBtnClick = () => {
                   label={item.label}
                   link={item.url} />
               ))}
-             { loggedIn && userRole =="admin" && authAdminLinks.map((item, idx) => (
+             { loggedIn && userRole ==="admin" && authAdminLinks.map((item, idx) => (
                 <NavBarLinkPartial
                   key={"navlinks" + idx}
                   label={item.label}
                   link={item.url} />
               ))}
 
-          { loggedIn && (userRole =="teacher" || userRole =="student") && authTeacherStudLinks.map((item, idx) => (
+          { loggedIn && (userRole ==="teacher" || userRole ==="student") && authTeacherStudLinks.map((item, idx) => (
                 <NavBarLinkPartial
                   key={"navlinks" + idx}
                   label={item.label}
@@ -79,7 +79,7 @@ const handleLogoutBtnClick = () => {
           <div className="collapse navbar-collapse justify-content-end"  id="navbarSupportedContent" >
             <div className="d-flex">
               <ul className="navbar-nav mb-lg-0 rightnav">
-                {loggedIn && userRole == "student" && (
+                {loggedIn && userRole === "student" && (
                   <li className="nav-item">
                     <NavLink className="" to="/favoritelessons">
                       <img className="navbar-fav-star-icon"

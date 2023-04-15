@@ -62,7 +62,7 @@ useEffect(() => {
   axios.get(`lessons/getbyid/${lessonid}`)
     .then((res) => {
       const lessonStudentsArr = JSON.parse(JSON.stringify(res.data.students));
-      const foundIStudent = lessonStudentsArr.findIndex(elem => elem === userid);
+      const foundIStudent = lessonStudentsArr.findIndex(elem => elem == userid);
       if (foundIStudent !== -1) {
         setAlreadyRegisteredUser(true);
       } else {
@@ -102,7 +102,7 @@ const switchImg =()=>{
        theme: "light",
        });
        setTimeout(() => {
-        window.location.href ="/lessons";
+        window.location.href ='/lessons';
         window.location.reload();
        }, 5000);
     }).catch((err)=>{
@@ -251,7 +251,7 @@ return (
               { userRole ==="student" && (<img id="star-img" src={imagePath}
                  alt="wishlist star" onClick={switchImg}/>)
             }
-            { (userRole =="teacher" || userRole=="admin") && (<br/>)
+            { (userRole ==="teacher" || userRole==="admin") && (<br/>)
             }
             </div>
             <div className='section-1'>
@@ -279,14 +279,14 @@ return (
         <span>{new Date(hour).toLocaleTimeString()}</span>
     </p>
   </div>
-  { alreadyRegisteredUser && userRole == "student"&&(
+  { alreadyRegisteredUser && userRole === "student"&&(
     <div className='d-flex justify-content-evenly'>
            <button  className="connect-lesson-btn" onClick={()=>{
              window.open(zoomLink, "_blank");
            }}>התחבר</button> 
       <button  className="remove-lesson-btn" onClick={handleShowSec}>
                 הסרה</button></div>)}
-  {!alreadyRegisteredUser && userRole == "student"&&(
+  {!alreadyRegisteredUser && userRole === "student"&&(
             <button className="sign-up-lesson-btn" onClick={handleShow} >
             הרשמה </button>)
   }

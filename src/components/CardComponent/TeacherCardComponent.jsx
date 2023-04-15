@@ -13,15 +13,17 @@ import moment from 'moment';
 import TitleFunctionSmall from '../../partial/TitleComponent/TitleFunctionSmall';
 import axios from "axios";
 import { toast } from "react-toastify";
+import TimePicker from "react-bootstrap-time-picker";
 
 
-const TeacherCardComponent = ({cardKey, subject,topic, teacherid,date, hour, learningLevel, zoomLink, profileImg, lessonId}) => {
+const TeacherCardComponent = ({cardKey, subject,topic, teacherid,date, hour, learningLevel, zoomLink, profileImg, lessonId, userid}) => {
   const loggedIn=useSelector((state)=>state.auth.loggedIn);
   const [selectedDate, setSelectedDate] = useState(null);
   const [actualteachername, setTeachername] = useState({
     firstname:"",
     lastname:""
     });
+    const [selectedTime, setSelectedTime] = useState('10:00');
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
@@ -29,6 +31,8 @@ const TeacherCardComponent = ({cardKey, subject,topic, teacherid,date, hour, lea
   const [showSec, setShowSec] = useState(false);
   const handleCloseSec = () => setShowSec(false);
   const handleShowSec = () => setShowSec(true);
+
+
 
   const [lessonDetails, setLessonDetails] = useState({
     subject: subject,
@@ -42,6 +46,16 @@ const TeacherCardComponent = ({cardKey, subject,topic, teacherid,date, hour, lea
     students:[]
   });
 
+  const handleTimeChange = (time)=>{
+    const selectedDate = new Date(time * 1000);
+    const formattedTime = selectedDate.toISOString().substr(11, 5);
+    setSelectedTime(formattedTime);
+    setLessonDetails(prevState => ({
+      ...prevState,
+      hour: formattedTime
+    }));
+  }
+  Intl.DateTimeFormat().resolvedOptions().timeZone = 'UTC';
   useEffect(() => {
     loggedIn &&(
     (async()=>{
@@ -96,7 +110,6 @@ const handleUpdateLesson = async()=>{
       learningLevel: lessonDetails.learningLevel,
       zoomLink: lessonDetails.zoomLink,
     });
-    console.log(data);
     toast.success('העדכון נשמר בהצלחה', {
       position: "bottom-center",
       autoClose:5000,
@@ -131,7 +144,7 @@ const handleUpdateLesson = async()=>{
 
 const handleDeleteLessonFunction =async()=>{
   try {
-    await axios.delete(`/lessons/${lessonId}`);
+    await axios.delete(`/lessons/${lessonId}/${userid}`);
     toast.success('השיעור נמחק בהצלחה', {
       position: "bottom-center",
       autoClose:5000,
@@ -143,6 +156,7 @@ const handleDeleteLessonFunction =async()=>{
       theme: "light",
       });
   } catch (err) {
+    console.log(err);
     toast.error(`יש בעיה במחיקת השיעור`, {
       position: "bottom-center",
       autoClose: 5000,
@@ -222,8 +236,9 @@ return (
       dateFormat="yyyy-MM-dd"
       placeholderText="בחר תאריך" className="form-control add-lesson-inputs mb-1" 
     />
-    <Form.Control type="text" className="add-lesson-inputs mb-1" value={lessonDetails.hour} 
-    onChange={handleLessonDetailsEdit} id="hour"/>
+
+<TimePicker start="10:00" end="22:00" step={30} className="add-lesson-inputs mb-1"   id="hour"
+ onChange={handleTimeChange} value={selectedTime}/>
 
 <Form.Control type="text" className="add-lesson-inputs mb-1" value={lessonDetails.zoomLink}  
 onChange={handleLessonDetailsEdit} id="zoomLink"/>
