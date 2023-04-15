@@ -32,16 +32,14 @@ const UserInfoRow = ({num,firstName, lastName,checked,userId, email,role,classN,
     const handleCloseSec = () => setShowSec(false);
     const handleShowSec = () => setShowSec(true);
 
-let toggleValue;
     const handleToggle=()=>{
-        toggle ? settoggle(false) : settoggle(true);
-        submitChangesForUser(toggle);
+      if(toggle){
+        settoggle(false);
+      }
+      if(!toggle){
+        settoggle(true);
+      }
     }
-  //   const handleToggleSec=()=>{
-  //     toggleSec ? settoggleSec(false) : settoggleSec(true);
-  //     toggleValue=toggleSec;
-  //     submitChangesForUser(toggleValue);
-  // }
 
     const handleRoleChosing = (ev) => {
       setUserChosenRole(ev.target.value);
@@ -64,7 +62,7 @@ const submitChangesForUser =  () => {
       _id:userId,
       firstname:userData.firstName,
       lastname:userData.lastName,
-      userstatus: toggleValue,
+      userstatus: toggle,
       email:userData.email,
       role:userChosenRole,
       studentclass:userData.class,
@@ -83,7 +81,7 @@ const submitChangesForUser =  () => {
         setTimeout(() => {
           window.location.href ='/usersadmin';
           window.location.reload();
-        }, 10000);
+        }, 5000);
     }).catch ((err) =>{
     let errorMsgs = "";
     for (let errorItem of err.response.data.err.details) {
@@ -136,7 +134,7 @@ const deletingUserFunc = async() =>{
         <div className="admin-page-rows-group-row">
             <p><b>{num}</b></p>
             <p>{firstName +" "+ lastName}</p>
-           <Switch onClick={handleToggle} checked={toggle}/>
+           {/* <Switch onClick={handleToggle} checked={toggle}/> */}
             <p>{email}</p>
             <p>{role}</p>
             {
@@ -186,8 +184,8 @@ const deletingUserFunc = async() =>{
             className="form-controll short-input" type="text" placeholder="שם משפחה" id="lastName"
             value={userData.lastName} onChange={handleUserInputsEditing} />
         </Form.Group>
-        {/* <div className='d-flex gap-2'>
-            <p>סטטוס משתמש:</p><Switch onClick={handleToggle} checked={toggle}/></div> */}
+        <div className='d-flex gap-2'>
+            <p>סטטוס משתמש:</p><Switch onClick={handleToggle} checked={toggle}/></div>
         <Form.Group className="mb-2" >
           <Form.Control className="form-controll" type="text" placeholder="דואר אלקטרוני"  id="email"
           value={userData.email} onChange={handleUserInputsEditing}

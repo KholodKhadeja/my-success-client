@@ -108,8 +108,10 @@ return (
         <span>{new Date(hour).toLocaleTimeString()}</span>
     </p>
   </div>
-<button type="button" className="sign-up-lesson-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
-  הרשמה </button>
+  {
+    userRole == "student"&&(<button type="button" className="sign-up-lesson-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    הרשמה </button>)
+  }
 </div>
 </div>
 
@@ -131,8 +133,8 @@ return (
     </div>
   </div>
 </div>
-</Fragment>
-    );
+</Fragment> 
+ );
 }
 
 export default BasicCardComponent;

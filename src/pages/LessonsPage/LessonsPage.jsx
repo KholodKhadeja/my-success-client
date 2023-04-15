@@ -16,12 +16,12 @@ import Spinner from 'react-bootstrap/Spinner';
 let OriginalLessonsArray=[], currentUserId, idkeeper;
 let currentStudentFavLessons=[];
 const LessonsPage = () => {
-  let {search}=useParams();
+  // let {search}=useParams();
 const [lessonsArr, setLessonsArr]=  useState(OriginalLessonsArray);
 const userRole = useSelector((state)=>state.auth.role);
 const userData = useSelector((state)=>state.auth.userData);
 const loggedIn=useSelector((state)=>state.auth.loggedIn);
-const [searchWord, setSearchWord] = useState(search);
+const [searchWord, setSearchWord] = useState(null);
 const [matchLessonsArrState, setMatchLessonsArrState] = useState([]);
 const [notMatchLessonsArrState, setNotMatchLessonsArrState] =  useState([]);
 
@@ -38,13 +38,7 @@ useEffect(() => {
     try {
       let { data } = await axios.get("/lessons");
       OriginalLessonsArray = JSON.parse(JSON.stringify(data));
-      if(search==="" || search===null){
-        let lessonArrCopy = JSON.parse(JSON.stringify(OriginalLessonsArray)); 
-        setLessonsArr(lessonArrCopy);
-      }
-     else{
       setLessonsArr(OriginalLessonsArray);
-     }
     } catch (err) {
       toast.error("שגיאה בטעינת נתונים", {
         position: "top-right",

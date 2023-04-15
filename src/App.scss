@@ -73,3 +73,15 @@ $font-family: "Assistant";
   width: 100% !important;
   display: flex;align-items: center;justify-content: center !important;
 }
+
+@media screen and (min-width: 1000px) {
+  .input-group-search {
+      width:40% !important;
+  }
+}
+
+@media screen and (max-width: 980px) {
+  .input-group-search {
+      width:70% !important;
+  }
+}

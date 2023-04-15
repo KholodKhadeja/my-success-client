@@ -5,6 +5,16 @@
 margin-bottom: 2em !important;
 overflow-x: auto !important;
 }
+@media  (max-width:770px) {
+    .lesson-div{
+        padding-right: 200px !important;
+}
+}
+@media  (max-width:490px) {
+    .lesson-div{
+        padding-right: 380px !important;
+}
+}
 .upper-div{
     display: flex;flex-direction: row !important;
     justify-content: space-between !important;

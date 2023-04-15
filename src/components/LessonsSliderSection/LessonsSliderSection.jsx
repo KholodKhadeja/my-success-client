@@ -42,7 +42,7 @@ return (
            <div className="upper-div">
             <span>
                  <TitleFunction text={"שיעורים"}/></span>
-                 <div className="input-group mb-3 w-25">
+                 {/* <div className="input-group mb-3 input-group-search">
                  <input type="text" className="form-control" placeholder="הכניסו מילת חיפוש ולחצו" value={searchInput}
           onChange={handleSearchInputChange} />
        
@@ -52,7 +52,7 @@ return (
   <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001c.03.04.062.078.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1.007 1.007 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0z"/>
 </svg>
 </Link>   </span>
-</div>
+</div> */}
            </div>
            
            <div className="lesson-div d-flex justify-content-around">
@@ -66,7 +66,7 @@ return (
                 ))}
            </div>
 
-           <Link className="view-more-lessons" to={`/lessons/${emptyString}`}>
+           <Link className="view-more-lessons" to="/lessons">
             <p>ראו עוד</p>
            </Link>
            <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>

@@ -1,7 +1,7 @@
 @import "../../App.scss";
 
 .main-div-says-about-us{
-    margin-top:100px !important;
+    margin-top:150px !important;
     width: 100%;
 }
 @media  (max-width: 1500px) {
@@ -11,17 +11,17 @@
   }
 @media screen and (min-width: 1400px) and (min-width: 1001px)  {
     .main-div-says-about-us{
-        margin-top: 4em !important;
+        margin-top: 250px !important;
     }
 }
 @media (max-width: 1000px) and (min-width: 301px)  {
     .main-div-says-about-us{
-        margin-top: 6em !important;
+        margin-top:300px !important;
     }
 }
 @media screen and (max-width: 300px) {
     .main-div-says-about-us{
-        margin-top: 8em !important;
+        margin-top: 600px !important;
     }
 }
 .quoete-card-slider{
@@ -34,14 +34,24 @@
     overflow-x: auto !important;
     margin-bottom: 2em !important;
     }
-    @media  (max-width:770px) {
-        .icons-slider{
-            padding-right: 300px !important;
+    @media  (max-width:790px) {
+        .icons-slider, .quoete-card-slider{
+            padding-right: 150px !important;
+    }}
+    @media  (max-width:600px) {
+        .icons-slider, .quoete-card-slider{
+            padding-right: 200px !important;
+    }}
+    @media  (max-width:490px) {
+        .quoete-card-slider{
+            padding-right: 200px !important;
     }
+    }
+
     .quoete-card{
-        width: 300px !important;height:150px !important;
+        min-width: 200px !important;height:150px !important;
     }
-    }
+    
     @media  (max-width:480px) {
         .icons-slider{
             padding-right: 350px !important;
