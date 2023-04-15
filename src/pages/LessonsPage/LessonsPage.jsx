@@ -2,8 +2,8 @@ import React, { Fragment } from 'react';
 import TitleFunction from '../../partial/TitleComponent/TitleFunction';
 import CardComponent from '../../components/CardComponent/CardComponent';
 import FavCardComponent from 'components/CardComponent/FavCardComponent';
+import BasicCardComponent from 'components/CardComponent/BasicCardComponent';
 import "./LessonsPageStyling.scss";
-import Pagination from 'react-bootstrap/Pagination';
 import { useState, useEffect } from 'react';
 import { useParams } from "react-router-dom";
 import axios from "axios";
@@ -14,6 +14,8 @@ import Spinner from 'react-bootstrap/Spinner';
 
 
 let OriginalLessonsArray=[], currentUserId, idkeeper;
+const matchLessonsArr=[];
+const notMatchLessonsArr=[];
 let currentStudentFavLessons=[];
 const LessonsPage = () => {
   // let {search}=useParams();
@@ -36,7 +38,7 @@ useEffect(() => {
 useEffect(() => {
   (async () => {
     try {
-      let { data } = await axios.get("/lessons");
+      let { data } = await axios.get('/lessons');
       OriginalLessonsArray = JSON.parse(JSON.stringify(data));
       setLessonsArr(OriginalLessonsArray);
     } catch (err) {
@@ -60,9 +62,9 @@ useEffect(() => {
   let { data } = await axios.get(`users/getuserbyid/${currentUserId}`);
   if(userRole=="student") {
     currentStudentFavLessons=JSON.parse(JSON.stringify(data.favlessons));
-    const matchLessonsArr = OriginalLessonsArray.filter(item1 => currentStudentFavLessons.some(item2 => item1._id === item2._id));
+    matchLessonsArr = OriginalLessonsArray.filter(item1 => currentStudentFavLessons.some(item2 => item1._id === item2._id));
     setMatchLessonsArrState(JSON.parse(JSON.stringify(matchLessonsArr)));
-    const notMatchLessonsArr = [...OriginalLessonsArray, ...currentStudentFavLessons].filter(item => !matchLessonsArr.some(commonItem => commonItem._id === item._id));
+    notMatchLessonsArr = [...OriginalLessonsArray, ...currentStudentFavLessons].filter(item => !matchLessonsArr.some(commonItem => commonItem._id === item._id));
     setNotMatchLessonsArrState(JSON.parse(JSON.stringify(notMatchLessonsArr)));  
   }
  }
@@ -74,21 +76,21 @@ useEffect(() => {
 
 useEffect(() => {
   let regex = new RegExp(searchWord, "i"); 
+ if (userRole === "teacher" || userRole==="admin"){
   let lessonArrCopy = JSON.parse(JSON.stringify(OriginalLessonsArray)); 
   lessonArrCopy =  lessonArrCopy.filter((item) => regex.test(item.subject));
   setLessonsArr(lessonArrCopy);
+ }
+if(userRole === "student"){
+  let matchArrCopy = JSON.parse(JSON.stringify(matchLessonsArr)); 
+  matchArrCopy = matchArrCopy.filter((item) => regex.test(item.subject));
+  setLessonsArr(matchArrCopy);
+
+  let noMatchArrCopy = JSON.parse(JSON.stringify(notMatchLessonsArr)); 
+  noMatchArrCopy = noMatchArrCopy.filter((item) => regex.test(item.subject));
+  setLessonsArr(noMatchArrCopy);
+  }
 }, [searchWord]);
-
-let [active, setActive] = useState(1);
-
-// let items = [];
-// for (let number = 1; number <= 5; number++) {
-//   items.push(
-//     <Pagination.Item key={number} active={number === active}>
-//     {number}
-//     </Pagination.Item>,
-//   );
-// }
 
 const handleSearchWordChange =(ev)=>{
   setSearchWord(ev.target.value);
@@ -146,6 +148,15 @@ return(
 }
 {(userRole=="teacher" || userRole=="admin")&&(lessonsArr.map((item, index) => (
       <CardComponent key={"index"+item._id} teacherid={item.teacherId} lessonid={item._id}
+              topic={item.topic}
+               subject={item.subject}
+               date={item.date}
+                hour = {item.hour} userid={currentUserId} zoomLink={item.zoomLink}
+                profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
+                )))}
+
+{(!loggedIn)&&(lessonsArr.map((item, index) => (
+      <BasicCardComponent key={"index"+item._id} teacherid={item.teacherId} lessonid={item._id}
               topic={item.topic}
                subject={item.subject}
                date={item.date}

@@ -1,8 +1,5 @@
 @import "../../App.scss";
-.lessons-div-lessons {
-  display: flex;
-  flex-direction: row;
-}
+
 .my-lessons-upper-left-div {
   display: flex;
   align-content: center !important;
@@ -28,11 +25,6 @@
   }
   .my-lessons-upper-left-div {
     flex-direction: column !important;
-  }
-  .lessons-div-lessons {
-    flex-direction: row !important;
-    overflow-x: scroll;
-    overflow-y: hidden;
   }
 }
 

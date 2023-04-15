@@ -24,20 +24,6 @@ nav{
         color: white !important;
     }
 
-    .navig-btn{
-        background-color: rgba(0, 0, 0, 0.625);
-        border-radius: $basic-border-radius;
-        padding: 0.5em 1em !important;
-
-       &:hover{
-            color: $dark-clr;
-            background-color: $basic-clr-sec !important;
-         }
-         .active{
-        color: $dark-clr !important;
-        background-color: $basic-clr-sec !important;
-     }
-    }
 }
 .logo-img{
     width: 40px;

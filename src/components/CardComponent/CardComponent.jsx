@@ -102,7 +102,7 @@ const switchImg =()=>{
        theme: "light",
        });
        setTimeout(() => {
-        window.location.href =`/mylessons`;
+        window.location.href ="/lessons";
         window.location.reload();
        }, 5000);
     }).catch((err)=>{
@@ -121,7 +121,7 @@ const switchImg =()=>{
      pauseOnHover: true,
      draggable: true,
      progress: undefined,
-     theme: "dark",
+     theme: "light",
    });
    })
 }
@@ -142,7 +142,7 @@ else{
       theme: "light",
       });
       setTimeout(() => {
-        window.location.href =`/favlessons`;
+        window.location.href ="/favlessons";
         window.location.reload();
       }, 5000);
    }).catch((err)=>{
@@ -161,7 +161,7 @@ if(err.message === "Network Error"){
     pauseOnHover: true,
     draggable: true,
     progress: undefined,
-    theme: "dark",
+    theme: "light",
   });
   })
 }
@@ -201,7 +201,7 @@ closeOnClick: true,
    pauseOnHover: true,
    draggable: true,
    progress: undefined,
-   theme: "dark",
+   theme: "light",
  });
  })
 }
@@ -239,7 +239,7 @@ closeOnClick: true,
    pauseOnHover: true,
    draggable: true,
    progress: undefined,
-   theme: "dark",
+   theme: "light",
  });
  })
 }

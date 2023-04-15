@@ -45,38 +45,6 @@ useEffect(() => {
     })();
 }, []);
 
-// const removeLessonFromMyLesson = ()=>{
-//   try {
-//     axios.delete(`users/${userid}/favlessons/${lessonid}`);
-//     toast.success('השיעור הוסר מרשימת מועדפים', {
-//       position: "bottom-center",
-//       autoClose:5000,
-//       hideProgressBar: false,
-//       closeOnClick: true,
-//       pauseOnHover: true,
-//       draggable: true,
-//       progress: undefined,
-//       theme: "light",
-//       });
-//       setTimeout(() => {
-//         window.location.href =`/lessons/${" "}`;
-//         window.location.reload();
-//       }, 5000);
-//   } catch (err) {
-//     toast.error(`יש בעיה במחיקת השיעור`, {
-//       position: "bottom-center",
-//       autoClose: 5000,
-//       hideProgressBar: false,
-//       closeOnClick: true,
-//       pauseOnHover: true,
-//       draggable: true,
-//       progress: undefined,
-//       theme: "light",
-//       });
-//   }
-// }
-
-
 return (
 <Fragment>
        <div className='lesson-card'>
@@ -108,10 +76,10 @@ return (
         <span>{new Date(hour).toLocaleTimeString()}</span>
     </p>
   </div>
-  {
+  {/* {
     userRole == "student"&&(<button type="button" className="sign-up-lesson-btn" data-bs-toggle="modal" data-bs-target="#exampleModal">
     הרשמה </button>)
-  }
+  } */}
 </div>
 </div>
 

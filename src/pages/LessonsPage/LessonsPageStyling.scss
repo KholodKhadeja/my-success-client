@@ -1,8 +1,5 @@
 
-.pagination-cont{
-       display: flex;
-       align-items: center;justify-content: center;
-}
+
 .lessons-input-group{
     width: 25% !important;
 }
@@ -12,11 +9,7 @@
     }
 }
 
-.lessons-div-lessons-page{
-    display: grid;
-    grid-template-columns:repeat(4, 1fr);
-    grid-auto-rows:auto;
-}
+
 
 // @media screen and (max-width: 1000px) {
 //     .upper-div {

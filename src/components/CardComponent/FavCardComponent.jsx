@@ -120,7 +120,7 @@ const switchImg =()=>{
      pauseOnHover: true,
      draggable: true,
      progress: undefined,
-     theme: "dark",
+     theme: "light",
    });
    })
 }
@@ -141,7 +141,7 @@ else{
         theme: "light",
         });
         setTimeout(() => {
-          window.location.href =`/mylessons`;
+          window.location.href ="/mylessons";
           window.location.reload();
         }, 5000);
      }).catch((err)=>{
@@ -160,7 +160,7 @@ else{
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "dark",
+      theme: "light",
     });
     })
 }
@@ -200,7 +200,7 @@ closeOnClick: true,
    pauseOnHover: true,
    draggable: true,
    progress: undefined,
-   theme: "dark",
+   theme: "light",
  });
  })
 }
@@ -239,7 +239,7 @@ closeOnClick: true,
    pauseOnHover: true,
    draggable: true,
    progress: undefined,
-   theme: "dark",
+   theme: "light",
  });
  })
 }

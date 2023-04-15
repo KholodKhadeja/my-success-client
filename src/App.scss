@@ -20,17 +20,13 @@ $font-family: "Assistant";
 }
 
 .large-section{
-  height: 50vh !important;
+  height: 55vh !important;
 }
 
 .mini-large-section{
   height: 10vh !important;
 }
-.pagination{
-  .active{
-    background-color: $basic-clr !important;
-  }
-}
+
 .full-height-section{
   height: 45vh !important;
 }
@@ -85,3 +81,39 @@ $font-family: "Assistant";
       width:70% !important;
   }
 }
+
+.lessons-div-lessons-page, .lessons-div-lessons{
+  display: grid;
+  grid-template-columns:repeat(4, 1fr);
+  column-gap: 5px !important;
+  grid-auto-rows:auto;
+}
+@media screen and (max-width: 999px) {
+  .lessons-div-lessons,.lessons-div-lessons-page {
+    display: flex;
+    flex-direction: row !important;
+    flex-wrap: wrap !important;
+  }
+}
+
+@media screen and (max-width: 992px) {
+    .navig-btn, .nav-link{
+      background-color: transparent !important;padding: 0 !important; font-weight: bold;
+    }
+}
+
+.navig-btn{
+  background-color: rgba(0, 0, 0, 0.625);
+  border-radius: $basic-border-radius;
+  text-align: right !important;
+
+ &:hover{
+      color: $dark-clr;
+      background-color: $basic-clr-sec !important;
+   }
+   .active{
+  color: $dark-clr !important;
+  background-color: $basic-clr-sec !important;
+}
+}
+

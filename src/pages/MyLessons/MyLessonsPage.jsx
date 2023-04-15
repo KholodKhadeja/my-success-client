@@ -166,7 +166,7 @@ const handleFormSelectChange = (event) =>{
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "dark",
+        theme: "light",
         });
         handleClose();
         setTimeout(() => {
@@ -190,7 +190,7 @@ const handleFormSelectChange = (event) =>{
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "dark",
+      theme: "light",
     });
     })
      }

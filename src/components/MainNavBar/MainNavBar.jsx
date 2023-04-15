@@ -12,16 +12,16 @@ import jwt_decode from "jwt-decode";
 const MainNavBar = () => {
   let emptyString=" ";
   let navLinks = [{label: "ראשי",url: "/home", },
-    {label: "שיעורים", url: `/lessons/${emptyString}`, },];
+    {label: "שיעורים", url:"/lessons", },];
 
   let authTeacherStudLinks = [
     {label: "ראשי",url: "/home", },
-    {label: "שיעורים", url: `/lessons/${emptyString}`, },
+    {label: "שיעורים", url: "/lessons", },
    {label: "השיעורים שלי",url: "/mylessons",}, ];
 
   let authAdminLinks = [
     {label: "ראשי",url: "/home", },
-   {label: "שיעורים",url: `/lessons/${emptyString}`, },
+   {label: "שיעורים",url: "/lessons", },
     {label: "ניהול משתמשים",url: "/usersadmin", },];
 
 const dispatch=useDispatch();  const history = useHistory();
@@ -77,7 +77,7 @@ const handleLogoutBtnClick = () => {
           </div>
 
           <div className="collapse navbar-collapse justify-content-end"  id="navbarSupportedContent" >
-            <div className="d-flex justify-content-center">
+            <div className="d-flex">
               <ul className="navbar-nav mb-lg-0 rightnav">
                 {loggedIn && userRole == "student" && (
                   <li className="nav-item">

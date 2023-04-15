@@ -43,7 +43,7 @@ const LoginPage = () => {
         pauseOnHover: true,
         draggable: true,
         progress: undefined,
-        theme: "dark",
+        theme: "light",
         });
         localStorage.setItem("token", res.data.token);
         autoLoginFunction(res.data.token);
