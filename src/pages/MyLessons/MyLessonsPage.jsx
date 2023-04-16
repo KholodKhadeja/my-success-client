@@ -20,7 +20,7 @@ import TimePicker from "react-bootstrap-time-picker";
 import { toast } from "react-toastify";
 import Spinner from 'react-bootstrap/Spinner';
 
-let allMyLessons = [];    let matchLessonsArr=[];
+let allMyLessons = [];    let matchLessonsArr=[]; let formattedDate;
 let notMatchLessonsArr=[];
 let profileImg, userIdOriginal=null;
 const MyLessonsPage = () => {
@@ -29,7 +29,7 @@ const MyLessonsPage = () => {
   const [matchLessonsArrState, setMatchLessonsArrState] = useState([]);
 const [notMatchLessonsArrState, setNotMatchLessonsArrState] =  useState([]);
   const userRole = useSelector((state)=>state.auth.role);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [formSelect, setFormSelect] = useState(null);
   const loggedIn=useSelector((state)=>state.auth.loggedIn);
   const userData = useSelector((state)=>state.auth.userData);
@@ -76,7 +76,6 @@ useEffect(() => {
       setNotMatchLessonsArrState(JSON.parse(JSON.stringify(notMatchLessonsArr)));
      }
   }catch(err){
-    console.log(err);
     toast.error('שגיאה בטעינת נתונים', {
       position: "top-right",
       autoClose: 5000,
@@ -127,10 +126,17 @@ useEffect(() => {
   }
 
   const handleDateSelect=(date)=>{
+    const timeZoneOffset = date.getTimezoneOffset();
+    const offsetMilliseconds = timeZoneOffset * 60 * 1000;
+    const adjustedDate = new Date(date.getTime() + offsetMilliseconds);
+    const year = adjustedDate.getFullYear();
+    const month = (adjustedDate.getMonth() + 1).toString().padStart(2, '0');
+    const day = adjustedDate.getDate().toString().padStart(2, '0');
+    const formattedDate = `${year}-${month}-${day}`;
     setSelectedDate(date);
-    setNewLessonData(prevState => ({
+    setNewLessonData((prevState) => ({
       ...prevState,
-      date: date
+      date: formattedDate,
     }));
   }
 
@@ -307,13 +313,6 @@ const handleFormSelectChange = (event) =>{
       dateFormat="yyyy-MM-dd"
       placeholderText="בחר תאריך" className="form-control add-lesson-inputs mb-1" 
     />
-
-{/* <TimePicker id="hour" className="hour-input"
-        onChange={handleTimeChange}
-        value={selectedTime}
-        disableClock={true}
-        format="HH:mm" 
-/> */}
 
 <TimePicker start="10:00" end="22:00" step={30} className="add-lesson-inputs mb-1" 
  onChange={handleTimeChange} value={selectedTime}/>

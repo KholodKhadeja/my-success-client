@@ -102,7 +102,6 @@ const switchImg =()=>{
        });
        setTimeout(() => {
         window.location.href = '/favoritelessons';
-        window.location.reload();
        }, 3000);
     }).catch((err)=>{
      let errMsg;
@@ -141,8 +140,7 @@ else{
         theme: "light",
         });
         setTimeout(() => {
-          window.location.href ="/mylessons";
-          window.location.reload();
+          window.location.href ="/favoritelessons";
         }, 5000);
      }).catch((err)=>{
       let errMsg;
@@ -181,11 +179,10 @@ const handleStudentRegisterToLesson = ()=>{
      });
      handleClose();
      setTimeout(() => {
-       window.location.reload();
+      window.location.href ='/mylessons';
      }, 5000);
   }).catch((err)=>{
    let errMsg;
-   console.log(err);
    if(err.message === "Request failed with status code 400"){
  errMsg=err.request.response;
 }
@@ -220,11 +217,10 @@ const handleCancelRegisteration=()=>{
      });
      handleCloseSec();
      setTimeout(() => {
-       window.location.reload();
+      window.location.href ='/mylessons';
      }, 5000);
   }).catch((err)=>{
    let errMsg;
-   console.log(err);
    if(err.message === "Request failed with status code 400"){
  errMsg=err.request.response;
 }
@@ -273,7 +269,7 @@ return (
   <div>
     <p>
         <span>מתחיל ב:</span>
-        <span>{date.slice(0,9)}</span>
+        <span>{date.slice(0,10)}</span>
         <br/>
         <span>{new Date(hour).toLocaleTimeString()}</span>
     </p>

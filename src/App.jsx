@@ -40,7 +40,6 @@ function App() {
         <Route path="/home"  component={Homepage}></Route>
         <Route path="/lessons" component={LessonsPage}></Route>
         <TeacherStudentGuardRoute path="/mylessons" component={MyLessonsPage}></TeacherStudentGuardRoute>
-        {/* <Route path="/mylessons" component={MyLessonsPage}></Route> */}
         <Route path="/login" component={LoginPage}></Route>
         <Route path="/register" component={RegisterPage}></Route>
         <Route path="/favoritelessons" component={FavLessonPage}></Route>

@@ -71,7 +71,7 @@ return (
   <div>
     <p>
         <span>מתחיל ב:</span>
-        <span>{date.slice(0,9)}</span>
+        <span>{date.slice(0,10)}</span>
         <br/>
         <span>{new Date(hour).toLocaleTimeString()}</span>
     </p>

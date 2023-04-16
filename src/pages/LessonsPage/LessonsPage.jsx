@@ -67,13 +67,8 @@ useEffect(() => {
     notMatchLessonsArr = [...OriginalLessonsArray, ...currentStudentFavLessons].filter(item => !matchLessonsArr.some(commonItem => commonItem._id === item._id));
     setNotMatchLessonsArrState(JSON.parse(JSON.stringify(notMatchLessonsArr)));  
   }
-  if(userRole=="admin" || userRole=="teacher" || !loggedIn){
-    OriginalLessonsArray = JSON.parse(JSON.stringify(data));
-    setLessonsArr(OriginalLessonsArray);
-  }
  }
      catch(err){
-      console.log(err);
      }
     })());
 }, []);
@@ -89,7 +84,6 @@ if(userRole === "student"){
   let matchArrCopy = JSON.parse(JSON.stringify(matchLessonsArr)); 
   matchArrCopy = matchArrCopy.filter((item) => regex.test(item.subject));
   setMatchLessonsArrState(matchArrCopy);
-
   let noMatchArrCopy = JSON.parse(JSON.stringify(notMatchLessonsArr)); 
   noMatchArrCopy = noMatchArrCopy.filter((item) => regex.test(item.subject));
   setNotMatchLessonsArrState(noMatchArrCopy);

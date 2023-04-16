@@ -15,10 +15,10 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import TimePicker from "react-bootstrap-time-picker";
 
-
+let formattedDate ;
 const TeacherCardComponent = ({cardKey, subject,topic, teacherid,date, hour, learningLevel, zoomLink, profileImg, lessonId, userid}) => {
   const loggedIn=useSelector((state)=>state.auth.loggedIn);
-  const [selectedDate, setSelectedDate] = useState(null);
+  const [selectedDate, setSelectedDate] = useState(new Date());
   const [actualteachername, setTeachername] = useState({
     firstname:"",
     lastname:""
@@ -46,16 +46,8 @@ const TeacherCardComponent = ({cardKey, subject,topic, teacherid,date, hour, lea
     students:[]
   });
 
-  const handleTimeChange = (time)=>{
-    const selectedDate = new Date(time * 1000);
-    const formattedTime = selectedDate.toISOString().substr(11, 5);
-    setSelectedTime(formattedTime);
-    setLessonDetails(prevState => ({
-      ...prevState,
-      hour: formattedTime
-    }));
-  }
-  Intl.DateTimeFormat().resolvedOptions().timeZone = 'UTC';
+
+  
   useEffect(() => {
     loggedIn &&(
     (async()=>{
@@ -92,13 +84,30 @@ const handleLessonDetailsEdit = (ev) =>{
 }
 
 const handleDateSelect=(date)=>{
+  const timeZoneOffset = date.getTimezoneOffset();
+  const offsetMilliseconds = timeZoneOffset * 60 * 1000;
+  const adjustedDate = new Date(date.getTime() + offsetMilliseconds);
+  const year = adjustedDate.getFullYear();
+  const month = (adjustedDate.getMonth() + 1).toString().padStart(2, '0');
+  const day = adjustedDate.getDate().toString().padStart(2, '0');
+  const formattedDate = `${year}-${month}-${day}`;
   setSelectedDate(date);
-  setLessonDetails(prevState => ({
+  setLessonDetails((prevState) => ({
     ...prevState,
-    date: date.toISOString
+    date: formattedDate,
   }));
 }
 
+const handleTimeChange = (time)=>{
+  const selectedDate = new Date(time * 1000);
+  const formattedTime = selectedDate.toISOString().substr(11, 5);
+  setSelectedTime(formattedTime);
+  setLessonDetails(prevState => ({
+    ...prevState,
+    hour: formattedTime
+  }));
+}
+Intl.DateTimeFormat().resolvedOptions().timeZone = 'UTC';
 const handleUpdateLesson = async()=>{
   try {
     let { data } = await axios.patch("lessons/", {
@@ -155,8 +164,9 @@ const handleDeleteLessonFunction =async()=>{
       progress: undefined,
       theme: "light",
       });
+      window.location.href ='/mylessons';
+      window.location.reload();
   } catch (err) {
-    console.log(err);
     toast.error(`יש בעיה במחיקת השיעור`, {
       position: "bottom-center",
       autoClose: 5000,
@@ -200,7 +210,7 @@ return (
 <div>
 <p>
 <span>מתחיל ב: &nbsp;</span>
-<span> {date.slice(0,9)}</span>
+<span> {date.slice(0,10)}</span>
 <br/>
 <span> {lessonDetails.hour}</span>
 </p>
@@ -237,7 +247,7 @@ return (
       placeholderText="בחר תאריך" className="form-control add-lesson-inputs mb-1" 
     />
 
-<TimePicker start="10:00" end="22:00" step={30} className="add-lesson-inputs mb-1"   id="hour"
+ <TimePicker start="10:00" end="22:00" step={30} className="add-lesson-inputs mb-1" 
  onChange={handleTimeChange} value={selectedTime}/>
 
 <Form.Control type="text" className="add-lesson-inputs mb-1" value={lessonDetails.zoomLink}  

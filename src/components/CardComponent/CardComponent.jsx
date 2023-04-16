@@ -11,7 +11,6 @@ import Modal from 'react-bootstrap/Modal';
 
 const CardComponent = ({cardKey,teacherid,topic, subject,date, hour, profileImg,lessonid, userid, zoomLink}) => {
   const [thisLessonId, setThisUserId] = useState(null);
-  // console.log(lessonid);
   let currentUserId=userid;
   const [alreadyRegisteredUser, setAlreadyRegisteredUser]=useState(false);
   const [lessonStudentsArr, setLessonStudentsArr] = useState([]);
@@ -102,8 +101,7 @@ const switchImg =()=>{
        theme: "light",
        });
        setTimeout(() => {
-        window.location.href ='/lessons';
-        window.location.reload();
+        window.location.href ='/favoritelessons';
        }, 5000);
     }).catch((err)=>{
      let errMsg;
@@ -142,8 +140,7 @@ else{
       theme: "light",
       });
       setTimeout(() => {
-        window.location.href ="/favlessons";
-        window.location.reload();
+        window.location.href ="/favoritelessons";
       }, 5000);
    }).catch((err)=>{
     let errMsg;
@@ -182,11 +179,10 @@ const handleStudentRegisterToLesson = ()=>{
      });
      handleClose();
      setTimeout(() => {
-       window.location.reload();
+      window.location.href ='/mylessons';
      }, 5000);
   }).catch((err)=>{
    let errMsg;
-   console.log(err);
    if(err.message === "Request failed with status code 400"){
  errMsg=err.request.response;
 }
@@ -220,11 +216,10 @@ const handleCancelRegisteration=()=>{
      });
      handleCloseSec();
      setTimeout(() => {
-       window.location.reload();
+      window.location.href ='/mylessons';
      }, 5000);
   }).catch((err)=>{
    let errMsg;
-   console.log(err);
    if(err.message === "Request failed with status code 400"){
  errMsg=err.request.response;
 }
@@ -274,7 +269,7 @@ return (
   <div>
     <p>
         <span>מתחיל ב:</span>
-        <span>{date.slice(0,9)}</span>
+        <span>{date.slice(0,10)}</span>
         <br/>
         <span>{new Date(hour).toLocaleTimeString()}</span>
     </p>

@@ -34,16 +34,6 @@ const FavLessonPage = () => {
       favUserLessonsArray=JSON.parse(JSON.stringify(data.favlessons));
      setUserLessonsArray(favUserLessonsArray);
   }catch(err){
-    toast.error('שגיאה בטעינת נתונים', {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
-      });
   }
   })();
   }, [originalId]);
