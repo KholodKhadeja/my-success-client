@@ -2,15 +2,11 @@ import React, { Fragment } from 'react';
 import { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import "./card-styling.scss";
-import { NavLink } from "react-router-dom";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import moment from 'moment';
-import TitleFunctionSmall from '../../partial/TitleComponent/TitleFunctionSmall';
 import axios from "axios";
 import { toast } from "react-toastify";
 import TimePicker from "react-bootstrap-time-picker";
@@ -134,10 +130,6 @@ const handleUpdateLesson = async()=>{
         window.location.reload();
       }, 5000);
   } catch (err) {
-    // let errorMsgs = "";
-    // for (let errorItem of err.response.data.err.details) {
-    //   errorMsgs += `${errorItem.message}`;
-    // }
   toast.error(`${err}`, {
     position: "bottom-center",
     autoClose: 5000,
@@ -215,7 +207,6 @@ return (
 <span> {lessonDetails.hour}</span>
 </p>
 </div>
-{/* <NavLink className="enter-lesson-btn" to="/connecttolesson">התחבר</NavLink> */}
 </div>
 </div>
 }

@@ -5,7 +5,6 @@ import FavCardComponent from "components/CardComponent/FavCardComponent";
 import { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { toast } from "react-toastify";
 import Spinner from 'react-bootstrap/Spinner';
 
 

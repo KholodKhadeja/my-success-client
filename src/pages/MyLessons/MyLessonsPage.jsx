@@ -2,20 +2,17 @@ import "./MyLessonStyling.scss";
 import CardComponent from "../../components/CardComponent/CardComponent";
 import FavCardComponent from "components/CardComponent/FavCardComponent";
 import { useState, useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector} from 'react-redux';
 import { Fragment } from "react";
 import TitleFunction from "../../partial/TitleComponent/TitleFunction";
 import TeacherCardComponent from "../../components/CardComponent/TeacherCardComponent";
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import Form from "react-bootstrap/Form";
-import InputGroup from "react-bootstrap/InputGroup";
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
-import moment from 'moment';
 import axios from "axios";
 import TitleFunctionSmall from "../../partial/TitleComponent/TitleFunctionSmall";
-// import TimePicker from 'react-time-picker';
 import TimePicker from "react-bootstrap-time-picker";
 import { toast } from "react-toastify";
 import Spinner from 'react-bootstrap/Spinner';
@@ -116,8 +113,6 @@ useEffect(() => {
   const handleCloseSec = () => setShowSec(false);
   const handleShowSec = () => setShowSec(true);
 
-  let [active, setActive] = useState(1);
-
   const handleInputChanges=(ev)=>{
     ev.preventDefault();
     let newLesson = JSON.parse(JSON.stringify(newLessonData)); 
@@ -165,7 +160,6 @@ const handleFormSelectChange = (event) =>{
     }
 
   const handleAddingUserRequest=(ev)=>{
-    //  ev.preventDefault();
      axios.post(`users/${userIdOriginal}/mylessons`,{
       topic:newLessonData.topic,
       subject:newLessonData.subject,

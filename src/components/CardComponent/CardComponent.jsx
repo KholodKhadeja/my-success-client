@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react';
 import "./card-styling.scss";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { Link } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
@@ -13,7 +12,6 @@ const CardComponent = ({cardKey,teacherid,topic, subject,date, hour, profileImg,
   const [thisLessonId, setThisUserId] = useState(null);
   let currentUserId=userid;
   const [alreadyRegisteredUser, setAlreadyRegisteredUser]=useState(false);
-  const [lessonStudentsArr, setLessonStudentsArr] = useState([]);
   const userRole = useSelector((state)=>state.auth.role);
   const loggedIn=useSelector((state)=>state.auth.loggedIn);
   const [profileImgS, setProfileImg] = useState(profileImg);

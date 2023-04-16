@@ -13,7 +13,6 @@ const RegisterPage = () => {
   const emailEvRef = useRef(null);
   const passwordRef = useRef(null);
   const passwordEvRef = useRef(null);
-  // const [userChosenRole, setUserChosenRole] = useState(null);
   const [showClass, setShowClass] = useState(false);
   const [showSpecialization, setShowSpecialization] = useState(false);
   const [userInput, setUserInput] = useState({
@@ -118,10 +117,6 @@ const RegisterPage = () => {
           });
       });
   }
-
-  // const handleRoleChosing = (ev) => {
-  //   setUserChosenRole(ev.target.value);
-  // };
 
   useEffect(() => {
     if(userInput.role === "teacher"){

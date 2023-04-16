@@ -31,12 +31,6 @@ useEffect(() => {
     })();
   }, []);
 
-
-const handleSearchInputChange = (ev) =>{
-   setSearchInput(ev.target.value);
-}
-let emptyString="";
-
 return (
         <div className='large-section lessons-section'>
            <div className="upper-div">

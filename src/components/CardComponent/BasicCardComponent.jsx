@@ -9,8 +9,6 @@ import { useSelector } from 'react-redux';
 
 const BasicCardComponent = ({cardKey,teacherid,topic, subject,date, hour, profileImg,lessonid, userid, zoomLink}) => {
   let currentUserId=userid;
-  const userRole = useSelector((state)=>state.auth.role);
-  const loggedIn=useSelector((state)=>state.auth.loggedIn);
   const [profileImgS, setProfileImg] = useState(profileImg);
   let basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";
 const [imagePath, setImagePath] =  useState(basicPath);

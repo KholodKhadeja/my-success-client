@@ -1,5 +1,4 @@
 import TitleFunction from '../../partial/TitleComponent/TitleFunction';
-import TitleFunctionSmall from '../../partial/TitleComponent/TitleFunctionSmall';
 import { Fragment } from 'react';
 import UserInfoRow from './UserInfoRow';
 import Button from "react-bootstrap/Button";

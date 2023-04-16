@@ -5,10 +5,8 @@ import FavCardComponent from 'components/CardComponent/FavCardComponent';
 import BasicCardComponent from 'components/CardComponent/BasicCardComponent';
 import "./LessonsPageStyling.scss";
 import { useState, useEffect } from 'react';
-import { useParams } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import Spinner from 'react-bootstrap/Spinner';
 

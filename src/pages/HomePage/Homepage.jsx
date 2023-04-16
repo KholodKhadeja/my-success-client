@@ -1,4 +1,3 @@
-import { Fragment , useRef, useEffect, useState} from 'react';
 import HeaderSection from '../../components/HeaderSection/HeaderSection';
 import WhyToLearnComponent from '../../components/WhyToLearnSliderComponent/WhyToLearnComponent';
 import LessonsSliderSection from '../../components/LessonsSliderSection/LessonsSliderSection';

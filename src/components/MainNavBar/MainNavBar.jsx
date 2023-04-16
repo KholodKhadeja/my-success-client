@@ -1,5 +1,4 @@
 import { Fragment, useState } from "react";
-import { useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import "./navbarstyling.scss";
 import NavBarLinkPartial from "../../partial/PartialNavBarItem/Navbarlinkpartial";
@@ -7,10 +6,8 @@ import { NavLink } from "react-router-dom";
 import Dropdown from "react-bootstrap/Dropdown";
 import { authActions } from "../../store/auth";
 import { useHistory } from "react-router-dom";
-import jwt_decode from "jwt-decode";
 
 const MainNavBar = () => {
-  let emptyString=" ";
   let navLinks = [{label: "ראשי",url: "/home", },
     {label: "שיעורים", url:"/lessons", },];
 
@@ -27,8 +24,7 @@ const MainNavBar = () => {
 const dispatch=useDispatch();  const history = useHistory();
 const loggedIn=useSelector((state)=>state.auth.loggedIn);
 const userRole = useSelector((state)=>state.auth.role);
-  // let dataFromToken = jwt_decode(localStorage.getItem("token"));
-  // userRole=dataFromToken.role;
+
 const handleLogoutBtnClick = () => {
   localStorage.clear();
   dispatch(authActions.logout());
