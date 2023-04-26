@@ -1,80 +1,55 @@
 @import "../../App.scss";
 
 .main-div-says-about-us{
-    margin-top:150px !important;
+    margin-top:300px !important;
+    margin-bottom: 50px;
     width: 100%;
 }
-@media  (max-width: 1500px) {
-    .main-div-says-about-us{
-        margin-top:150px !important;
-    }
-  }
-@media screen and (min-width: 1400px) and (min-width: 1001px)  {
-    .main-div-says-about-us{
-        margin-top: 250px !important;
-    }
-}
-@media (max-width: 1000px) and (min-width: 301px)  {
-    .main-div-says-about-us{
-        margin-top:300px !important;
-    }
-}
-@media screen and (max-width: 300px) {
-    .main-div-says-about-us{
-        margin-top: 600px !important;
-    }
-}
-.quoete-card-slider{
-        padding-right: 10px !important;
-        width: 100% !important;
-        display: flex;flex-wrap: nowrap;
-        align-items: center !important;
-        justify-content: center !important;
-        overflow-y: hidden !important;
-    overflow-x: auto !important;
-    margin-bottom: 2em !important;
-    }
-    @media  (max-width:790px) {
-        .icons-slider, .quoete-card-slider{
-            padding-right: 150px !important;
-    }}
-    @media  (max-width:600px) {
-        .icons-slider, .quoete-card-slider{
-            padding-right: 200px !important;
-    }}
-    @media  (max-width:490px) {
-        .quoete-card-slider{
-            padding-right: 200px !important;
-    }
-    }
 
-    .quoete-card{
-        min-width: 200px !important;height:150px !important;
-    }
-    
-    @media  (max-width:480px) {
-        .icons-slider{
-            padding-right: 350px !important;
-    }
-    .quoete-card{
-        width: 300px !important;height:150px !important;
-    }
-    }
-    .quoete-card-slider::-webkit-scrollbar-track
-    {
-        background-color: transparent !important;
-    }
-    
-    .quoete-card-slider::-webkit-scrollbar
-    {
-        width: 3px;
-        background-color: transparent !important;
-    }
-    
-    .quoete-card-slider::-webkit-scrollbar-thumb
-    {
-        background-color: transparent !important;
-    }
+.quoete-card-slider{
+    padding-right: 10px !important;
+    width: 100% !important;
+    display: flex;flex-wrap: nowrap;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow-y: hidden !important;
+overflow-x: auto !important;
+}
+@media  (max-width:980px) {
+    .quoete-card-slider{
+        padding-right: 200px !important;
+}
+}
+@media  (max-width:770px) {
+    .quoete-card-slider{
+        padding-right:300px !important;
+}
+}
+@media  (max-width:550px) {
+    .quoete-card-slider{
+        padding-right: 350px !important;
+}
+}
+@media  (max-width:501px) {
+    .quoete-card-slider{
+        padding-right: 450px !important;
+}
+}
+.quoete-card-slider::-webkit-scrollbar-track
+{
+	background-color: transparent !important;
+}
+
+.quoete-card-slider::-webkit-scrollbar
+{
+	width: 3px;
+	background-color: transparent !important;
+}
+
+.quoete-card-slider::-webkit-scrollbar-thumb
+{
+	background-color: transparent !important;
+}
 
 .quoete-card{
 margin: 0.5em 1em !important;
@@ -82,7 +57,7 @@ padding: 1em !important;
 background-color: $basic-clr-sec;
 display: flex;
 flex-direction: column;
-width: 300px !important;height:150px !important;
+min-width: 250px !important;height:150px !important;
 border-radius: $basic-border-radius;
 img{
     width: 20px !important;height: 20px !important;

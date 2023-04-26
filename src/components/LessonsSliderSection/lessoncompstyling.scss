@@ -1,19 +1,40 @@
 @import "../../App.scss";
-// .lessons-section{
-// }
+
 .lesson-div{
-margin-bottom: 2em !important;
+    padding-right: 10px !important;
+    width: 100% !important;
+    display: flex;flex-wrap: nowrap;
+    align-items: center !important;
+    justify-content: center !important;
+    overflow-y: hidden !important;
+overflow-x: auto !important;
 }
 @media  (max-width:770px) {
     .lesson-div{
-        padding-right: 200px !important;
+        padding-right: 50px !important;
 }
 }
-@media  (max-width:490px) {
+@media  (max-width:480px) {
     .lesson-div{
-        padding-right: 380px !important;
+        padding-right: 30px !important;
 }
 }
+.lesson-div::-webkit-scrollbar-track
+{
+	background-color: transparent !important;
+}
+
+.lesson-div::-webkit-scrollbar
+{
+	width: 3px;
+	background-color: transparent !important;
+}
+
+.lesson-div::-webkit-scrollbar-thumb
+{
+	background-color: transparent !important;
+}
+
 .upper-div{
     display: flex;flex-direction: row !important;
     justify-content: space-between !important;

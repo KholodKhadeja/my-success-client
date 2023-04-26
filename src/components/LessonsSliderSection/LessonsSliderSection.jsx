@@ -38,8 +38,8 @@ return (
                  <TitleFunction text={"שיעורים"}/></span>
            </div>
            
-           <div className="lesson-div d-flex justify-content-around">
-           {lessonsArr.slice(0, 3).map((item, index) => (
+           <div className="lesson-div d-flex justify-content-between">
+           {lessonsArr.slice(0, 4).map((item, index) => (
               <BasicCardComponent key={"card"+item._id} teacherid={item.teacherId} 
               topic={item.topic}
                subject={item.subject}

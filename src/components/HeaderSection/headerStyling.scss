@@ -8,6 +8,19 @@
         font-size: 0.8em;
     }
   }
+
+  @media screen and (max-width: 442px) {
+    .intro-parag{
+        font-size: 0.6em;
+    }
+    .title-text{
+        font-size: 14pt !important;
+    } 
+    .title-bar{
+        height: 2em !important;  width: 0.3em;
+    }
+  }
+
 .fullScreenSection{
     border-radius: $basic-border-radius;
     padding:$basic-padding !important;
