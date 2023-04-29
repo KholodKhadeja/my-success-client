@@ -17,16 +17,6 @@ useEffect(() => {
         OriginalLessonsArray = data;
         setLessonsArr(OriginalLessonsArray);
       } catch (err) {
-        toast.error('לא מצליח לטעון נתונים, תרענן עמוד', {
-          position: "bottom-center",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "light",
-          });
       }
     })();
   }, []);
@@ -39,6 +29,9 @@ return (
            </div>
            
            <div className="lesson-div d-flex justify-content-between">
+            {
+              lessonsArr.length==0 && <p>No Lessons to show</p>
+            }
            {lessonsArr.slice(0, 4).map((item, index) => (
               <BasicCardComponent key={"card"+item._id} teacherid={item.teacherId} 
               topic={item.topic}

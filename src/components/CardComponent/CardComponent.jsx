@@ -40,16 +40,6 @@ useEffect(() => {
            lastname:data.lastname,
          });
     }catch(err){
-      toast.error('לא מצליח לטעון נתונים, תרענן עמוד', {
-        position: "bottom-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-        });
     }
     })();
 }, []);
@@ -67,16 +57,6 @@ useEffect(() => {
       }
     })
     .catch((err) => {
-      toast.error('לא מצליח לטעון נתונים, תרענן עמוד', {
-        position: "bottom-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "light",
-      });
     });
 }, [lessonid]);
 
