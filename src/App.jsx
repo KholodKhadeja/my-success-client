@@ -24,13 +24,13 @@ function App() {
   useEffect(() => {
     (async () => {
       let status = await autoLoginFunction(localStorage.getItem("token")); if (status === false) {setTryToLogin(false); }
-    })(); }, []);
-    
+    })(); },);
+
   useEffect(() => {if (loggedIn === true && tryToLogin === true) { setTryToLogin(false);  }}, [loggedIn]);
 
-  return (
-    <div className="App container">
-<ToastContainer/>
+return (
+<div className="App container">
+ <ToastContainer/>
       <MainNavBar />
       <Switch>
         <Route path="/" exact component={Homepage}></Route>

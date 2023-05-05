@@ -50,7 +50,7 @@ const LoginPage = () => {
       })
       .catch((error) => {
         let errorMsgs = "";
-      errorMsgs =error.response.data.err;
+      errorMsgs =error.response.data;
       if(errorMsgs === "invalid email") errorMsgs="דואר אלקטרוני לא קיים, תירשם למערכת בבקשה";
       if(errorMsgs === "invalid password") errorMsgs="אחד או יותר מהפרטים שגוי";
       toast.error(`${errorMsgs}`, {
