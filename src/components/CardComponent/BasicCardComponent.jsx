@@ -2,22 +2,14 @@ import React, { Fragment } from 'react';
 import { useState, useEffect } from 'react';
 import "./card-styling.scss";
 import axios from "axios";
-import { toast } from "react-toastify";
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
 
 
 const BasicCardComponent = ({cardKey,teacherid,topic, subject,date, hour, profileImg,lessonid, userid, zoomLink}) => {
-  let currentUserId=userid;
   const [profileImgS, setProfileImg] = useState(profileImg);
-  let basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";
-const [imagePath, setImagePath] =  useState(basicPath);
-const [startClicked, setStarClicked] = useState(false);
 const [actualteachername, setTeachername] = useState({
 firstname:"",
 lastname:""
 });
-
 
 useEffect(() => {
   (async()=>{

@@ -11,7 +11,7 @@ const SaysAboutUsSection = () => {
             {"קל לשימוש, ויש מבחר טוב של שיעורים"}/>
             <SliderItem num={2} content={"בזכות המערכת My success יכלתי ללמוד מכל מקום וזמן ולהצליח"}/>
             <SliderItem  num={3} content={"כל תלמיד בתיכון חייב להכיר את המערכת הזאת."}/>
-           <img src=""/>
+           <img src="" alt=""/>
             </div>
         </div>
     );

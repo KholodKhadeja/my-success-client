@@ -11,7 +11,6 @@ import Spinner from 'react-bootstrap/Spinner';
 let favUserLessonsArray=[], userId,originalId,profileImg;
 const FavLessonPage = () => {
    let [userLessonsArray, setUserLessonsArray] = useState(favUserLessonsArray);
-   const userRole = useSelector((state)=>state.auth.role);
    const loggedIn=useSelector((state)=>state.auth.loggedIn);
    const userData = useSelector((state)=>state.auth.userData);
    

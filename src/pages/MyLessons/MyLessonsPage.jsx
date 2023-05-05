@@ -17,7 +17,7 @@ import TimePicker from "react-bootstrap-time-picker";
 import { toast } from "react-toastify";
 import Spinner from 'react-bootstrap/Spinner';
 
-let allMyLessons = [];    let matchLessonsArr=[]; let formattedDate;
+let allMyLessons = [];    let matchLessonsArr=[]; 
 let notMatchLessonsArr=[];
 let profileImg, userIdOriginal=null;
 const MyLessonsPage = () => {
@@ -109,9 +109,6 @@ useEffect(() => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const [showSec, setShowSec] = useState(false);
-  const handleCloseSec = () => setShowSec(false);
-  const handleShowSec = () => setShowSec(true);
 
   const handleInputChanges=(ev)=>{
     ev.preventDefault();

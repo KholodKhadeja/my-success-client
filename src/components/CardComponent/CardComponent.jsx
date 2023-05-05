@@ -10,10 +10,8 @@ import Modal from 'react-bootstrap/Modal';
 
 const CardComponent = ({cardKey,teacherid,topic, subject,date, hour, profileImg,lessonid, userid, zoomLink}) => {
   const [thisLessonId, setThisUserId] = useState(null);
-  let currentUserId=userid;
   const [alreadyRegisteredUser, setAlreadyRegisteredUser]=useState(false);
   const userRole = useSelector((state)=>state.auth.role);
-  const loggedIn=useSelector((state)=>state.auth.loggedIn);
   const [profileImgS, setProfileImg] = useState(profileImg);
   let basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";
 const [imagePath, setImagePath] =  useState(basicPath);
@@ -49,7 +47,7 @@ useEffect(() => {
   axios.get(`lessons/getbyid/${lessonid}`)
     .then((res) => {
       const lessonStudentsArr = JSON.parse(JSON.stringify(res.data.students));
-      const foundIStudent = lessonStudentsArr.findIndex(elem => elem == userid);
+      const foundIStudent = lessonStudentsArr.findIndex(elem => elem === userid);
       if (foundIStudent !== -1) {
         setAlreadyRegisteredUser(true);
       } else {
@@ -221,10 +219,10 @@ return (
 <Fragment>
        <div className='lesson-card'>
             <div className='star-section'>
-              { userRole ==="student" && (<img id="star-img" src={imagePath}
+              { userRole === "student" && (<img id="star-img" src={imagePath}
                  alt="wishlist star" onClick={switchImg}/>)
             }
-            { (userRole ==="teacher" || userRole==="admin") && (<br/>)
+            { (userRole === "teacher" || userRole === "admin") && (<br/>)
             }
             </div>
             <div className='section-1'>

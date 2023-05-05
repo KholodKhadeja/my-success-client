@@ -134,7 +134,7 @@ const RegisterPage = () => {
       <Form className="align-to-center-page">
         <img
           className="register-img"
-          src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/logo.png?raw=true"/>
+          src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/logo.png?raw=true" alt="logo"/>
         <br />
         <Form.Group className="mb-2 names-div" id="firstname">
           <Form.Control

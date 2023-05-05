@@ -11,7 +11,7 @@ import { useSelector } from 'react-redux';
 import Spinner from 'react-bootstrap/Spinner';
 
 
-let OriginalLessonsArray=[], currentUserId, idkeeper;
+let OriginalLessonsArray=[], currentUserId;
 let matchLessonsArr=[];
 let notMatchLessonsArr=[];
 let currentStudentFavLessons=[];
@@ -28,10 +28,9 @@ const [notMatchLessonsArrState, setNotMatchLessonsArrState] =  useState([]);
 useEffect(() => {
   try{
     currentUserId=userData.id;
-    idkeeper=currentUserId;
   }catch(err){
   }
-}, []);
+},);
 
 useEffect(() => {
   (async () => {
@@ -51,7 +50,7 @@ useEffect(() => {
       });
     }
   })();
-}, []);
+},);
 
 useEffect(() => {
   loggedIn&&(
@@ -69,7 +68,7 @@ useEffect(() => {
      catch(err){
      }
     })());
-}, []);
+},);
 
 useEffect(() => {
   let regex = new RegExp(searchWord, "i"); 
@@ -109,7 +108,7 @@ return(
 
 <div className='lessons-div-lessons-page'> 
 {
-  userRole=="student"&&notMatchLessonsArrState.length==0 &&matchLessonsArrState.length==0&&(
+  userRole === "student"&&notMatchLessonsArrState.length === 0 &&matchLessonsArrState.length === 0&&(
     <div className="spinnerName">
     <Spinner animation="border" role="status">
     <span className="visually-hidden">Loading...</span>
@@ -125,7 +124,7 @@ return(
                 hour = {item.hour} userid={currentUserId} zoomLink={item.zoomLink}
                 profileImg={"https://raw.githubusercontent.com/KholodKhadeja/my-success-client/main/src/images/profile-img.png"}/>
                 )))}
-{userRole=="student"&&(matchLessonsArrState.map((item, index) => (
+{userRole ==="student"&&(matchLessonsArrState.map((item, index) => (
       <FavCardComponent key={"index"+item._id} teacherid={item.teacherId} lessonid={item._id}
               topic={item.topic}
                subject={item.subject} zoomLink={item.zoomLink}
@@ -135,7 +134,7 @@ return(
                 )))}
 
 {
-  (userRole=="teacher" || userRole=="admin")&&(lessonsArr.length==0)&&(
+  (userRole ==="teacher" || userRole ==="admin")&&(lessonsArr.length ===0)&&(
     <div className="spinnerName">
     <Spinner animation="border" role="status">
     <span className="visually-hidden">Loading...</span>
@@ -143,7 +142,7 @@ return(
   </div>
   )
 }
-{(userRole=="teacher" || userRole=="admin")&&(lessonsArr.map((item, index) => (
+{(userRole ==="teacher" || userRole ==="admin")&&(lessonsArr.map((item, index) => (
       <CardComponent key={"index"+item._id} teacherid={item.teacherId} lessonid={item._id}
               topic={item.topic}
                subject={item.subject}

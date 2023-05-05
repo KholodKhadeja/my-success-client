@@ -21,7 +21,7 @@ const LoginPage = () => {
   const autoLoginFunction = useAutoLogin();
   useEffect(() => {
     emailRef.current.focus();
-  }, []);
+  },);
 
   const handleUserInputChange = (ev) => {
     ev.preventDefault();
@@ -32,7 +32,6 @@ const LoginPage = () => {
 
   const handleSubmit = (ev) => {
     ev.preventDefault();
-    const { error } = validate(userInput, loginSchema);
 
     axios.post("/auth/login", userInput).then(async (res) => {
       toast.success('ההתחברות הסתיימה בהצלחה', {
@@ -67,19 +66,15 @@ const LoginPage = () => {
     });
   };
 
-  const handleEmailInputInvalid = (ev) => {
-    // ev.preventDefault();
-  };
     return (
      <div>
        <span><TitleFunction text={"התחברות"}/></span>
 <Form className="align-to-center-page">
-<img className="register-img" src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/logo.png?raw=true" />
+<img className="register-img" src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/logo.png?raw=true" alt="logo"/>
       <br/>
       <Form.Group className="mb-2">
         <Form.Control className="form-controll" type="text" placeholder="דואר אלקטרוני" id="email" value={userInput.email}
           onChange={handleUserInputChange}
-          onInvalid={handleEmailInputInvalid}
           ref={emailRef} />
       </Form.Group>
 

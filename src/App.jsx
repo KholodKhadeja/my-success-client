@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from "react";
 import { ToastContainer } from "react-toastify";
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import './App.scss';
 import MainNavBar from "./components/MainNavBar/MainNavBar";
 import Homepage from './pages/HomePage/Homepage';
@@ -25,6 +25,7 @@ function App() {
     (async () => {
       let status = await autoLoginFunction(localStorage.getItem("token")); if (status === false) {setTryToLogin(false); }
     })(); }, []);
+    
   useEffect(() => {if (loggedIn === true && tryToLogin === true) { setTryToLogin(false);  }}, [loggedIn]);
 
   return (

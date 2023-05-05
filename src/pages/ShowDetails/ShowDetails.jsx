@@ -2,7 +2,6 @@ import { Fragment, useState, useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import TitleFunction from '../../partial/TitleComponent/TitleFunction';
-import atob from "atob";
 import { toast } from "react-toastify";
 
 import "./showdetails.scss";
@@ -65,8 +64,7 @@ return (
      <span>
     <TitleFunction text={"הצג פרטים"}/></span><div className='show-details-page-main-container'>
     <div className='show-details-page-img-cont'>
-    <img className='show-details-page-img' src={userDetails.profileImg} 
-     alt="profile image"/>
+    <img className='show-details-page-img' src={userDetails.profileImg} alt="profile"/>
 </div>
 <div className='show-details-page-details-rows'>
         <div className='show-details-page-details-row'>

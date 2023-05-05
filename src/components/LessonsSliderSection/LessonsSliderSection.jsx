@@ -2,14 +2,12 @@ import "./lessoncompstyling.scss";
 import TitleFunction from "../../partial/TitleComponent/TitleFunction";
 import BasicCardComponent from "components/CardComponent/BasicCardComponent";
 import axios from "axios";
-import { toast } from "react-toastify";
 import { Link } from 'react-router-dom';
 import { useState, useEffect } from "react";
 
 let OriginalLessonsArray=[];
 const LessonsSliderSection = () => {
 const [lessonsArr, setLessonsArr]=  useState(OriginalLessonsArray);
-const [searchInput, setSearchInput] = useState("");
 useEffect(() => {
     (async () => {
       try {
@@ -30,7 +28,7 @@ return (
            
            <div className="lesson-div d-flex justify-content-between">
             {
-              lessonsArr.length==0 && <p>No Lessons to show</p>
+              lessonsArr.length === 0 && <p>No Lessons to show</p>
             }
            {lessonsArr.slice(0, 4).map((item, index) => (
               <BasicCardComponent key={"card"+item._id} teacherid={item.teacherId} 

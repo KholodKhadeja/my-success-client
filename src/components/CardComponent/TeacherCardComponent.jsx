@@ -11,7 +11,6 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import TimePicker from "react-bootstrap-time-picker";
 
-let formattedDate ;
 const TeacherCardComponent = ({cardKey, subject,topic, teacherid,date, hour, learningLevel, zoomLink, profileImg, lessonId, userid}) => {
   const loggedIn=useSelector((state)=>state.auth.loggedIn);
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -59,8 +58,6 @@ const TeacherCardComponent = ({cardKey, subject,topic, teacherid,date, hour, lea
       })());
   }, [teacherid]);
 
-  let basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";
-const [imagePath, setImagePath] =  useState(basicPath);
 
 const handleLessonDetailsEdit = (ev) =>{
   let lessonData=JSON.parse(JSON.stringify(lessonDetails));

@@ -4,14 +4,12 @@ import "./card-styling.scss";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
 
 
 
 const FavCardComponent = ({cardKey,teacherid,topic, subject,date, hour, profileImg,lessonid, userid, zoomLink}) => {
-  const history = useHistory();
   const [show, setShow] = useState(false);
 const [showSec, setShowSec] = useState(false);
   const userRole = useSelector((state)=>state.auth.role);
@@ -35,7 +33,7 @@ useEffect(() => {
   axios.get(`lessons/getbyid/${lessonid}`)
     .then((res) => {
       const lessonStudentsArr = JSON.parse(JSON.stringify(res.data.students));
-      const foundIStudent = lessonStudentsArr.findIndex(elem => elem == userid);
+      const foundIStudent = lessonStudentsArr.findIndex(elem => elem === userid);
       if (foundIStudent !== -1) {
         setAlreadyRegisteredUser(true);
       } else {

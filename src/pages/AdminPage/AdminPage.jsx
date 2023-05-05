@@ -11,7 +11,7 @@ import "./adminpage.scss";
 
 let allUsersArray=[];
 const AdminPage = () => {
-    const [serialNum, setSerialNum] = useState(1);
+   let serialNum = 1;
     const [allUsers, setAllUsers] = useState(allUsersArray);
     const [searchInput, setSearchInput] = useState("");
 
@@ -21,7 +21,7 @@ const handleClose = () => setShow(false);
  const handleShow = () => setShow(true);
 
     const handleClose2 = () => setShow2(false);
-    const handleShow2 = () => setShow2(true);
+    // const handleShow2 = () => setShow2(true);
 
     const [userChosenRole, setUserChosenRole] = useState(null);
     const [showClass, setShowClass] = useState(false);

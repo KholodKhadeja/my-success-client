@@ -1,4 +1,4 @@
-import { Fragment, useState } from "react";
+import { Fragment } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import "./navbarstyling.scss";
 import NavBarLinkPartial from "../../partial/PartialNavBarItem/Navbarlinkpartial";
@@ -36,7 +36,7 @@ const handleLogoutBtnClick = () => {
       <nav className="shadow p-2 mb-3 navbar navbar-expand-lg sticky-top">
         <div className="container-fluid">
           <NavLink  className="navbar-brand" to="/home">
-            <img
+            <img alt="logo"
               src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/logo.png?raw=true"
               className="logo-img"
             />
