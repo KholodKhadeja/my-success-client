@@ -24,7 +24,7 @@ function App() {
   useEffect(() => {
     (async () => {
       let status = await autoLoginFunction(localStorage.getItem("token")); if (status === false) {setTryToLogin(false); }
-    })(); },);
+    })(); },[]);
 
   useEffect(() => {if (loggedIn === true && tryToLogin === true) { setTryToLogin(false);  }}, [loggedIn]);
 

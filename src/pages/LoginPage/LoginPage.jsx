@@ -3,8 +3,6 @@ import TitleFunction from "../../partial/TitleComponent/TitleFunction";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import { useState, useRef, useEffect } from "react";
-import loginSchema from "../../validation/login.validation";
-import validate from "../../validation/validation";
 import axios from "axios";
 import { toast } from "react-toastify";
 import useAutoLogin from "../../hooks/useAutoLogin";
@@ -19,14 +17,15 @@ const LoginPage = () => {
   const emailRef = useRef();
   const history = useHistory();
   const autoLoginFunction = useAutoLogin();
+  
   useEffect(() => {
     emailRef.current.focus();
-  },);
+  },[]);
 
   const handleUserInputChange = (ev) => {
     ev.preventDefault();
-    let newUserInput = JSON.parse(JSON.stringify(userInput)); 
-    newUserInput[ev.target.id] = ev.target.value;
+    let newUserInput = JSON.parse(JSON.stringify(userInput));
+    newUserInput[ev.target.id.substring(6)] = ev.target.value;
     setUserInput(newUserInput); 
   };
 
@@ -73,13 +72,13 @@ const LoginPage = () => {
 <img className="register-img" src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/logo.png?raw=true" alt="logo"/>
       <br/>
       <Form.Group className="mb-2">
-        <Form.Control className="form-controll" type="text" placeholder="דואר אלקטרוני" id="email" value={userInput.email}
+        <Form.Control className="form-controll" type="email" placeholder="דואר אלקטרוני" id="login-email" value={userInput.email}
           onChange={handleUserInputChange}
           ref={emailRef} />
       </Form.Group>
 
       <Form.Group className="mb-2">
-        <Form.Control className="form-controll" type="password" placeholder="סיסמה" id="password" value={userInput.password} 
+        <Form.Control className="form-controll" type="password" placeholder="סיסמה" id="login-password" value={userInput.password} 
         onChange={handleUserInputChange}/>
       </Form.Group>
       <Button variant="primary" type="submit" className="register-btn" onClick={handleSubmit}>

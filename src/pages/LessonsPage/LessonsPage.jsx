@@ -30,7 +30,7 @@ useEffect(() => {
     currentUserId=userData.id;
   }catch(err){
   }
-},);
+},[]);
 
 useEffect(() => {
   (async () => {
@@ -50,7 +50,7 @@ useEffect(() => {
       });
     }
   })();
-},);
+},[]);
 
 useEffect(() => {
   loggedIn&&(
@@ -68,7 +68,7 @@ useEffect(() => {
      catch(err){
      }
     })());
-},);
+},[]);
 
 useEffect(() => {
   let regex = new RegExp(searchWord, "i"); 
