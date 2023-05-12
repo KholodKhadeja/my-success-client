@@ -27,16 +27,13 @@ nav{
 }
 .logo-img{
     width: 40px;
+    margin-top: 5px !important; margin-bottom: 5px !important;
 }
 .profile-navbar-img{
     width: 45px !important;height: 45px !important;
    justify-self: flex-start !important;
 }
-// .list-item-dropdown{
-//     text-align: right !important;color:$basic-clr !important;
-//     text-decoration: none !important;
-//     list-style: none !important;
-// }
+
 .none-decoration-navlink{
     background-color:transparent !important;border: none !important;
     text-align: right !important;color:$basic-clr !important;
@@ -79,6 +76,27 @@ nav{
     }
   }
 
-.offcanvas{
-    background-color: $basic-clr !important;
+  @media (max-width: 991.98px) {
+    .logo-img{
+        width: 70px;
+    }
+    .navbar-collapse {
+      position: fixed;
+      top: 51.5px;
+      right: calc(var(--bs-gutter-x) * .5) !important;
+      min-width:45vw;height: 100vh;
+      overflow-y: auto;
+      background-color: $basic-clr !important;
+      transition: right 0.3s ease-in-out;
+    }
+    .navbar-collapse.show {
+      right: calc(var(--bs-gutter-x) * .5);
+    }
   }
+  
+@media (min-width: 991.98px) {
+  .shesmoClass{
+    position: absolute;
+    left: 20px !important;
+  }
+}

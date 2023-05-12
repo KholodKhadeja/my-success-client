@@ -7,7 +7,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import { authActions } from "../../store/auth";
 import { useHistory } from "react-router-dom";
 
-const MainNavBar = () => {
+const MainNavBar2 = () => {
   let navLinks = [{label: "ראשי",url: "/home", },
     {label: "שיעורים", url:"/lessons", },];
 
@@ -33,24 +33,23 @@ const handleLogoutBtnClick = () => {
 
   return (
     <Fragment>
-      <nav className="shadow p-2 mb-3 navbar navbar-expand-lg sticky-top">
+      <nav className="navbar navbar-expand-lg bg-light nav">
         <div className="container-fluid">
-          <button
-            className="navbar-toggler" type="button"   data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"  aria-label="Toggle navigation"  >
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <NavLink  className="navbar-brand" to="/home">
+
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo01" 
+    aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+    <NavLink  className="navbar-brand" to="/home">
             <img alt="logo"
               src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/logo.png?raw=true"
               className="logo-img"
             />
           </NavLink>
-            <ul className="navbar-nav mb-lg-1 rightnav">
-              { !loggedIn && navLinks.map((item, idx) => (
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+      { !loggedIn && navLinks.map((item, idx) => (
                 <NavBarLinkPartial
                   key={"navlinks" + idx}
                   label={item.label}
@@ -69,10 +68,29 @@ const handleLogoutBtnClick = () => {
                   label={item.label}
                   link={item.url} />
               ))}
-            </ul>
- 
+      </ul>
 
-            <div className="d-flex shesmoClass">
+      <div class="d-flex">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </div>
+      </div>
+
+          {/* <button
+            className="navbar-toggler" type="button"   data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"  aria-label="Toggle navigation">
+            <span className="navbar-toggler-icon"></span>
+          </button>
+          <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav mb-lg-1 rightnav">
+
+            </ul>
+          </div> */}
+
+          <div className="collapse navbar-collapse justify-content-end"  id="navbarSupportedContent" >
+            <div className="d-flex">
               <ul className="navbar-nav mb-lg-0 rightnav">
                 {loggedIn && userRole === "student" && (
                   <li className="nav-item">
@@ -129,4 +147,4 @@ const handleLogoutBtnClick = () => {
   );
 };
 
-export default MainNavBar;
+export default MainNavBar2;

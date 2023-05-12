@@ -4,6 +4,7 @@ import { ToastContainer } from "react-toastify";
 import {  useSelector } from "react-redux";
 import './App.scss';
 import MainNavBar from "./components/MainNavBar/MainNavBar";
+import MainNavBar2 from "components/MainNavBar/MainNavBar2";
 import Homepage from './pages/HomePage/Homepage';
 import LessonsPage from './pages/LessonsPage/LessonsPage';
 import MyLessonsPage from './pages/MyLessons/MyLessonsPage';
