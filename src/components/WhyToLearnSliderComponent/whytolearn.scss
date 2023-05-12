@@ -24,31 +24,24 @@
 
 .icons-slider{
     padding-right: 10px !important;
-    width: 95vw !important;
+    width: 100% !important;
     display: flex;flex-wrap: nowrap;
     align-items: center !important;
     justify-content: center !important;
     overflow-y: hidden !important;
 overflow-x: auto !important;
 margin-bottom: 2em !important;
-margin-left: auto !important;
-margin-right: auto !important;
 }
 @media  (max-width:770px) {
     .icons-slider{
-
         padding-right: 200px !important;
 }
 }
-@media  (max-width:455px) {
+@media  (max-width:480px) {
     .icons-slider{
-        width: 40vw;
         padding-right: 380px !important;
-        margin-left: auto;margin-right: auto;
 }
 }
-
-
 .icons-slider::-webkit-scrollbar-track
 {
 	background-color: transparent !important;
