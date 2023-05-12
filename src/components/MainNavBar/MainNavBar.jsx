@@ -82,13 +82,12 @@ const handleLogoutBtnClick = () => {
                         src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true"
                         alt="עמוד המועדפים" /> </NavLink></li>
                 )}
-                {!loggedIn &&(<li className="nav-item">
-                  <NavLink className="nav-link navig-btn" to="/login">  התחבר </NavLink> </li>)}
-                    {!loggedIn &&(
-                <li className="nav-item"> <NavLink className="nav-link navig-btn" to="/register"> הירשם </NavLink></li>)}
+                {!loggedIn &&(<div className="theListToHide"><li className="nav-item">
+                  <NavLink className="nav-link navig-btn" to="/login">  התחבר </NavLink> </li>
+                <li className="nav-item"> <NavLink className="nav-link navig-btn" to="/register"> הירשם </NavLink></li></div>)}
                 {/* show when loggedin */}
                 {loggedIn && (
-                  <Dropdown>
+                  <Dropdown className="theListToHide">
                     <Dropdown.Toggle variant="" id="" className="dropdown-basic-item" >
                       <img
                         className="profile-navbar-img"
@@ -104,8 +103,24 @@ const handleLogoutBtnClick = () => {
                         <button  className="none-decoration-navlink" onClick={handleLogoutBtnClick}>התנתק</button>
                       </Dropdown.Item>
                     </Dropdown.Menu>
-                  </Dropdown>
+                    </Dropdown>
                 )}
+            {
+                !loggedIn &&(
+              <div className="hiddenListItemToShowOnCollapse">
+               <li className="nav-item">
+               <NavLink className="nav-link navig-btn" to="/login">  התחבר </NavLink> </li>
+                     <li className="nav-item"> <NavLink className="nav-link navig-btn" to="/register"> הירשם </NavLink></li></div>)
+            }
+
+            {
+              loggedIn && (
+                <div className="hiddenListItemToShowOnCollapse">
+                <li className="nav-item"><NavLink to="/showdetails" className="none-decoration-navlink">הצג פרטים</NavLink></li>
+                <button  className="none-decoration-navlink" onClick={handleLogoutBtnClick}>התנתק</button></div>
+              )
+            }
+
               </ul>
             </div>
           </div>

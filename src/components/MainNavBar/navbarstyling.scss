@@ -55,3 +55,30 @@ nav{
     border-bottom: none !important;
     border-top: none !important;
 }
+
+  @media (max-width: 991px) {
+    .theListToHide{
+        display: none !important;
+    }
+    .none-decoration-navlink{
+        color: white !important;
+        font-weight: semi-bold !important;
+    }
+    .hiddenListItemToShowOnCollapse{
+       display: block !important;
+    }
+  }
+
+  @media (min-width: 992px) {
+    .theListToHide{
+        display: flex !important;
+        flex-direction: row !important;
+    }    
+    .hiddenListItemToShowOnCollapse{
+       display: none !important;
+    }
+  }
+
+.offcanvas{
+    background-color: $basic-clr !important;
+  }
