@@ -96,26 +96,7 @@ $font-family: "Assistant";
   }
 }
 
-@media screen and (max-width: 992px) {
-    .navig-btn, .nav-link{
-      background-color: transparent !important;padding: 0 !important; font-weight: bold;
-    }
-}
 
-.navig-btn{
-  background-color: rgba(0, 0, 0, 0.625);
-  border-radius: $basic-border-radius;
-  text-align: right !important;
-
- &:hover{
-      color: $dark-clr;
-      background-color: $basic-clr-sec !important;
-   }
-   .active{
-  color: $dark-clr !important;
-  background-color: $basic-clr-sec !important;
-}
-}
 
 body{
   margin-left: auto !important;

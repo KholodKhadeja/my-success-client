@@ -15,9 +15,9 @@ nav{
     }
 .nav-item-text-link{
     .active{
-        color: $dark-clr;
-        border-bottom: 1px solid $dark-clr;
-        border-top: 1px solid $dark-clr;
+        color: black !important;
+        border-bottom: 1px solid black;
+        font-weight: bolder !important;
      }
 }
     a{
@@ -83,21 +83,58 @@ nav{
     .navbar-collapse {
       position: fixed;
       top: 51.5px;
-      right: calc(var(--bs-gutter-x) * .5) !important;
+      right: inherit  !important;
       min-width:45vw;height: 100vh;
       overflow-y: auto;
       background-color: $basic-clr !important;
       transition: right 0.3s ease-in-out;
     }
     .navbar-collapse.show {
-      right: calc(var(--bs-gutter-x) * .5);
+        right: inherit  !important;
       box-shadow: -10px 0 10px -10px rgba(0,0,0,0.5);
     }
   }
+
+//   @media (min-width: 575px) and (max-width:991) {
+//     .navbar-collapse {
+//       position: fixed;
+//       top: 51.5px;
+//       right: 0 !important;
+//       min-width:45vw;height: 100vh;
+//       overflow-y: auto;
+//       background-color: $basic-clr !important;
+//       transition: right 0.3s ease-in-out;
+//     }
+//     .navbar-collapse.show {
+//       right:0 !important;
+//       box-shadow: -10px 0 10px -10px rgba(0,0,0,0.5);
+//     }
+//   }
   
 @media (min-width: 991.98px) {
   .shesmoClass{
     position: absolute;
     left: 20px !important;
   }
+}
+
+@media screen and (max-width: 992px) {
+    .navig-btn, .nav-link{
+      background-color: transparent !important;padding: 0 !important; font-weight: bold;
+    }
+}
+
+.navig-btn{
+  background-color: rgba(0, 0, 0, 0.625);
+  border-radius: $basic-border-radius;
+  text-align: right !important;
+}
+.navig-btn:hover{
+  cursor: pointer;
+}
+.navig-btn .active{
+  color: rgba(0, 0, 0, 0.625) !important; 
+  border-bottom: 1px solid black !important;
+  font-weight: bolder !important;
+padding: 0.5rem !important;
 }

@@ -21,20 +21,20 @@ Form{
     text-align: center !important;
 
     .form-controll{
-       width: 351px;
        background-color: #c37aff73 !important;
        color: $dark-clr !important; 
+       width: 50vw !important;
     }
 
     .register-btn{
-        width: 351px !important;
+        width: 50vw !important;
         background-color: $basic-clr-sec !important;
         color: $dark-clr !important;
         font-weight: bolder !important;
         border: none !important;
     }
     .short-input{
-        width: 175px !important;
+        width: 25vw !important;
     }
     .names-div{
       display: flex;flex-direction: row;gap:5px;

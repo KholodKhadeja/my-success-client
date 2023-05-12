@@ -143,7 +143,7 @@ const RegisterPage = () => {
             placeholder="שם פרטי" id="firstname" value={userInput.firstname} onChange={handleUserInputChange}
           />
           <Form.Control
-            className="form-controll short-input"
+            className="form-controll short-input "
             type="text"
             placeholder="שם משפחה" id="lastname" value={userInput.lastname} onChange={handleUserInputChange}
           />
