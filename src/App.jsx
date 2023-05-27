@@ -42,7 +42,7 @@ return (
         <Route path="/favoritelessons" component={FavLessonPage}></Route>
         <Route path="/showdetails" component={ShowDetails}></Route>
         <Route path="/usersadmin" component={AdminPage}></Route>
-        <Route path="*" exact component={Homepage}></Route>
+        <Route path="*"  component={Homepage}></Route>
         </Switch>
     </div>
   );
