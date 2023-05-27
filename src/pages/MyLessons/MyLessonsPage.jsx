@@ -141,7 +141,7 @@ useEffect(() => {
       hour: formattedTime
     }));
   }
-  Intl.DateTimeFormat().resolvedOptions().timeZone = 'UTC';
+  Intl.DateTimeFormat().resolvedOptions().timeZone = 'Asia/Jerusalem';
 
 const handleFormSelectChange = (event) =>{
   const learningLevel = event.target.value;

@@ -5,6 +5,7 @@ import axios from "axios";
 
 
 const BasicCardComponent = ({cardKey,teacherid,topic, subject,date, hour, profileImg,lessonid, userid, zoomLink}) => {
+
   const [profileImgS, setProfileImg] = useState(profileImg);
 const [actualteachername, setTeachername] = useState({
 firstname:"",
@@ -26,11 +27,24 @@ useEffect(() => {
     })();
 }, []);
 
+const [happensToday, setHappensToday] = useState(false);
+useEffect(() => {
+  const today = new Date().toISOString().slice(0, 10);
+  if (date.slice(0, 10) === today) {
+    setHappensToday(true);
+  }
+}, [date]);
+
 return (
 <Fragment>
        <div className='lesson-card'>
+        {
+          happensToday && (<div className='lesson-tag-section'>
+        <div className='lesson-tag'>היום</div>
+        </div>)
+        }
             <div className='star-section'>
-<br/>
+            <br/>
             </div>
             <div className='section-1'>
                  <div className='card-img-container'>

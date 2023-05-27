@@ -61,8 +61,13 @@
     }
 }
 }
+.lesson-tag-section{
+  width: 100% !important;
 
+  position: relative;
+}
 .star-section {
+
   @include star-section-mixin;
   padding-bottom: 45px;
   cursor: pointer;
@@ -184,3 +189,10 @@
 //   width: 100% !important;
 //   display: flex;align-items: center;justify-content: center !important;
 // }
+
+.lesson-tag{
+background-color: #E20808 !important;
+color: white !important;
+position: absolute !important;padding: 3px !important;border-radius: $basic-border-radius;
+right: 5px !important; top: 5px !important;
+}

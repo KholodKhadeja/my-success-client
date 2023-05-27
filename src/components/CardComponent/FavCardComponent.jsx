@@ -70,6 +70,15 @@ useEffect(() => {
     })());
 }, [teacherid]);
 
+const [happensToday, setHappensToday] = useState(false);
+useEffect(() => {
+  const today = new Date().toISOString().slice(0, 10);
+  if (date.slice(0, 10) === today) {
+    setHappensToday(true);
+  }
+}, [date]);
+
+
 const switchImg =()=>{
     if(startClicked){
     basicPath="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/empty-star.png?raw=true";  
@@ -230,6 +239,11 @@ closeOnClick: true,
 return (
 <Fragment>
        <div className='lesson-card'>
+       {
+          happensToday && (<div className='lesson-tag-section'>
+        <div className='lesson-tag'>היום</div>
+        </div>)
+        }
             <div className='star-section'>
               { userRole ==="student" && (<img id="star-img" src={imagePath}
                  alt="wishlist star" onClick={switchImg}/>)

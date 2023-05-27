@@ -58,6 +58,13 @@ const TeacherCardComponent = ({cardKey, subject,topic, teacherid,date, hour, lea
       })());
   }, [teacherid]);
 
+const [happensToday, setHappensToday] = useState(false);
+useEffect(() => {
+  const today = new Date().toISOString().slice(0, 10);
+  if (date.slice(0, 10) === today) {
+    setHappensToday(true);
+  }
+}, [date]);
 
 const handleLessonDetailsEdit = (ev) =>{
   let lessonData=JSON.parse(JSON.stringify(lessonDetails));
@@ -163,6 +170,11 @@ return (
     <Fragment>
     {
 <div className='my-lesson-card'>
+{
+          happensToday && (<div className='lesson-tag-section'>
+        <div className='lesson-tag'>היום</div>
+        </div>)
+        }
             <div className='teacher-btns-div'>
                 <img className='teacher-btns-div-img' src="https://github.com/KholodKhadeja/my-success-client/blob/main/src/images/Pencil.png?raw=true"
                  alt="edit icon" onClick={handleShow}/>

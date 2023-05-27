@@ -163,10 +163,10 @@ return (
 </span>
 </div>
 </div></div>
-            <div className='admin-page-rows-group'>
-                <div className='admin-page-rows-group-row'>
-                <p>מס'</p>
-                 <p>שם מלא</p>
+    <div className='admin-page-rows-group'>
+      <div className='admin-page-rows-group-row'>
+        <p>מס'</p>
+          <p>שם מלא</p>
             <p>דואר אלקטרוני</p>
             <p>תפקיד</p>
             <p>כיתה</p>
